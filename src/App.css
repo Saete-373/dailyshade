@@ -1,10 +1,12 @@
 #root {
-  max-width: 1280px;
+  max-width: max;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0 auto;
   text-align: center;
 }
-
+body{
+  background-color:  rgba(255, 229, 212, 0.4);
+}
 .logo {
   height: 6em;
   padding: 1.5em;
