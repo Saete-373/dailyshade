@@ -15,6 +15,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Momentary from "./pages/Momentary";
 import Account from "./pages/Account";
+import FogetPW from "./pages/FogetPW";
 
 function App() {
   const router = createBrowserRouter([
@@ -28,7 +29,7 @@ function App() {
     },
     {
       path: "forgetpw",
-      element: <Login />,
+      element: <FogetPW />,
     },
     {
       path: "/",

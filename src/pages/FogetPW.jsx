@@ -1,4 +1,4 @@
-function Account(){
+function FogetPW(){
     return(
         <>
             
@@ -7,4 +7,4 @@ function Account(){
     )
 }
 
-export default Account
+export default FogetPW
