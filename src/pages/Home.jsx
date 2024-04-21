@@ -20,8 +20,20 @@ function Home() {
       });
   }, []);
 
+  const logOut = () => {
+    axios
+      .get("http://localhost:5000/api/logout")
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
+      <button onClick={logOut}>Log Out</button>
       <div className="relative flex flex-col max-w-3xl">
         <div>
           <Quote></Quote>

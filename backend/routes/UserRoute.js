@@ -102,4 +102,10 @@ router.get("/getUser", verifyUser, (req, res) => {
   return res.json(data);
 });
 
+router.get("/logout", (req, res) => {
+  res.clearCookie("accessToken");
+  res.clearCookie("refreshToken");
+  return res.send("Clear All Cookies");
+});
+
 module.exports = router;
