@@ -42,7 +42,12 @@ function App() {
       children: [
         {
           path: "/",
-          element: <StickyNavbar />,
+          element: (
+            <>
+              <StickyNavbar />
+              <Home />
+            </>
+          ),
         },
         {
           path: "momentary",
