@@ -7,6 +7,7 @@ function Login() {
     email: "",
     password: "",
   });
+  const [log, setLog] = useState("");
   const navigate = useNavigate();
 
   axios.defaults.withCredentials = true;
@@ -20,18 +21,19 @@ function Login() {
   };
   const handleSubmit = (evt) => {
     evt.preventDefault();
-
     axios
       .post("http://localhost:5000/api/login", {
         email: loginUser.email,
         password: loginUser.password,
       })
       .then((res) => {
-        console.log(res);
+        console.log(res.data.log);
+        setLog(res.data.log);
         navigate("/");
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.data.log);
+        setLog(err.response.data.log);
       });
   };
   return (
@@ -46,7 +48,7 @@ function Login() {
         <input type="password" name="password" onChange={OnChange} />
       </div>
       <div>
-        <NavLink to="/forgetpw">Forgotten password?</NavLink>
+        <NavLink to="/forgetpw">ลืมรหัสผ่าน?</NavLink>
       </div>
 
       <button type="submit" className="w-36 h-auto bg-white">
