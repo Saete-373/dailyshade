@@ -39,7 +39,7 @@ function EmotionsCard(){
         <>
         <div className="flex gap-5 flex-wrap m-8 justify-center">
             {emotions.map((emotion, index) => (
-                <div key={index} className="flex flex-col flex-none justify-centent-center rounded-md bg-white p-6 max-w-56 w-56">
+                <div key={index} className="flex flex-col flex-none justify-centent-center rounded-md bg-white/50 p-6 max-w-56 w-56">
                     <div className="flex justify-center pb-5">
                         <img src={emotion.image} className="rounded-full max-w-56 w-24"></img>
                     </div>

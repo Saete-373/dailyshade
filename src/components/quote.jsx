@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-
+import Recordbtn from "./button";
 function Quote(){
     const quotes = [
         {
@@ -49,17 +49,21 @@ function Quote(){
             const randomIndex = Math.floor(Math.random() * quotes.length);
             const quote = quotes[randomIndex];
             document.getElementById("quoteText").textContent = `"${quote.text}"`;
-            document.getElementById("authorText").textContent = `- ${quote.author}`;
-        },1000);
+            document.getElementById("authorText").textContent = `— ${quote.author}`;
+        },5000);
         return () => clearInterval(interval);
     },[]);
 
     return(
         <>
             <div className="flex">
-                <div className="animate-fade-in" >
-                    <p className=" quote-text text-lg text-gray-700 mb-4" id="quoteText">Spread love everywhere you go. Let no one ever come to you without leaving happier.</p>
-                    <p className="author-text text-sm text-gray-600 " id="authorText">กุเอง</p>               
+                <div className="text-left" >
+                    <p className="text-pretty quote-text text-3xl text-gray-700 mb-4" id="quoteText">Spread love everywhere you go. Let no one ever come to you without leaving happier.</p>
+                    <p className="author-text text-xl text-gray-600 " id="authorText">กุเอง</p>
+                    <p className="pb-5 text-left pt-5">วันนี้เป็นอย่างไรบ้าง?</p>
+                    <div className="mb-36">
+                     <Recordbtn></Recordbtn>                    
+                    </div>              
                 </div>
         
             </div>

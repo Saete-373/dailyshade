@@ -7,7 +7,7 @@ module.exports = {
       'base-pink': '#EFC7C2',
       'pink-darker':'#d38f87',
       'text-color':'#2F0601',
-      
+      'ins-color' : '#d6249f'
     },
     },
     animation: {
@@ -19,6 +19,7 @@ module.exports = {
         "100%": { opacity: 1 }
       }
     }),
+    
   },
   plugins: [],
 };
