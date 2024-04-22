@@ -4,6 +4,7 @@ import Quote from "../components/quote";
 import Recordbtn from "../components/button";
 import EmotionsCard from "../components/emotionsCard";
 import EmotionsCardPanel from "../components/EmotionsCardPanel";
+import Inscontent from "../components/insContent";
 
 function Home() {
   const [email, setEmail] = useState();
