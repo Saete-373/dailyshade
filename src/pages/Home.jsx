@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Quote from "../components/quote";
 import Recordbtn from "../components/button";
@@ -8,12 +9,13 @@ import Inscontent from "../components/insContent";
 
 function Home() {
   const [email, setEmail] = useState();
+  const navigate = useNavigate();
   axios.defaults.withCredentials = true;
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/getUser")
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setEmail(res.data);
       })
       .catch((err) => {
@@ -21,29 +23,17 @@ function Home() {
       });
   }, []);
 
-  const logOut = () => {
-    axios
-      .get("http://localhost:5000/api/logout")
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   return (
     <>
-      <button onClick={logOut}>Log Out</button>
       <div className="relative flex flex-col max-w-3xl">
-                <div className="mt-36 mb-5 ml-20">
-                     <Quote></Quote>                     
-                </div>
-            </div>
-            <EmotionsCardPanel></EmotionsCardPanel>
-            <div className="mt-20 mb-20">
-                 <Inscontent></Inscontent>                
-            </div>
+        <div className="mt-36 mb-5 ml-20">
+          <Quote></Quote>
+        </div>
+      </div>
+      <EmotionsCardPanel></EmotionsCardPanel>
+      <div className="mt-20 mb-20">
+        <Inscontent></Inscontent>
+      </div>
     </>
   );
 }
