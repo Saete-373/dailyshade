@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
 import png from "../assets/3.png";
@@ -10,6 +10,7 @@ function Register() {
     password: "",
     cpassword: "",
   });
+  const [log, setLog] = useState("");
   const navigate = useNavigate();
 
   const OnChange = (evt) => {
@@ -21,7 +22,23 @@ function Register() {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    if (regisUser.password === regisUser.cpassword) {
+    if (
+      !regisUser.username ||
+      !regisUser.email ||
+      !regisUser.password ||
+      !regisUser.cpassword
+    ) {
+      setLog("โปรดกรอกข้อมูลให้ครบถ้วน");
+    } else if (
+      regisUser.password.length < 8 ||
+      regisUser.password.length > 20 ||
+      regisUser.cpassword.length < 8 ||
+      regisUser.cpassword.length > 20
+    ) {
+      setLog("โปรดกรอกรหัสผ่าน 8-20 ตัวอักษร");
+    } else if (regisUser.password != regisUser.cpassword) {
+      setLog("รหัสผ่านไม่ตรงกัน กรุณากรอกใหม่");
+    } else {
       axios
         .post("http://localhost:5000/api/register", {
           username: regisUser.username,
@@ -29,14 +46,14 @@ function Register() {
           password: regisUser.password,
         })
         .then((res) => {
-          console.log(res);
+          console.log(res.data.log);
+          setLog(res.data.log);
           navigate("/login");
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err.response.data.log);
+          setLog(err.response.data.log);
         });
-    } else {
-      console.error("Password is not match");
     }
   };
 
