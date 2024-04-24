@@ -36,14 +36,14 @@ function Home() {
     <>
       <button onClick={logOut}>Log Out</button>
       <div className="relative flex flex-col max-w-3xl">
-                <div className="mt-36 mb-5 ml-20">
-                     <Quote></Quote>                     
-                </div>
-            </div>
-            <EmotionsCardPanel></EmotionsCardPanel>
-            <div className="mt-20 mb-20">
-                 <Inscontent></Inscontent>                
-            </div>
+        <div className="mt-36 mb-5 ml-20">
+          <Quote></Quote>
+        </div>
+      </div>
+      <EmotionsCardPanel></EmotionsCardPanel>
+      <div className="mt-20 mb-20">
+        <Inscontent></Inscontent>
+      </div>
     </>
   );
 }
