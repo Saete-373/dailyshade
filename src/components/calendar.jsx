@@ -3,21 +3,30 @@ import dayjs from "dayjs";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import { generateDate, months } from "../../backend/components/Calendar";
 import { cn } from "../../backend/components/cn";
+import { TimePicker } from "antd";
+import EmotionCircle from "./emotionCircle";
 
 function Calendar(props) {
   const currentDate = dayjs();
   const [today, setToday] = useState(currentDate);
   const [selectDate, setSelectDate] = useState(currentDate);
   const [toggleAdd, setToggleAdd] = useState(false);
+  const [time, setTime] = useState();
 
   const days = ["อา.", "จ.", "อ.", "พ.", "พฤ.", "ศ.", "ส."];
+  const fdays = [
+    "อาทิตย์",
+    "จันทร์",
+    "อังคาร",
+    "พุธ",
+    "พฤหัสบดี",
+    "ศุกร์",
+    "เสาร์",
+  ];
 
   const getDay = (date) => {
-    switch (date.day()) {
-        case 0: 
-        return
-    }
-  }
+    return fdays[date.day()];
+  };
 
   const selectDay = (day) => {
     setSelectDate(day);
@@ -27,6 +36,11 @@ function Calendar(props) {
       smonth: months[day.month()],
       syear: day.year(),
     });
+  };
+
+  const handleTime = (time) => {
+    // $H = hour, $m = minute
+    setTime(time);
   };
 
   return (
@@ -111,8 +125,18 @@ function Calendar(props) {
         <div className="flex flex-col w-72 h-96 p-4 rounded-r-3xl bg-fuchsia-950 text-fuchsia-200">
           <button onClick={() => setToggleAdd(false)}>X</button>
           <div>
-            {},
+            {"วัน" + getDay(selectDate) + "ที่"} {selectDate.date() + " "}
+            {months[selectDate.month()]} {selectDate.year() + 543}
           </div>
+          <TimePicker onChange={handleTime} value={time} format="HH:mm" />
+          <p>ตอนนี้คุณรู้สึกอย่างไร</p>
+          <div className="flex justify-center">
+            <EmotionCircle />
+          </div>
+          <p>คำที่สามารถอธิบายความรู้สึกของคุณได้ดีที่สุด</p>
+          <div> {} </div>
+          <button>บันทึก</button>
+          <button>Momentary</button>
         </div>
       ) : (
         <></>
