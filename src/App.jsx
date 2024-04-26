@@ -16,7 +16,7 @@ import Login from "./pages/Login";
 import Momentary from "./pages/Momentary";
 import Account from "./pages/Account";
 import FogetPW from "./pages/FogetPW";
-import Footer from './components/footer';
+import Footer from "./components/footer";
 
 function App() {
   const router = createBrowserRouter([
