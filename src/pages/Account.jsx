@@ -1,10 +1,12 @@
-function Account(){
-    return(
-        <>
-            
+import React from "react";
+import SettingPanel from "../components/settingPanel";
 
-        </>
-    )
+function Account() {
+  return (
+    <>
+      <SettingPanel />
+    </>
+  );
 }
 
-export default Account
+export default Account;

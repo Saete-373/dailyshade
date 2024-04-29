@@ -27,16 +27,19 @@ function Home() {
 
   return (
     <>
-      <div className="relative flex flex-col max-w-3xl">
+      <button onClick={logOut}>Log Out</button>
+      <aside className="relative flex flex-col max-w-3xl">
         <div className="mt-36 mb-5 ml-20">
           <Quote></Quote>
         </div>
-      </div>
+      </aside>
       <Calendar sDay={setSDay} user_id={userID} />
-      <EmotionsCardPanel></EmotionsCardPanel>
-      <div className="mt-20 mb-20">
+      <article>
+        <EmotionsCardPanel></EmotionsCardPanel>
+      </article>
+      <section className="mt-20 mb-20">
         <Inscontent></Inscontent>
-      </div>
+      </section>
     </>
   );
 }
