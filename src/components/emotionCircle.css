@@ -1,0 +1,43 @@
+.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  /* อันนี้คือขนาดทั้งหมด ให้ปรับขนาดแค่ตรงนี้ */
+  width: 150px;
+  height: 150px;
+  transform: rotate(90deg);
+}
+
+.menu li {
+  position: absolute;
+  left: 2%;
+  list-style: none;
+  width: 20%;
+  height: 20%;
+  transform-origin: 250%;
+  transition: 0.5s;
+  transform: rotate(0deg) translateX(200%);
+}
+
+.menu li img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 3px 4px rgb(0, 0, 0, 0.15);
+}
+
+.toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 27%;
+  height: 27%;
+  border-radius: 50%;
+  z-index: 10000;
+  cursor: pointer;
+  box-shadow: 0 3px 4px rgb(0, 0, 0, 0.15);
+}

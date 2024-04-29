@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const EmotionModel = require("./Emotion");
+// const EmotionModel = require("./Emotion");
 
 const TagSchema = new mongoose.Schema({
   tag: String,

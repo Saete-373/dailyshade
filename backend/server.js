@@ -1,14 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 
 dotenv.config();
 
 const userRouter = require("./routes/UserRoute");
+const gradientRouter = require("./routes/GradientRoute");
 
 const app = express();
 app.use(express.json());
@@ -20,7 +18,8 @@ app.use(
   })
 );
 
-app.use("/api", userRouter);
+app.use("/user", userRouter);
+app.use("/gradient", gradientRouter);
 
 mongoose.connect(
   "mongodb+srv://Saete373:rnSSFGS0JSbJRhmP@ourdailyshade.mjqf4di.mongodb.net/dailyshade_db"
