@@ -33,6 +33,26 @@ function App() {
       element: <FogetPW />,
     },
     {
+      path: "account",
+      element: (
+        <>
+          <StickyNavbar />
+          <Account />
+          <Footer />
+        </>
+      ),
+    },
+    {
+      path: "momentary",
+      element: (
+        <>
+          <StickyNavbar />
+          <Momentary />
+          <Footer />
+        </>
+      ),
+    },
+    {
       path: "/",
       element: (
         <>
@@ -41,26 +61,6 @@ function App() {
           <Footer />
         </>
       ),
-      children: [
-        {
-          path: "/",
-          element: (
-            <>
-              <StickyNavbar />
-              <Home />
-              <Footer />
-            </>
-          ),
-        },
-        {
-          path: "momentary",
-          element: <Momentary />,
-        },
-        {
-          path: "account",
-          element: <Account />,
-        },
-      ],
     },
   ]);
 
