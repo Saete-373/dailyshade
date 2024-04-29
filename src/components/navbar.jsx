@@ -1,15 +1,30 @@
 import React from "react";
-import png from "../assets/3.png";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import axios from "axios";
+import png from "../assets/3.png";
+
 function toggleDropdown() {
   const list = document.querySelector("#dropdown");
   list.classList.toggle("hidden");
 }
 
 function StickyNavbar() {
+  const navigate = useNavigate();
+  const logOut = () => {
+    axios
+      .get("http://localhost:5000/api/logout")
+      .then((res) => {
+        console.log(res);
+        navigate("/login");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
-      <header className="relative inset-x-0 top-0  mx-auto border border-white bg-white/80 py-3 shadow backdrop-blur-lg max-w-full">
+      <header className="relative inset-x-0 top-0 z-30 mx-auto border border-white bg-white/80 py-3 shadow backdrop-blur-lg max-w-full">
         <div className="px-10">
           <div className="flex items-center justify-between ">
             <div className="flex shrink-0">
@@ -59,7 +74,7 @@ function StickyNavbar() {
               {/* <div className="flex gap-2">
                                 <a class=" items-center justify-center rounded-full bg-white px-3 py-2 text-sm  text-text-color shadow-sm ring-1 ring-inset ring-gray-300 transition-all duration-150 hover:bg-pink-darker sm:inline-flex"
                                 href="/">สมัครบัญชี</a>
-                                <a class="inline-flex items-center justify-center rounded-full bg-base-pink px-3 py-2 text-sm  text-text-color shadow-sm transition-all duration-150 hover:bg-pink-darker focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                                <a className="inline-flex items-center justify-center rounded-full bg-base-pink px-3 py-2 text-sm  text-text-color shadow-sm transition-all duration-150 hover:bg-pink-darker focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                                 href="/login">เข้าสู่ระบบ</a> 
                             </div> */}
               <img
@@ -182,7 +197,10 @@ function StickyNavbar() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="cursor-pointer text-red-600">
+                      <span
+                        className="cursor-pointer text-red-600"
+                        onClick={logOut}
+                      >
                         ออกจากระบบ
                       </span>
                     </label>

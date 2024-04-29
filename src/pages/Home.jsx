@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Quote from "../components/quote";
 import EmotionsCardPanel from "../components/EmotionsCardPanel";
@@ -6,29 +7,19 @@ import Inscontent from "../components/insContent";
 
 function Home() {
   const [email, setEmail] = useState();
+  const navigate = useNavigate();
   axios.defaults.withCredentials = true;
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/getUser")
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setEmail(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-
-  const logOut = () => {
-    axios
-      .get("http://localhost:5000/api/logout")
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   return (
     <>
