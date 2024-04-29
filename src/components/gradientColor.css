@@ -1,0 +1,29 @@
+#c1 {
+  animation: rotateTCW 14s infinite linear;
+}
+
+#c2 {
+  animation: rotateCW 10s infinite linear;
+}
+
+#c3 {
+  animation: rotateCW 14s infinite linear;
+}
+
+@keyframes rotateTCW {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateCW {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
