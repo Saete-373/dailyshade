@@ -36,20 +36,12 @@ router.post("/login", async (req, res) => {
     const user = await UserModel.findOne({ email: email });
     const comp = await bcrypt.compare(password, user.password);
     if (comp) {
-      const accessToken = jwt.sign(
-        { email: user.email },
-        process.env.ACC_SECRET,
-        {
-          expiresIn: "1d",
-        }
-      );
-      const refreshToken = jwt.sign(
-        { email: user.email },
-        process.env.REF_SECRET,
-        {
-          expiresIn: "7d",
-        }
-      );
+      const accessToken = jwt.sign({ _id: user._id }, process.env.ACC_SECRET, {
+        expiresIn: "1d",
+      });
+      const refreshToken = jwt.sign({ _id: user._id }, process.env.REF_SECRET, {
+        expiresIn: "7d",
+      });
       res.cookie("accessToken", accessToken);
       res.cookie("refreshToken", refreshToken);
       return res.status(200).json({ log: "เข้าสู่ระบบ" });
@@ -68,7 +60,7 @@ const verifyUser = (req, res, next) => {
   if (accessToken) {
     jwt.verify(accessToken, process.env.ACC_SECRET, (err, decoded) => {
       if (err) return res.status(403).json({ log: "Forbidden" });
-      req.email = decoded.email;
+      req._id = decoded._id;
       next();
     });
   } else {
@@ -85,7 +77,7 @@ const renewToken = (req, res) => {
     jwt.verify(refreshToken, process.env.REF_SECRET, (err, decoded) => {
       if (err) return res.status(403).json({ log: "Forbidden" });
       const accessToken = jwt.sign(
-        { email: decoded.email },
+        { _id: decoded._id },
         process.env.ACC_SECRET,
         {
           expiresIn: "1d",
@@ -102,7 +94,7 @@ const renewToken = (req, res) => {
 };
 
 router.get("/getUser", verifyUser, (req, res) => {
-  const data = req.email;
+  const data = req._id;
   return res.json(data);
 });
 
