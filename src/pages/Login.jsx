@@ -23,7 +23,7 @@ function Login() {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     axios
-      .post("http://localhost:5000/user/login", {
+      .post("http://localhost:5000/login", {
         email: loginUser.email,
         password: loginUser.password,
       })
@@ -33,8 +33,8 @@ function Login() {
         navigate("/");
       })
       .catch((err) => {
-        console.log(err.response.data.log);
-        setLog(err.response.data.log);
+        console.log(err);
+        setLog(err);
       });
   };
   return (

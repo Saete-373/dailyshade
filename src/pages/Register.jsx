@@ -40,7 +40,7 @@ function Register() {
       setLog("รหัสผ่านไม่ตรงกัน กรุณากรอกใหม่");
     } else {
       axios
-        .post("http://localhost:5000/user/register", {
+        .post("http://localhost:5000/register", {
           username: regisUser.username,
           email: regisUser.email,
           password: regisUser.password,

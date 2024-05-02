@@ -18,8 +18,8 @@ app.use(
   })
 );
 
-app.use("/user", userRouter);
-app.use("/gradient", gradientRouter);
+app.use("/", userRouter);
+app.use("/", gradientRouter);
 
 mongoose.connect(
   "mongodb+srv://Saete373:rnSSFGS0JSbJRhmP@ourdailyshade.mjqf4di.mongodb.net/dailyshade_db"

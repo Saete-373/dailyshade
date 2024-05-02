@@ -16,6 +16,7 @@ function Calendar({ sDay }) {
   const [selectTime, setSelectTime] = useState();
   const [selectHour, setSelectHour] = useState();
   const [selectMinute, setSelectMinute] = useState();
+  const [userData, setUserData] = useState("");
 
   const days = ["อา.", "จ.", "อ.", "พ.", "พฤ.", "ศ.", "ส."];
   const fdays = [
@@ -30,22 +31,26 @@ function Calendar({ sDay }) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/user/getUser")
+      .get("http://localhost:5000/getUser")
       .then((res) => {
-        axios
-          .post("http://localhost:5000/gradient/getUserRecord", {
-            user_id: res.data,
-          })
-          .then((res) => {
-            console.log(res.data);
-          })
-          .catch((err) => {
-            console.log(err.response.data);
-          });
+        console.log(res);
+        setUserData(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
+    if (userData) {
+      axios
+        .post("http://localhost:5000/getUserRecord", {
+          user_id: userData,
+        })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, []);
 
   const getDay = (date) => {

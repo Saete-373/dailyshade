@@ -14,11 +14,19 @@ function Home() {
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
   useEffect(() => {
+    // axios
+    //   .get("http://localhost:5000/getUser")
+    //   .then((res) => {
+    //     // console.log(res.data);
+    //     setUserID(res.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
     axios
-      .get("http://localhost:5000/user/getUser")
+      .get("http://localhost:5000/test")
       .then((res) => {
-        // console.log(res.data);
-        setUserID(res.data);
+        console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -27,7 +35,6 @@ function Home() {
 
   return (
     <>
-      <button onClick={logOut}>Log Out</button>
       <aside className="relative flex flex-col max-w-3xl">
         <div className="mt-36 mb-5 ml-20">
           <Quote></Quote>
