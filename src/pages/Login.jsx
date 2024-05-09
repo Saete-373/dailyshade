@@ -33,8 +33,8 @@ function Login() {
         navigate("/");
       })
       .catch((err) => {
-        console.log(err.response.data.log);
-        setLog(err.response.data.log);
+        console.log(err);
+        setLog(err);
       });
   };
   return (

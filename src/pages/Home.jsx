@@ -11,7 +11,6 @@ import GototopBtn from "../components/gototopBtn";
 function Home() {
   const [userID, setUserID] = useState("");
   const [sDay, setSDay] = useState();
-  const navigate = useNavigate();
   axios.defaults.withCredentials = true;
   useEffect(() => {
     axios

@@ -85,10 +85,9 @@ const renewToken = (req, res) => {
       );
       res.cookie("accessToken", accessToken);
       exist = true;
-      next();
     });
   } else {
-    return res.send("No Refresh token");
+    res.json({ log: "No Refresh token" });
   }
   return exist;
 };
