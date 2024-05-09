@@ -20,10 +20,8 @@ function toggletabs() {
 
       tab_el.classList.remove("hidden");
       tab_el.classList.add("active");
-
       active_tab.classList.remove(
         "active",
-        "rounded-md",
         "border-t",
         "border-l",
         "border-r",
@@ -31,7 +29,6 @@ function toggletabs() {
       );
       this.classList.add(
         "active",
-        "rounded-md",
         "border-t",
         "border-l",
         "border-r",
@@ -51,8 +48,9 @@ function SettingPanel() {
               <h1 className="pb-6 text-2xl pl-14">การตั้งค่า</h1>
               <ul id="tabs" onClick={toggletabs}>
                 <li
-                  className="flex rounded hover:bg-gray-300 p-14 max-w-full pb-4 pt-4 active"
+                  className="flex rounded hover:bg-gray-300 p-14 max-w-full pb-4 pt-4 active  border-t border-l border-r bg-gray-300"
                   tab-to="first"
+                  id="active"
                 >
                   <button>
                     <label className="inline-flex items-center w-full space-x-2">
