@@ -23,7 +23,7 @@ function Login() {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     axios
-      .post("http://localhost:5000/login", {
+      .post("http://localhost:5000/user/login", {
         email: loginUser.email,
         password: loginUser.password,
       })

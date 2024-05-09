@@ -12,7 +12,7 @@ function StickyNavbar() {
   const navigate = useNavigate();
   const logOut = () => {
     axios
-      .get("http://localhost:5000/logout")
+      .get("http://localhost:5000/user/logout")
       .then((res) => {
         console.log(res);
         navigate("/login");

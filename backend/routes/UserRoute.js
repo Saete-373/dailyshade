@@ -97,10 +97,6 @@ router.get("/getUser", verifyUser, (req, res) => {
   return res.json(data);
 });
 
-router.get("/test", (req, res) => {
-  return res.json({ test: "yolo" });
-});
-
 router.get("/logout", (req, res) => {
   res.clearCookie("accessToken");
   res.clearCookie("refreshToken");

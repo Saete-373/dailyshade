@@ -11,22 +11,13 @@ import Inscontent from "../components/insContent";
 function Home() {
   const [userID, setUserID] = useState("");
   const [sDay, setSDay] = useState();
-  const navigate = useNavigate();
   axios.defaults.withCredentials = true;
   useEffect(() => {
-    // axios
-    //   .get("http://localhost:5000/getUser")
-    //   .then((res) => {
-    //     // console.log(res.data);
-    //     setUserID(res.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
     axios
-      .get("http://localhost:5000/test")
+      .get("http://localhost:5000/user/getUser")
       .then((res) => {
-        console.log(res);
+        // console.log(res.data);
+        setUserID(res.data);
       })
       .catch((err) => {
         console.log(err);
