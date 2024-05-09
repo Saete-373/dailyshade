@@ -33,7 +33,7 @@ function gradientColor(props) {
       .catch((err) => {
         console.log(err);
       });
-  }, [color_ids]);
+  }, []);
 
   return (
     <div className="flex justify-center items-center w-[35px] h-[35px] bg-white rounded-full">
