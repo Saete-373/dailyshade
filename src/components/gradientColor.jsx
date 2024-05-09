@@ -1,29 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import axios from "axios";
 import { MatchCycleColors } from "../../backend/components/MatchCycleColors";
 import "./gradientColor.css";
 
 function gradientColor(props) {
   const [colors, setColors] = useState([]);
-  const example_color3 = [
-    "#FFE162",
-    "#C689C6",
-    "#C689C6",
-    "#B9BC6D",
-    "#9681EB",
-    "#D83F31",
-    "#FFB7B7",
-    "#8696FE",
-  ];
+  
 
   let color_ids = [];
   if (props.filteredRecord) {
     color_ids = props.filteredRecord.map((rec) => rec.color_id);
   }
 
-
-  useEffect(() => {
-    axios
+  const GetColorsByID = async () => {
+    await axios
       .post("http://localhost:5000/gradient/getColorsByID", {
         color_ids: color_ids,
       })
@@ -33,6 +23,11 @@ function gradientColor(props) {
       .catch((err) => {
         console.log(err);
       });
+      
+  };
+
+  useEffect(() => {
+    GetColorsByID();
   }, []);
 
   return (

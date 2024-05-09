@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import dayjs from "dayjs";
 import axios from "axios";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
@@ -19,13 +19,14 @@ function Calendar({ sDay }) {
   const currentDate = dayjs();
   const [today, setToday] = useState(currentDate);
   const [selectDate, setSelectDate] = useState(currentDate);
-  const [toggleAdd, setToggleAdd] = useState(false);
   const [selectTime, setSelectTime] = useState(currentDate);
   const [userData, setUserData] = useState("");
   const [records, setRecords] = useState([]);
+  const [toggleAdd, setToggleAdd] = useState(false);
   const [selectEmoIDX, setSelectEmoIDX] = useState(7);
   const [selectColorID, setSelectColorID] = useState("");
   const [tags, setTags] = useState([]);
+  const [reducerValue, forceUpdate] = useReducer((x) => x + 1, 0);
 
   const days = ["อา.", "จ.", "อ.", "พ.", "พฤ.", "ศ.", "ส."];
   const fdays = [
@@ -44,52 +45,60 @@ function Calendar({ sDay }) {
     axios
       .get("http://localhost:5000/user/getUser")
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setUserData(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
     if (userData) {
-      axios
-        .post("http://localhost:5000/gradient/getUserRecord", {
-          user_id: userData,
-        })
-        .then((res) => {
-          res.data.forEach(
-            (rec) => (rec.datetime = dayjs(rec.datetime, "YYYY-MM-DD HH:mm:ss"))
-          );
-          setRecords(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      GetUserRecord();
     }
     if (selectEmoIDX != 7) {
-      axios
-        .get("http://localhost:5000/gradient/getColors")
-        .then((res) => {
-          const selected_color_id = res.data.map((color) => color._id)[
-            selectEmoIDX
-          ];
-          setSelectColorID(selected_color_id);
-          axios
-            .post("http://localhost:5000/gradient/getTagsByID", {
-              color_id: selected_color_id,
-            })
-            .then((res) => {
-              const allTag = res.data.map((tag) => [tag, false]);
-              setTags(allTag);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      GetTags();
     }
-  }, [userData, selectEmoIDX]);
+  }, [userData, selectEmoIDX, reducerValue]);
+
+  const GetUserRecord = async () => {
+    await axios
+      .post("http://localhost:5000/gradient/getUserRecord", {
+        user_id: userData,
+      })
+      .then((res) => {
+        res.data.forEach(
+          (rec) => (rec.datetime = dayjs(rec.datetime, "YYYY-MM-DD HH:mm:ssZ"))
+        );
+        setRecords(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const GetTags = async () => {
+    await axios
+      .get("http://localhost:5000/gradient/getColors")
+      .then((res) => {
+        const selected_color_id = res.data.map((color) => color._id)[
+          selectEmoIDX
+        ];
+        setSelectColorID(selected_color_id);
+        axios
+          .post("http://localhost:5000/gradient/getTagsByID", {
+            color_id: selected_color_id,
+          })
+          .then((res) => {
+            const allTag = res.data.map((tag) => [tag, false]);
+            setTags(allTag);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const getDay = (date) => {
     return fdays[date.day()];
@@ -136,7 +145,7 @@ function Calendar({ sDay }) {
     const newDateTime = new dayjs(
       selectDate.year() +
         "-" +
-        selectDate.month() +
+        (selectDate.month() + 1) +
         "-" +
         selectDate.date() +
         "T" +
@@ -146,10 +155,6 @@ function Calendar({ sDay }) {
         ":" +
         selectTime.second()
     ).toDate();
-
-    // console.log(newDateTime);
-    // console.log(selectColorID);
-    // console.log(selectedTagIDs);
 
     axios
       .post("http://localhost:5000/gradient/addRecord", {
@@ -164,6 +169,7 @@ function Calendar({ sDay }) {
       .catch((err) => {
         console.log(err.response.data.error);
       });
+    forceUpdate();
   };
 
   return (
@@ -234,7 +240,10 @@ function Calendar({ sDay }) {
                             date.toDate().toDateString()
                             ? "border-base-pink text-text-color"
                             : "text-text-color",
-                          "w-10 h-10 border-8  grid place-content-center rounded-full hover:border-base-pink transition-all cursor-pointer"
+                          date > currentDate
+                            ? "cursor-not-allowed"
+                            : "cursor-pointer",
+                          "w-10 h-10 border-8  grid place-content-center rounded-full hover:border-base-pink transition-all "
                         )}
                         onClick={() => {
                           selectDay(date);
@@ -321,7 +330,9 @@ function Calendar({ sDay }) {
                     <Recordbtn />
                   </div>
                   <div className="">
-                    <MomentBtn />
+                    
+                      <MomentBtn />
+                    
                   </div>
                 </div>
               </div>
