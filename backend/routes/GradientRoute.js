@@ -68,21 +68,24 @@ router.post("/getTagsByID", async (req, res) => {
 
 router.post("/addRecord", async (req, res) => {
   const { user_id, color_id, tag_ids, datetime } = req.body;
+
   const user_id_obj = new mongoose.Types.ObjectId(user_id);
   const color_id_obj = new mongoose.Types.ObjectId(color_id);
   const tag_ids_obj = tag_ids.map((tag) => new mongoose.Types.ObjectId(tag));
+  const conv_datetime = new Date(datetime).toLocaleString("en", {
+    timeZone: "Asia/Jakarta",
+  });
+  const final_datetime = new Date(conv_datetime);
+  
   try {
     const record = new EmotionRecordModel({
       user_id: user_id_obj,
       color_id: color_id_obj,
       tags: tag_ids_obj,
-      datetime: Date(datetime),
+      datetime: final_datetime,
     });
     await record.save();
-    // const color_id_obj = new mongoose.Types.ObjectId(color_id);
-    // const tags = await TagModel.find({
-    //   color_id: color_id_obj,
-    // });
+
     return res.status(200).json({
       log: "บันทึกข้อมูลสำเร็จ",
     });
