@@ -1,13 +1,22 @@
 import React from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
-import png from "../assets/3.png";
+import DSlogo from "../assets/DSlogo.png";
 
 function toggleDropdown() {
   const list = document.querySelector("#dropdown");
   list.classList.toggle("hidden");
 }
-
+function gotoCalendar() {
+  document.getElementById("section2").scrollIntoView({
+    behavior: "smooth",
+  });
+}
+function gotoEmotions() {
+  document.getElementById("section3").scrollIntoView({
+    behavior: "smooth",
+  });
+}
 function StickyNavbar() {
   const navigate = useNavigate();
   const logOut = () => {
@@ -24,22 +33,19 @@ function StickyNavbar() {
 
   return (
     <>
-      <header className="relative inset-x-0 top-0 z-30 mx-auto border border-white bg-white/80 py-3 shadow backdrop-blur-lg max-w-full">
+      <header className="fixed inset-x-0 top-0 z-30 mx-auto border border-white bg-white/80 py-3 shadow backdrop-blur-lg max-w-full">
         <div className="px-10">
           <div className="flex items-center justify-between ">
-            <div className="flex shrink-0">
+            <div className="flex shrink-0 w-1/5">
               <a aria-current="page" className="flex items-center" href="/">
-                <img className="h-10 w-auto" src={png} alt="" />
-                <p className="inline-block rounded-lg px-6 py-1 text-sm font-medium text-text-color transition-all duration-200 ">
+                <img className="h-10 w-auto rounded-lg" src={DSlogo} alt="" />
+                <p className="inline-block rounded-lg px-3 py-1 text-base font-medium text-text-color transition-all duration-200 ">
                   DailyShade
                 </p>
               </a>
             </div>
-            <div
-              className="hidden w-full md:block md:w-auto"
-              id="navbar-default"
-            >
-              <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <div className="w-3/5 md:block md:w-auto" id="navbar-default">
+              <ul className="font-medium flex  p-4 md:p-0 mt-4 flex-row md:space-x-8 md:mt-0  ">
                 <li>
                   <a
                     aria-current="page"
@@ -52,8 +58,8 @@ function StickyNavbar() {
                 </li>
                 <li>
                   <a
-                    className="group inline-block lg px-6 py-1 font-medium text-text-color"
-                    href="/"
+                    className="group inline-block lg px-6 py-1 font-medium text-text-color cursor-pointer"
+                    onClick={gotoCalendar}
                   >
                     ปฏิทิน
                     <div className="bg-base-pink h-[3px] w-0 group-hover:w-full transition-all duration-500 "></div>
@@ -61,8 +67,8 @@ function StickyNavbar() {
                 </li>
                 <li>
                   <a
-                    className="group inline-block lg px-6 py-1 font-medium text-text-color"
-                    href="/"
+                    className="group inline-block lg px-6 py-1 font-medium text-text-color cursor-pointer"
+                    onClick={gotoEmotions}
                   >
                     ความรู้สึก
                     <div className="bg-base-pink h-[3px] w-0 group-hover:w-full transition-all duration-500 "></div>
@@ -70,7 +76,7 @@ function StickyNavbar() {
                 </li>
               </ul>
             </div>
-            <div className="flex items-center justify-end gap-4">
+            <div className="flex items-center justify-end gap-4 w-1/5">
               {/* <div className="flex gap-2">
                                 <a class=" items-center justify-center rounded-full bg-white px-3 py-2 text-sm  text-text-color shadow-sm ring-1 ring-inset ring-gray-300 transition-all duration-150 hover:bg-pink-darker sm:inline-flex"
                                 href="/">สมัครบัญชี</a>
@@ -81,7 +87,7 @@ function StickyNavbar() {
                 onClick={toggleDropdown}
                 id="dropdownButton"
                 className="h-10 w-auto inline-block rounded-full hover:ring-2"
-                src={png}
+                src={DSlogo}
                 alt=""
               ></img>
               <div
