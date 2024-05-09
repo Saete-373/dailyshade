@@ -1,5 +1,7 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import axios from "axios";
+import { EmoContext } from "./calendar";
 import "./emotionCircle.css";
 import cir0 from "../assets/pro0.png";
 import cir1 from "../assets/pro1.png";
@@ -13,19 +15,21 @@ import cir7 from "../assets/pro7.png";
 function EmotionCircle() {
   const [isActive, setActive] = useState(false);
   const [color, setColor] = useState("#888888");
-  const [selectEmoIDX, setSelectEmoIDX] = useState(7);
+  const [allColor, setAllColor] = useState();
+  const [selectEmoIDX, setSelectEmoIDX] = useContext(EmoContext);
 
   const emo_pics = [cir1, cir2, cir3, cir4, cir5, cir6, cir7];
 
-  const all_color = [
-    "#D83F31",
-    "#B9BC6D",
-    "#9681EB",
-    "#FFB7B7",
-    "#FFE162",
-    "#C689C6",
-    "#8696FE",
-  ];
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/gradient/getColors")
+      .then((res) => {
+        setAllColor(res.data.map((color) => color.color));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const onToggle = () => {
     if (isActive == true) {
@@ -37,7 +41,7 @@ function EmotionCircle() {
 
   const SelectEmo = (index) => {
     setSelectEmoIDX(index);
-    setColor(all_color[index]);
+    setColor(allColor[index]);
     setActive(false);
   };
 
@@ -50,7 +54,11 @@ function EmotionCircle() {
             onClick={onToggle}
             style={{ backgroundColor: color }}
           >
-            <img src={emo_pics[selectEmoIDX]} />
+            {selectEmoIDX >= 0 && selectEmoIDX <= emo_pics.length - 1 ? (
+              <img src={emo_pics[selectEmoIDX]} />
+            ) : (
+              <img src={cir0} />
+            )}
           </div>
           {emo_pics.map((pic, index) => {
             return isActive ? (
