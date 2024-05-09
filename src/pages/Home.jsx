@@ -7,7 +7,7 @@ import Calendar from "../components/calendar";
 import EmotionsCard from "../components/emotionsCard";
 import EmotionsCardPanel from "../components/EmotionsCardPanel";
 import Inscontent from "../components/insContent";
-
+import GototopBtn from "../components/gototopBtn";
 function Home() {
   const [userID, setUserID] = useState("");
   const [sDay, setSDay] = useState();
@@ -26,15 +26,22 @@ function Home() {
 
   return (
     <>
-      <aside className="relative flex flex-col max-w-3xl">
-        <div className="mt-36 mb-5 ml-20">
-          <Quote></Quote>
-        </div>
-      </aside>
-      <Calendar sDay={setSDay} user_id={userID} />
-      <article>
-        <EmotionsCardPanel></EmotionsCardPanel>
-      </article>
+      <GototopBtn />
+      <section id="section1" className="h-screen">
+        <aside className="relative flex flex-col max-w-3xl">
+          <div className="mt-60 ml-20">
+            <Quote></Quote>
+          </div>
+        </aside>
+      </section>
+      <section id="section2">
+        <Calendar sDay={setSDay} user_id={userID} />
+      </section>
+      <section id="section3">
+        <article>
+          <EmotionsCardPanel></EmotionsCardPanel>
+        </article>
+      </section>
       <section className="mt-20 mb-20">
         <Inscontent></Inscontent>
       </section>
