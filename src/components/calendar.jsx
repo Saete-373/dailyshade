@@ -17,11 +17,10 @@ export const EmoContext = React.createContext();
 
 function Calendar({ sDay }) {
   const currentDate = dayjs();
-  const currentTime = dayjs().format("HH mm");
   const [today, setToday] = useState(currentDate);
   const [selectDate, setSelectDate] = useState(currentDate);
   const [toggleAdd, setToggleAdd] = useState(false);
-  const [selectTime, setSelectTime] = useState();
+  const [selectTime, setSelectTime] = useState(currentDate);
   const [userData, setUserData] = useState("");
   const [records, setRecords] = useState([]);
   const [selectEmoIDX, setSelectEmoIDX] = useState(7);
@@ -242,17 +241,17 @@ function Calendar({ sDay }) {
                         }}
                       >
                         {records
-                        .map((rec) => rec.datetime.format("YYYY-MM-DD"))
-                        .includes(date.format("YYYY-MM-DD")) ? (
-                        <GradientColor
-                          date={date.date()}
-                          filteredRecord={filteredRecord(records, date)}
-                        />
-                      ) : (
-                        <div className="flex justify-center items-center w-[35px] h-[35px] bg-white rounded-full">
-                          <p className="absolute text-black">{date.date()}</p>
-                        </div>
-                      )}
+                          .map((rec) => rec.datetime.format("YYYY-MM-DD"))
+                          .includes(date.format("YYYY-MM-DD")) ? (
+                          <GradientColor
+                            date={date.date()}
+                            filteredRecord={filteredRecord(records, date)}
+                          />
+                        ) : (
+                          <div className="flex justify-center items-center w-[35px] h-[35px] bg-white rounded-full">
+                            <p className="absolute text-black">{date.date()}</p>
+                          </div>
+                        )}
                       </h1>
                     </div>
                   );
@@ -262,7 +261,7 @@ function Calendar({ sDay }) {
           </div>
 
           {toggleAdd ? (
-            <form 
+            <form
               className="flex flex-col w-2/5 p-4 rounded-r-xl bg-white/30 text-text-color px-16 "
               onSubmit={HandleSubmit}
             >
@@ -278,7 +277,6 @@ function Calendar({ sDay }) {
                 {months[selectDate.month()]} {selectDate.year() + 543}
                 <span className="pl-5">
                   {" "}
-
                   <TimePicker
                     onChange={handleTime}
                     value={selectTime}
@@ -291,9 +289,9 @@ function Calendar({ sDay }) {
 
               <p className="pb-5">ตอนนี้คุณรู้สึกอย่างไร</p>
               <div className="flex justify-center pb-5">
-              <EmoContext.Provider value={[selectEmoIDX, setSelectEmoIDX]}>
-                <EmotionCircle />
-              </EmoContext.Provider>
+                <EmoContext.Provider value={[selectEmoIDX, setSelectEmoIDX]}>
+                  <EmotionCircle />
+                </EmoContext.Provider>
               </div>
               <div>
                 <div className="pb-5">
@@ -306,8 +304,8 @@ function Calendar({ sDay }) {
                       <li
                         key={index}
                         className={
-                          "border-white border-2 bg-white/90 px-5 rounded-2xl" +
-                          (tags[index][1] ? "bg-gray-400" : "bg-white/90")
+                          "border-white border-2 px-5 rounded-2xl cursor-pointer " +
+                          (tags[index][1] ? "bg-gray-400" : "bg-white")
                         }
                         onClick={() => {
                           SelectTag(index);

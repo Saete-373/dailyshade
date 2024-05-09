@@ -1,16 +1,17 @@
 import React from "react";
+import { useState } from "react";
 
 function GototopBtn() {
-  let gototop = document.getElementById("gototop");
+  const [isShowGoTop, setShowGoTop] = useState(false);
 
   function scrollFunction() {
     if (
       document.body.scrollTop > 50 ||
       document.documentElement.scrollTop > 50
     ) {
-      gototop.style.display = "block";
+      setShowGoTop(true);
     } else {
-      gototop.style.display = "none";
+      setShowGoTop(false);
     }
   }
   window.onscroll = function () {
@@ -28,7 +29,10 @@ function GototopBtn() {
         onClick={topFunction}
         id="gototop"
         title="Go to top"
-        className="fixed rounded-full bg-white/80 p-5 border-2 border-white z-99 cursor-pointer  bottom-0 right-0 m-7 "
+        className={
+          "fixed rounded-full bg-white/80 p-5 border-2 border-white z-99 cursor-pointer bottom-0 right-0 m-7 " +
+          (isShowGoTop ? "block" : "hidden")
+        }
       >
         Top
       </button>
