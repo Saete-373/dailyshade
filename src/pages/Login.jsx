@@ -46,6 +46,7 @@ function Login() {
         <div className="max-w-full w-7/12 p-14 md:w-full min-w-fit">
           <form onSubmit={handleSubmit}>
             <h1 className=" pb-5 text-2xl">เข้าสู่ระบบ</h1>
+            <p>{log}</p>
             <div className="flex flex-col pb-2">
               <label className="text-left">อีเมล</label>
               <input
