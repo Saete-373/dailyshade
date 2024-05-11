@@ -36,12 +36,20 @@ router.post("/login", async (req, res) => {
     const user = await UserModel.findOne({ email: email });
     const comp = await bcrypt.compare(password, user.password);
     if (comp) {
-      const accessToken = jwt.sign({ _id: user._id }, process.env.ACC_SECRET, {
-        expiresIn: "1d",
-      });
-      const refreshToken = jwt.sign({ _id: user._id }, process.env.REF_SECRET, {
-        expiresIn: "7d",
-      });
+      const accessToken = jwt.sign(
+        { email: user.email },
+        process.env.ACC_SECRET,
+        {
+          expiresIn: "1d",
+        }
+      );
+      const refreshToken = jwt.sign(
+        { email: user.email },
+        process.env.REF_SECRET,
+        {
+          expiresIn: "7d",
+        }
+      );
       res.cookie("accessToken", accessToken);
       res.cookie("refreshToken", refreshToken);
       return res.status(200).json({ log: "เข้าสู่ระบบ" });
@@ -60,11 +68,14 @@ const verifyUser = (req, res, next) => {
   if (accessToken) {
     jwt.verify(accessToken, process.env.ACC_SECRET, (err, decoded) => {
       if (err) return res.status(403).json({ log: "Forbidden" });
-      req._id = decoded._id;
+      req.email = decoded.email;
       next();
     });
   } else {
     if (renewToken(req, res)) {
+      next();
+    } else {
+      req.email = null;
       next();
     }
   }
@@ -77,7 +88,7 @@ const renewToken = (req, res) => {
     jwt.verify(refreshToken, process.env.REF_SECRET, (err, decoded) => {
       if (err) return res.status(403).json({ log: "Forbidden" });
       const accessToken = jwt.sign(
-        { _id: decoded._id },
+        { email: decoded.email },
         process.env.ACC_SECRET,
         {
           expiresIn: "1d",
@@ -87,14 +98,29 @@ const renewToken = (req, res) => {
       exist = true;
     });
   } else {
-    res.json({ log: "No Refresh token" });
+    res.json({ log: "ไม่ได้เข้าสู่ระบบ", isLogin: false });
   }
   return exist;
 };
 
 router.get("/getUser", verifyUser, (req, res) => {
-  const data = req._id;
-  return res.json(data);
+  const data = req.email;
+  return res.json({ email: data, log: "พบบัญชีผู้ใช้", isLogin: true });
+});
+
+router.post("/getUserData", verifyUser, async (req, res) => {
+  const { email } = req.body;
+  const emailFromCookie = req.email;
+  console.log(email);
+  console.log(emailFromCookie);
+  try {
+    if (email == emailFromCookie) {
+      const user_data = await UserModel.findOne({ email: email });
+      return res.status(200).json(user_data);
+    } 
+  } catch (err) {
+    return res.status(404).json({ log: "ไม่พบผู้ใช้นี้ในระบบ" });
+  }
 });
 
 router.get("/logout", (req, res) => {

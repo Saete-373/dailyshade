@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { EmailContext } from "../App";
 import png from "../assets/3.png";
 
 function Login() {
@@ -8,6 +9,7 @@ function Login() {
     email: "",
     password: "",
   });
+  const [userEmail, setUserEmail] = useContext(EmailContext);
   const [log, setLog] = useState("");
   const navigate = useNavigate();
 
@@ -30,6 +32,7 @@ function Login() {
       .then((res) => {
         console.log(res.data.log);
         setLog(res.data.log);
+        setUserEmail(loginUser.email);
         navigate("/");
       })
       .catch((err) => {
