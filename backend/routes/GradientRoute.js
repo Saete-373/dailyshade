@@ -4,6 +4,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const UserModel = require("../models/User");
 const EmotionModel = require("../models/Emotion");
 const EmotionRecordModel = require("../models/EmotionRecord");
 const TagModel = require("../models/Tag");
@@ -11,13 +12,12 @@ const TagModel = require("../models/Tag");
 router.use(cookieParser());
 
 router.post("/getUserRecord", async (req, res) => {
-  const { user_id } = req.body;
-  const value = new mongoose.Types.ObjectId(user_id);
+  const { email } = req.body;
   try {
+    const user = await UserModel.findOne({ email: email });
     const records = await EmotionRecordModel.find({
-      user_id: value,
+      user_id: user._id,
     });
-    // console.log(records);
     return res.status(200).json(records);
   } catch (err) {
     return res.status(404).json({ log: "ยังไม่มีการบันทึกในระบบ" });
@@ -49,16 +49,15 @@ router.get("/getColors", async (req, res) => {
   } catch (err) {
     return res.status(404).json({ log: "ไม่มีสีในระบบ" });
   }
-  return res.json();
 });
 
-router.post("/getTagsByID", async (req, res) => {
-  const { color_id } = req.body;
+router.post("/getTagsByColor", async (req, res) => {
+  const { selected_color } = req.body;
 
   try {
-    const color_id_obj = new mongoose.Types.ObjectId(color_id);
+    const color = await EmotionModel.findOne({ color: selected_color });
     const tags = await TagModel.find({
-      color_id: color_id_obj,
+      color_id: color._id,
     });
     return res.status(200).json(tags);
   } catch (err) {
@@ -76,7 +75,7 @@ router.post("/addRecord", async (req, res) => {
     timeZone: "Asia/Jakarta",
   });
   const final_datetime = new Date(conv_datetime);
-  
+
   try {
     const record = new EmotionRecordModel({
       user_id: user_id_obj,
