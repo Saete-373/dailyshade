@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
-import png from "../assets/3.png";
+import png from "../assets/regis.png";
+import "./bg.css";
 
 function Register() {
   const [regisUser, setRegisUser] = useState({
@@ -58,16 +59,23 @@ function Register() {
   };
 
   return (
-    <div className="flex justify-center max-x-screen max-h-full h-screen place-items-center">
-      <div className="flex place-items-center max-w-4xl max-h-screen h-4/5 border-2 border-black-50 rounded-xl gap-5 ">
-        <div className="max-w-full w-7/12 p-14 md:w-full min-w-fit">
+    <div
+      className="flex justify-center max-x-screen max-h-full h-screen place-items-center"
+      id="css-selector-regis"
+    >
+      <div className="flex place-items-center max-w-4xl max-h-screen h-4/5 border-2 border-black-50 rounded-xl gap-5 bg-white/20 backdrop-blur-md">
+        <div className="max-w-full w-4/12 p-14 md:w-full min-w-fit">
           <form onSubmit={handleSubmit}>
             <h1 className="uppercase pb-5 text-2xl">สร้างบัญชี</h1>
 
             <div className="flex flex-col pb-2">
               <label className="text-left">ชื่อผู้ใช้</label>
               <div className="flex">
+<<<<<<< Updated upstream
                 <span class="inline-flex items-center px-3 text-sm text-gray-900 border-2 rounded-s-xl border-white">
+=======
+                <span className="inline-flex items-center px-3 text-sm text-gray-800  rounded-s-3xl bg-white/40">
+>>>>>>> Stashed changes
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -85,45 +93,92 @@ function Register() {
                 </span>
                 <input
                   type="text"
-                  className="rounded-e-xl p-2 bg-transparent border-2 border-white w-full"
+                  className="rounded-e-3xl p-3 bg-white/40 w-full focus:outline-none"
                   name="username"
                   onChange={OnChange}
                 />
               </div>
             </div>
-            <div className="flex flex-col pb-2">
+            <div className="flex flex-col pb-2 ">
               <label className="text-left">อีเมล</label>
-              <input
-                type="email"
-                name="email"
-                className="rounded-xl p-2 bg-transparent border-2 border-white peer"
-                onChange={OnChange}
-              />
+              <div className="flex">
+                <span className="inline-flex items-center px-3 text-sm text-gray-800 rounded-s-3xl bg-white/40">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
+                    <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
+                  </svg>
+                </span>
+                <input
+                  type="email"
+                  name="email"
+                  className="rounded-e-3xl p-3 bg-white/40 w-full focus:outline-none peer"
+                  onChange={OnChange}
+                />
+              </div>
               <p className="mt-2 hidden peer-invalid:contents text-pink-600 text-sm text-left">
                 Please provide a valid email address.
               </p>
             </div>
             <div className="flex flex-col pb-2">
-              <label className="text-left">สร้างรหัสผ่าน</label>
-              <input
-                type="password"
-                name="password"
-                className="rounded-xl p-2 bg-transparent border-2 border-white"
-                onChange={OnChange}
-              />
+              <label className="text-left">รหัสผ่าน</label>
+              <div className="flex">
+                <span className="inline-flex items-center px-3 text-sm text-gray-800  rounded-s-3xl bg-white/40">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </span>
+                <input
+                  type="password"
+                  name="password"
+                  className="rounded-e-3xl p-3 bg-white/40 w-full focus:outline-none"
+                  onChange={OnChange}
+                />
+              </div>
             </div>
             <div className="flex flex-col pb-4 ">
               <label className="text-left">ยืนยันรหัสผ่าน</label>
-              <input
-                type="password"
-                name="cpassword"
-                className="rounded-xl p-2 bg-transparent border-2 border-white"
-                onChange={OnChange}
-              />
+              <div className="flex">
+                <span className="inline-flex items-center px-3 text-sm text-gray-800 rounded-s-3xl bg-white/40">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
+                    />
+                  </svg>
+                </span>
+                <input
+                  type="password"
+                  name="cpassword"
+                  className="rounded-e-3xl p-3 bg-white/40 w-full focus:outline-none"
+                  onChange={OnChange}
+                />
+              </div>
             </div>
             <button
               type="submit"
-              className="uppercase inline-flex items-center justify-center rounded-xl bg-base-pink  w-full py-3 text-sm  text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker "
+              className="uppercase inline-flex items-center justify-center rounded-3xl bg-base-pink  w-full py-4 text-sm  text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker mt-2"
             >
               สร้างบัญชี
             </button>
@@ -135,7 +190,7 @@ function Register() {
             </div>
           </form>
         </div>
-        <div className="max-w-full w-7/12 hidden lg:flex">
+        <div className="max-w-full w-8/12 hidden lg:flex">
           <img src={png} className="rounded-r-xl "></img>
         </div>
       </div>
