@@ -11,7 +11,7 @@ import disgusted from "../assets/Disgutsed.png";
 import "./myCSS.css";
 
 function EmotionsCard() {
-  const [isMoving, setMoving] = useState(false);
+  const [isMoving, setMoving] = useState(true);
   const emotions = [
     {
       image: happy,
@@ -70,7 +70,7 @@ function EmotionsCard() {
 
   useEffect(() => {
     if (!isMoving) return;
-    const timeout = setTimeout(() => setMoving(false), 500);
+    const timeout = setTimeout(() => setMoving(false), 1000);
     return () => clearTimeout(timeout);
   }, [isMoving]);
 
@@ -83,6 +83,7 @@ function EmotionsCard() {
   return (
     <>
       <div
+        onMouseMove={handleMouseMove}
         id="cards"
         className="flex gap-5 flex-wrap m-8 justify-center ipad:flex ipad:flex-row ipad:flex-nowrap ipad:pl-20 ipad:pr-20 ipad:gap-x-10 "
       >
