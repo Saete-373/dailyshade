@@ -1,7 +1,6 @@
 import { useState, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { EmailContext } from "../App";
 import png from "../assets/login.png";
 import "./bg.css";
 

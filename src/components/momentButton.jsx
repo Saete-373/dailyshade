@@ -1,14 +1,20 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./myCSS.css";
-function MomentBtn() {
+function MomentBtn({ filteredRecords }) {
+  const navigate = useNavigate();
   return (
     <>
-      <NavLink to="/momentary">
-        <button className="flex border-2 border-white rounded-full w-5 ">
-          Rotating Button
-        </button>
-      </NavLink>
+      <button
+        className="flex border-2 border-white rounded-full w-5"
+        onClick={() => {
+          navigate("/momentary", {
+            state: { filteredRecords: filteredRecords },
+          });
+        }}
+      >
+        Rotating Button
+      </button>
     </>
   );
 }

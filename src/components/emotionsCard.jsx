@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import pic from "../assets/3.png";
 import happy from "../assets/Happy.png";
 import surprise from "../assets/Surprise.png";
 import angry from "../assets/Angry.png";
@@ -19,6 +18,7 @@ function EmotionsCard() {
       description:
         "ภาวะที่เราพึงพอใจ เพลิดเพลินกับบางสิ่งและเป็นสัญญาณของการมีสุขภาวะที่ดี",
     },
+    
     {
       image: surprise,
       name: "Surprise",

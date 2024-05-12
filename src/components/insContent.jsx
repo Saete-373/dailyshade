@@ -40,7 +40,10 @@ function Inscontent() {
         <div className="ipad:flex ipad:overflow-x-auto scroll-bar-hidden ipad:relative ipad:snap-mandatory ipad:snap-x ipad:scroll-smooth ">
           <div className="flex gap-5 flex-wrap m-8 justify-center ipad:flex ipad:flex-1 ipad:flex-row ipad:flex-nowrap ipad:pl-20 ipad:pr-20 ipad:gap-x-10">
             {inscontentAll.map((inscontentAll, index) => (
-              <figure className="rounded-lg max-w-50 w-40 ipad:w-60 overflow-hidden shadow-lg ipad:flex ipad:snap-always ipad:snap-center ">
+              <figure
+                key={index}
+                className="rounded-lg max-w-50 w-40 ipad:w-60 overflow-hidden shadow-lg ipad:flex ipad:snap-always ipad:snap-center "
+              >
                 <img
                   className="w-full lg:h-auto relative z-0 rounded-lg transition-all duration-300 hover:scale-110 hover:cursor-pointer"
                   src={inscontentAll.img}
