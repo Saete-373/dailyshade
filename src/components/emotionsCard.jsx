@@ -83,6 +83,7 @@ function EmotionsCard() {
   return (
     <>
       <div
+        onMouseMove={handleMouseMove}
         id="cards"
         className="flex gap-5 flex-wrap m-8 justify-center ipad:flex ipad:flex-row ipad:flex-nowrap ipad:pl-20 ipad:pr-20 ipad:gap-x-10 "
       >
