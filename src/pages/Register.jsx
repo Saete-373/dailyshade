@@ -71,11 +71,7 @@ function Register() {
             <div className="flex flex-col pb-2">
               <label className="text-left">ชื่อผู้ใช้</label>
               <div className="flex">
-<<<<<<< Updated upstream
                 <span class="inline-flex items-center px-3 text-sm text-gray-900 border-2 rounded-s-xl border-white">
-=======
-                <span className="inline-flex items-center px-3 text-sm text-gray-800  rounded-s-3xl bg-white/40">
->>>>>>> Stashed changes
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

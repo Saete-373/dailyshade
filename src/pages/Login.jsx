@@ -1,13 +1,9 @@
 import { useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
-<<<<<<< Updated upstream
-import png from "../assets/3.png";
-=======
 import { EmailContext } from "../App";
 import png from "../assets/login.png";
 import "./bg.css";
->>>>>>> Stashed changes
 
 function Login() {
   const [loginUser, setLoginUser] = useState({
