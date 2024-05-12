@@ -11,7 +11,7 @@ import disgusted from "../assets/Disgutsed.png";
 import "./myCSS.css";
 
 function EmotionsCard() {
-  const [isMoving, setMoving] = useState(false);
+  const [isMoving, setMoving] = useState(true);
   const emotions = [
     {
       image: happy,
