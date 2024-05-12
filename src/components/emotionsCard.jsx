@@ -13,44 +13,45 @@ function EmotionsCard() {
   const emotions = [
     {
       image: happy,
-      name: "Happy",
-      description: "ความรู้สึกที่คุณ..",
+      name: "Happiness",
+      description:
+        "ภาวะที่เราพึงพอใจ เพลิดเพลินกับบางสิ่งและเป็นสัญญาณของการมีสุขภาวะที่ดี",
     },
     {
       image: surprise,
       name: "Surprise",
       description:
-        "having a sense of confidence in or satisfaction with (a person, arrangement, or situation).",
+        "เป็นอารมณ์ได้ทั้งทางบวก ทางลบ หรือกลาง ๆ ซึ่งเป็นอารมณ์ที่ตอบสนองต่อสิ่งที่ไม่คาดคิด",
     },
     {
       image: sad,
-      name: "Sad",
+      name: "Sadness",
       description:
-        "having a sense of confidence in or satisfaction with (a person, arrangement, or situation).",
+        "สภาวะของการรู้สึกผิดหวัง เสียใจ สิ้นหวัง รวมถึงอารมณ์หน่วง ๆ ที่ยากจะควบคุม",
     },
     {
       image: bad,
       name: "Bad",
       description:
-        "having a sense of confidence in or satisfaction with (a person, arrangement, or situation).",
+        "ความรู้สึกที่มองว่าสิ่งที่ตัวเองกระทำออกไปหรือสิ่งที่ได้รับเป็นเรื่องไม่สมควร ทำให้เกิดความเสียหายทางจิตใจหรือทางร่างกาย",
     },
     {
       image: angry,
       name: "Angry",
       description:
-        "having a sense of confidence in or satisfaction with (a person, arrangement, or situation).",
+        "ความรู้สึกหรือความคิดเชิงลบที่อาจมีการแสดงพฤติกรรมต่าง ๆ เพื่อตอบสนองต่อสิ่งเหตุการณ์ที่เกิดขึ้น",
     },
     {
       image: fearful,
-      name: "Fearful",
+      name: "Fear",
       description:
-        "having a sense of confidence in or satisfaction with (a person, arrangement, or situation).",
+        "อารมณ์ที่สำคัญในการอยู่รอดของมนุษย์ ความกลัวจะทำให้เราตระหนักและรับรู้ว่าเกิดอันตรายขึ้นและต้องรับมือกับมัน",
     },
     {
       image: disgusted,
-      name: "Disgusted",
+      name: "Disgust",
       description:
-        "having a sense of confidence in or satisfaction with (a person, arrangement, or situation).",
+        "เกิดจากการรับรู้ผ่านประสาทสัมผัสซึ่งอาจเกิดการแสดงออกทางร่างกาย",
     },
   ];
 
@@ -60,7 +61,7 @@ function EmotionsCard() {
         {emotions.map((emotion, index) => (
           <div
             key={index}
-            className="flex flex-col flex-none justify-centent-center rounded-md bg-white/70 py-10 px-2 max-w-56 w-56"
+            className="flex flex-col flex-none justify-centent-center rounded-md bg-white/50 border-2 border-white py-10 px-2 max-w-56 w-56"
           >
             <div className="flex justify-center pb-2">
               <img
@@ -74,7 +75,10 @@ function EmotionsCard() {
             >
               {emotion.name}
             </h2>
-            <p id="emotionDescription" className="text-pretty leading-relaxed">
+            <p
+              id="emotionDescription"
+              className="text-pretty leading-relaxed px-2 text-sm"
+            >
               {emotion.description}
             </p>
           </div>

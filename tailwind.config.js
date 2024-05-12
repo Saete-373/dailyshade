@@ -11,6 +11,7 @@ module.exports = {
         "pink-darker": "#d38f87",
         "text-color": "#2F0601",
         "ins-color": "#d6249f",
+        "wheat-color": "#EFEDEC",
       },
     },
   },
