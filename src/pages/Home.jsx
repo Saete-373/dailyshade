@@ -1,28 +1,15 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
 import axios from "axios";
+import { EmailContext } from "../App";
 import Quote from "../components/quote";
-import Recordbtn from "../components/button";
 import Calendar from "../components/calendar";
-import EmotionsCard from "../components/emotionsCard";
 import EmotionsCardPanel from "../components/EmotionsCardPanel";
 import Inscontent from "../components/insContent";
 import GototopBtn from "../components/gototopBtn";
 function Home() {
-  const [userID, setUserID] = useState("");
+  const [userEmail, setUserEmail] = useContext(EmailContext);
   const [sDay, setSDay] = useState();
   axios.defaults.withCredentials = true;
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/user/getUser")
-      .then((res) => {
-        // console.log(res.data);
-        setUserID(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   return (
     <>
@@ -34,9 +21,14 @@ function Home() {
           </div>
         </aside>
       </section>
-      <section id="section2">
-        <Calendar sDay={setSDay} user_id={userID} />
-      </section>
+      {userEmail ? (
+        <section id="section2">
+          <Calendar sDay={setSDay} user_email={userEmail} />
+        </section>
+      ) : (
+        ""
+      )}
+
       <section id="section3">
         <article>
           <EmotionsCardPanel></EmotionsCardPanel>
