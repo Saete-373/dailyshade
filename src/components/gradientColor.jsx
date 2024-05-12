@@ -32,7 +32,6 @@ function gradientColor(props) {
 
   return (
     <div className="flex justify-center items-center w-[35px] h-[35px] bg-white rounded-full">
-      {/* overflow-hidden */}
       <div
         id="c"
         className="flex w-full h-full justify-center items-center relative overflow-hidden rounded-full"

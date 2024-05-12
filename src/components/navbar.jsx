@@ -2,7 +2,6 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { EmailContext } from "../App";
 import DSlogo from "../assets/DSlogo.png";
 
 function toggleDropdown() {
@@ -21,22 +20,40 @@ function gotoEmotions() {
 }
 function StickyNavbar() {
   const [userData, setUserData] = useState();
-  const [userEmail, setUserEmail] = useContext(EmailContext);
+  const [isFindUser, setFindUser] = useState(true);
+  const [userEmail, setUserEmail] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (isFindUser) {
+      GetUserData();
+    }
+  }, [isFindUser]);
+
+  const GetUserData = () => {
     axios
-      .post("http://localhost:5000/user/getUserData", {
-        email: userEmail,
-      })
+      .get("http://localhost:5000/user/getUser")
       .then((res) => {
-        // console.log(res.data);
-        setUserData(res.data);
+        if (res.data.isLogin) {
+          setUserEmail(res.data.email);
+          axios
+            .post("http://localhost:5000/user/getUserData", {
+              email: res.data.email,
+            })
+            .then((res) => {
+              setUserData(res.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+        setFindUser(false);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [userEmail]);
+  };
+  
 
   const logOut = () => {
     axios

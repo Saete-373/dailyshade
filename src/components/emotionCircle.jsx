@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { EmoContext } from "./calendar";
+import { TagContext } from "./calendar";
 import "./emotionCircle.css";
 import cir0 from "../assets/pro0.png";
 import cir1 from "../assets/pro1.png";
@@ -14,11 +15,10 @@ import cir7 from "../assets/pro7.png";
 
 function EmotionCircle() {
   const [isActive, setActive] = useState(false);
-  // const [color, setColor] = useState("#888888");
-  const [color, setColor] = useContext(EmoContext);
   const [allColor, setAllColor] = useState();
-  // const [selectEmoIDX, setSelectEmoIDX] = useContext(EmoContext);
   const [selectEmoIDX, setSelectEmoIDX] = useState(7);
+  const [color, setColor] = useContext(EmoContext);
+  const [isGetTags, setGetTags] = useContext(TagContext);
 
   const emo_pics = [cir1, cir2, cir3, cir4, cir5, cir6, cir7];
 
@@ -44,6 +44,7 @@ function EmotionCircle() {
   const SelectEmo = (index) => {
     setSelectEmoIDX(index);
     setColor(allColor[index]);
+    setGetTags(true);
     setActive(false);
   };
 

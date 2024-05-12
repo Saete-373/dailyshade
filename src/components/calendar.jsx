@@ -3,7 +3,7 @@ import { useState, useEffect, useContext, useReducer } from "react";
 import dayjs from "dayjs";
 import axios from "axios";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
-import {EmailContext} from "../App"
+import { EmailContext } from "../pages/Home";
 import { generateDate, months } from "../../backend/components/Calendar";
 import { cn } from "../../backend/components/cn";
 import { filteredRecord } from "../../backend/components/filteredRecord";
@@ -12,11 +12,10 @@ import { SelectTag } from "../../backend/components/selectTag";
 import { TimePicker } from "antd";
 import EmotionCircle from "./emotionCircle";
 import GradientColor from "./gradientColor";
-
-import Recordbtn from "./button";
 import MomentBtn from "./momentButton";
 
 export const EmoContext = React.createContext();
+export const TagContext = React.createContext();
 
 function Calendar({ sDay }) {
   const currentDate = dayjs();
@@ -29,7 +28,20 @@ function Calendar({ sDay }) {
   const [color, setColor] = useState("#888888");
   const [selectColorID, setSelectColorID] = useState("");
   const [tags, setTags] = useState([]);
-  const [reducerValue, forceUpdate] = useReducer((x) => x + 1, 0);
+  const [isGetTags, setGetTags] = useState(true);
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "ADD":
+        return [...state, action.newRecord];
+      default:
+        return state;
+    }
+  };
+
+  const initialState = records;
+
+  const [recordReducer, dispatch] = useReducer(reducer, initialState);
 
   const days = ["อา.", "จ.", "อ.", "พ.", "พฤ.", "ศ.", "ส."];
 
@@ -38,14 +50,15 @@ function Calendar({ sDay }) {
   useEffect(() => {
     if (userEmail) {
       GetUserRecord();
-    }
-    if (color != "#888888") {
-      GetTags();
-    }
-  }, [userEmail, color, reducerValue]);
 
-  const GetUserRecord = async () => {
-    await axios
+      if (color != "#888888") {
+        if (isGetTags) GetTags();
+      }
+    }
+  }, [userEmail, recordReducer, color, isGetTags]);
+
+  const GetUserRecord = () => {
+    axios
       .post("http://localhost:5000/gradient/getUserRecord", {
         email: userEmail,
       })
@@ -60,22 +73,22 @@ function Calendar({ sDay }) {
       });
   };
 
-  const GetTags = async () => {
-    await axios
+  const GetTags = () => {
+    axios
       .post("http://localhost:5000/gradient/getTagsByColor", {
         selected_color: color,
       })
       .then((res) => {
         const filter_1tag = res.data.filter((tag) => tag.color_id.length == 1);
-        const color_id = filter_1tag[0].color_id;
+        const color_id = filter_1tag[0].color_id[0];
         const allTag = res.data.map((tag) => [tag, false]);
-        console.log(allTag);
-        setSelectColorID(color_id)
+        setSelectColorID(color_id);
         setTags(allTag);
       })
       .catch((err) => {
         console.log(err);
       });
+    setGetTags(false);
   };
 
   const selectDay = (day) => {
@@ -94,7 +107,7 @@ function Calendar({ sDay }) {
     setSelectTime(time);
   };
 
-  const HandleSubmit = (evt) => {
+  const HandleSubmit = async (evt) => {
     evt.preventDefault();
 
     const selectedTagIDs = tags
@@ -117,18 +130,21 @@ function Calendar({ sDay }) {
 
     axios
       .post("http://localhost:5000/gradient/addRecord", {
-        user_id: userEmail,
+        email: userEmail,
         color_id: selectColorID,
         tag_ids: selectedTagIDs,
         datetime: newDateTime,
       })
       .then((res) => {
-        console.log(res.data);
+        console.log(res.data.log);
+        dispatch({ type: "ADD", newRecord: res.data.newRecord });
+        console.log("yay");
       })
       .catch((err) => {
         console.log(err);
       });
-    forceUpdate();
+    setToggleAdd(false);
+    setGetTags(true);
   };
 
   return (
@@ -206,6 +222,7 @@ function Calendar({ sDay }) {
                         )}
                         onClick={() => {
                           selectDay(date);
+                          console.log(date.format("YYYY-MM-DD"));
                         }}
                       >
                         {records
@@ -257,7 +274,9 @@ function Calendar({ sDay }) {
               <p className="pb-5">ตอนนี้คุณรู้สึกอย่างไร</p>
               <div className="flex justify-center pb-5">
                 <EmoContext.Provider value={[color, setColor]}>
-                  <EmotionCircle />
+                  <TagContext.Provider value={[isGetTags, setGetTags]}>
+                    <EmotionCircle />
+                  </TagContext.Provider>
                 </EmoContext.Provider>
               </div>
               <div>
@@ -285,7 +304,12 @@ function Calendar({ sDay }) {
                 </div>
                 <div className="flex justify-centers place-content-center  ">
                   <div>
-                    <Recordbtn />
+                    <button
+                      type="submit"
+                      className=" inline-flex items-center justify-center rounded-full bg-base-pink px-12 py-3 text-sm  text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker w-full"
+                    >
+                      บันทึกเลย
+                    </button>
                   </div>
                   <div className="">
                     <MomentBtn />

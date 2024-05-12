@@ -111,8 +111,6 @@ router.get("/getUser", verifyUser, (req, res) => {
 router.post("/getUserData", verifyUser, async (req, res) => {
   const { email } = req.body;
   const emailFromCookie = req.email;
-  console.log(email);
-  console.log(emailFromCookie);
   try {
     if (email == emailFromCookie) {
       const user_data = await UserModel.findOne({ email: email });
