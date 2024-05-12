@@ -1,0 +1,48 @@
+#cards:hover > .card {
+  background: radial-gradient(
+    300px circle at var(--mouse-x) var(--mouse-y),
+    hsl(var(--color) / 2),
+    rgba(255, 255, 255, 0.12) 60%
+  );
+}
+.card {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.card:nth-child(1) {
+  --color: 350 80% 80%;
+}
+.card:nth-child(2) {
+  --color: 49 100% 80%;
+}
+.card:nth-child(3) {
+  --color: 263 72% 80%;
+}
+.card:nth-child(4) {
+  --color: 300 42% 70%;
+}
+.card:nth-child(5) {
+  --color: 370 80% 70%;
+}
+.card:nth-child(6) {
+  --color: 240 92% 85%;
+}
+.card:nth-child(7) {
+  --color: 51 17% 73%;
+}
+.card:before {
+  content: "";
+  position: absolute;
+  background-color: radial-gradient(
+    300px circle at var(--mouse-x) var(--mouse-y),
+    hsl(var(--color) / 0.35),
+    transparent 70%
+  );
+  opacity: 0;
+  z-index: 2;
+}
+#cards:hover > .card:before {
+  opacity: 1;
+}
+.scroll-bar-hidden::-webkit-scrollbar {
+  display: none;
+}

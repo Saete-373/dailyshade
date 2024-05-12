@@ -5,19 +5,18 @@ function Footer() {
   return (
     <>
       <footer className=" bg-base-pink text-slate-800">
-        <div className="p-10 flex flex-wrap flex-row  gap-y-10 justify-center">
-          <div className="flex flex-col justify-center place-items-center w-2/6">
+        <div className="p-10 flex flex-wrap flex-col sm:flex-row gap-y-10 justify-center items-start">
+          <div className="flex flex-col justify-center place-items-center sm:w-2/6">
             <img src={DSlogo} className="max-w-36 rounded-xl mb-3"></img>
             <h2 className="text-2xl font-serif text-text-color mb-2">
               DailyShade
             </h2>
-            <p className="font-inter tracking-normal max-w-42 w-42 leading-relaxed text-pretty">
+            <p className="font-inter tracking-normal max-w-30 w-30 leading-relaxed text-pretty line-clamp-2">
               จดบันทึกอารมณ์และความรู้สึกที่เกิดขึ้นในแต่ละวัน
-              <br />
               เพื่อให้รู้จักหรือเข้าใจตัวเองมากขึ้นผ่านการทำ Mood Tracking
             </p>
           </div>
-          <div className="flex justify-center w-2/6">
+          <div className="flex justify-center sm:w-2/6">
             <div className="flex flex-col gap-y-10 place-items-start">
               <div className="">
                 <h3 className="text-2xl text-left pb-2">ติดต่อเรา</h3>
@@ -78,7 +77,7 @@ function Footer() {
               </div>
             </div>
           </div>
-          <div className="flex justify-center w-2/6">
+          <div className="flex justify-center sm:w-2/6">
             <div className="flex flex-col place-items-start">
               <h3 className="text-2xl text-left pb-2">เมนู</h3>
               <ul className="text-left leading-loose">
