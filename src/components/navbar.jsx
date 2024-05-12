@@ -67,6 +67,8 @@ function StickyNavbar() {
     navigate("/login");
   };
 
+  axios.defaults.withCredentials = true;
+
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-30 mx-auto border border-white bg-white/80 py-3 shadow backdrop-blur-lg max-w-full">

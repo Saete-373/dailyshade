@@ -67,6 +67,7 @@ function Calendar({ sDay }) {
           (rec) => (rec.datetime = dayjs(rec.datetime, "YYYY-MM-DD HH:mm:ssZ"))
         );
         setRecords(res.data);
+        console.log("yay");
       })
       .catch((err) => {
         console.log(err);
@@ -138,7 +139,6 @@ function Calendar({ sDay }) {
       .then((res) => {
         console.log(res.data.log);
         dispatch({ type: "ADD", newRecord: res.data.newRecord });
-        console.log("yay");
       })
       .catch((err) => {
         console.log(err);
@@ -312,7 +312,9 @@ function Calendar({ sDay }) {
                     </button>
                   </div>
                   <div className="">
-                    <MomentBtn />
+                    <MomentBtn
+                      filteredRecords={filteredRecord(records, selectDate)}
+                    />
                   </div>
                 </div>
               </div>
