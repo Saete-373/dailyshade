@@ -66,9 +66,8 @@ router.post("/getTagsByColor", async (req, res) => {
 });
 
 router.post("/addRecord", async (req, res) => {
-  const { user_id, color_id, tag_ids, datetime } = req.body;
+  const { email, color_id, tag_ids, datetime } = req.body;
 
-  const user_id_obj = new mongoose.Types.ObjectId(user_id);
   const color_id_obj = new mongoose.Types.ObjectId(color_id);
   const tag_ids_obj = tag_ids.map((tag) => new mongoose.Types.ObjectId(tag));
   const conv_datetime = new Date(datetime).toLocaleString("en", {
@@ -77,8 +76,9 @@ router.post("/addRecord", async (req, res) => {
   const final_datetime = new Date(conv_datetime);
 
   try {
+    const user = await UserModel.findOne({ email: email });
     const record = new EmotionRecordModel({
-      user_id: user_id_obj,
+      user_id: user._id,
       color_id: color_id_obj,
       tags: tag_ids_obj,
       datetime: final_datetime,
@@ -86,7 +86,7 @@ router.post("/addRecord", async (req, res) => {
     await record.save();
 
     return res.status(200).json({
-      log: "บันทึกข้อมูลสำเร็จ",
+      log: "บันทึกข้อมูลสำเร็จ", newRecord: record
     });
   } catch (err) {
     return res.status(500).json({

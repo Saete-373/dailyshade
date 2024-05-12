@@ -1,4 +1,3 @@
-import { useState, useEffect, createContext } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -7,7 +6,6 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import axios from "axios";
 import "./App.css";
 import "./index.css";
 import StickyNavbar from "./components/navbar";
@@ -19,26 +17,7 @@ import Account from "./pages/Account";
 import FogetPW from "./pages/FogetPW";
 import Footer from "./components/footer";
 
-export const EmailContext = createContext();
-
 function App() {
-  const [isFindUser, setFindUser] = useState(true);
-  const [userEmail, setUserEmail] = useState();
-
-  useEffect(() => {
-    if (isFindUser) {
-      axios
-        .get("http://localhost:5000/user/getUser")
-        .then((res) => {
-          if (res.data.isLogin) setUserEmail(res.data.email);
-          setFindUser(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, []);
-
   const router = createBrowserRouter([
     {
       path: "register",
@@ -84,11 +63,7 @@ function App() {
     },
   ]);
 
-  return (
-    <EmailContext.Provider value={[userEmail, setUserEmail]}>
-      <RouterProvider router={router} />
-    </EmailContext.Provider>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
