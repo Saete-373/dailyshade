@@ -5,10 +5,16 @@ import inscontent2 from "../assets/inscontent2.png";
 import inscontent3 from "../assets/inscontent3.png";
 import inscontent4 from "../assets/inscontent4.png";
 function Inscontent() {
+  const inscontentAll = [
+    { img: inscontent1 },
+    { img: inscontent2 },
+    { img: inscontent3 },
+    { img: inscontent4 },
+  ];
   return (
     <>
-      <div className="flex flex-wrap flex-row justify-center bg-white/30 border-2 border-y-white p-12 gap-40 max-w-screen w-screen ">
-        <div className=" flex flex-col justify-center place-items-center">
+      <main className="lg:flex lg:flex-row ipad:flex-col justify-center bg-white/30 border-2 border-y-white p-12 gap-x-40 w-screen ipad:w-50 ">
+        <div className="flex flex-col justify-center place-items-center ">
           <a
             href="https://www.instagram.com/my.dailyshade/"
             target="_blank"
@@ -31,55 +37,19 @@ function Inscontent() {
             Instagram
           </h1>
         </div>
-        <div className="flex">
-          <div className="flex gap-12 flex-wrap justify-center ">
-            <figure className="rounded-lg max-w-40  mx-auto h-auto overflow-hidden shadow-lg">
-              <a
-                href="https://www.instagram.com/p/C5p0LhQp-Xt/?img_index=1"
-                target="_blank"
-              >
+        <div className="ipad:flex ipad:overflow-x-auto scroll-bar-hidden ipad:relative ipad:snap-mandatory ipad:snap-x ipad:scroll-smooth ">
+          <div className="flex gap-5 flex-wrap m-8 justify-center ipad:flex ipad:flex-1 ipad:flex-row ipad:flex-nowrap ipad:pl-20 ipad:pr-20 ipad:gap-x-10">
+            {inscontentAll.map((inscontentAll, index) => (
+              <figure className="rounded-lg max-w-50 w-40 ipad:w-60 overflow-hidden shadow-lg ipad:flex ipad:snap-always ipad:snap-center ">
                 <img
-                  className="w-full h-auto relative z-0 rounded-lg transition-all duration-300 hover:scale-110 hover:cursor-pointer"
-                  src={inscontent1}
+                  className="w-full lg:h-auto relative z-0 rounded-lg transition-all duration-300 hover:scale-110 hover:cursor-pointer"
+                  src={inscontentAll.img}
                 ></img>
-              </a>
-            </figure>
-            <figure className="rounded-lg max-w-40  mx-auto h-auto overflow-hidden shadow-lg">
-              <a
-                href="https://www.instagram.com/p/C5AOd0oh969/"
-                target="_blank"
-              >
-                <img
-                  className="w-full h-auto relative z-0 rounded-lg transition-all duration-300  hover:scale-110 hover:cursor-pointer"
-                  src={inscontent2}
-                ></img>
-              </a>
-            </figure>
-            <figure className="rounded-lg max-w-40  mx-auto h-auto overflow-hidden shadow-lg">
-              <a
-                href="https://www.instagram.com/p/C6bGIPRpPxb/"
-                target="_blank"
-              >
-                <img
-                  className="w-full h-auto relative z-0 rounded-lg transition-all duration-300 hover:scale-110 hover:cursor-pointer"
-                  src={inscontent3}
-                ></img>
-              </a>
-            </figure>
-            <figure className="rounded-lg max-w-40  mx-auto h-auto overflow-hidden shadow-lg">
-              <a
-                href="https://www.instagram.com/p/C6iK1x1pnaR/"
-                target="_blank"
-              >
-                <img
-                  className="w-full h-auto relative z-0 rounded-lg transition-all duration-300 hover:scale-110 hover:cursor-pointer"
-                  src={inscontent4}
-                ></img>
-              </a>
-            </figure>
+              </figure>
+            ))}
           </div>
         </div>
-      </div>
+      </main>
     </>
   );
 }

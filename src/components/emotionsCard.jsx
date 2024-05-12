@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import pic from "../assets/3.png";
 import happy from "../assets/Happy.png";
 import surprise from "../assets/Surprise.png";
@@ -8,8 +8,10 @@ import sad from "../assets/Sad.png";
 import bad from "../assets/Bad.png";
 import fearful from "../assets/Fearful.png";
 import disgusted from "../assets/Disgutsed.png";
+import "./myCSS.css";
 
 function EmotionsCard() {
+  const [isMoving, setMoving] = useState(false);
   const emotions = [
     {
       image: happy,
@@ -54,14 +56,40 @@ function EmotionsCard() {
         "เกิดจากการรับรู้ผ่านประสาทสัมผัสซึ่งอาจเกิดการแสดงออกทางร่างกาย",
     },
   ];
+  const cards = Array.from(document.querySelectorAll(".card"));
 
+  const handleMouseMove = () => {
+    for (const card of cards) {
+      const rect = card.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      card.style.setProperty("--mouse-x", `${x}px`);
+      card.style.setProperty("--mouse-y", `${y}px`);
+    }
+  };
+
+  useEffect(() => {
+    if (!isMoving) return;
+    const timeout = setTimeout(() => setMoving(false), 500);
+    return () => clearTimeout(timeout);
+  }, [isMoving]);
+
+  useEffect(() => {
+    const cardsContainer = document.getElementById("cards");
+    cardsContainer.addEventListener("mousemove", handleMouseMove);
+    return () =>
+      cardsContainer.removeEventListener("mousemove", handleMouseMove);
+  }, []);
   return (
     <>
-      <div className="flex gap-5 flex-wrap m-8 justify-center">
+      <div
+        id="cards"
+        className="flex gap-5 flex-wrap m-8 justify-center ipad:flex ipad:flex-row ipad:flex-nowrap ipad:pl-20 ipad:pr-20 ipad:gap-x-10 "
+      >
         {emotions.map((emotion, index) => (
           <div
             key={index}
-            className="flex flex-col flex-none justify-centent-center rounded-md bg-white/50 border-2 border-white py-10 px-2 max-w-56 w-56"
+            className="card flex flex-col justify-centent-center rounded-md border-2 border-white py-10 px-2 max-w-56 w-56 ipad:flex ipad:snap-always ipad:snap-center "
           >
             <div className="flex justify-center pb-2">
               <img
