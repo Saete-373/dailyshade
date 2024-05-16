@@ -99,14 +99,14 @@ function EmotionsCard() {
               ></img>
             </div>
             <h2
-              className="text-2xl font-medium text-neutral-800 uppercase pb-1"
+              className="text-2xl font-normal text-neutral-800 uppercase pb-1"
               id="emotionName"
             >
               {emotion.name}
             </h2>
             <p
               id="emotionDescription"
-              className="text-pretty leading-relaxed px-2 text-sm"
+              className="text-pretty leading-relaxed px-2 text-base"
             >
               {emotion.description}
             </p>

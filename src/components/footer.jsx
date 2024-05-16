@@ -11,7 +11,7 @@ function Footer() {
             <h2 className="text-2xl font-serif text-text-color mb-2">
               DailyShade
             </h2>
-            <p className="font-inter tracking-normal max-w-30 w-30 leading-relaxed text-pretty line-clamp-2">
+            <p className="font-inter tracking-normal max-w-30 w-30 leading-relaxed text-pretty lg:line-clamp-2">
               จดบันทึกอารมณ์และความรู้สึกที่เกิดขึ้นในแต่ละวัน
               เพื่อให้รู้จักหรือเข้าใจตัวเองมากขึ้นผ่านการทำ Mood Tracking
             </p>
@@ -32,7 +32,7 @@ function Footer() {
                       <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
                     </svg>
                   </span>
-                  <p>email</p>
+                  <p>keerataphant@gmail.com</p>
                 </div>
                 <div className="flex">
                   <span className="inline-flex items-center text-lg text-gray-800 pr-3">
@@ -46,7 +46,7 @@ function Footer() {
                       <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
                     </svg>
                   </span>
-                  <p>email</p>
+                  <p>tsittidet@gmail.com</p>
                 </div>
               </div>
               <div>
@@ -72,7 +72,7 @@ function Footer() {
                       </svg>
                     </a>
                   </span>
-                  <p>my.dailyshade</p>
+                  <p className="inline-flex items-center ">my.dailyshade</p>
                 </div>
               </div>
             </div>

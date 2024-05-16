@@ -45,7 +45,7 @@ function Inscontent() {
                 className="rounded-lg max-w-50 w-40 ipad:w-60 overflow-hidden shadow-lg ipad:flex ipad:snap-always ipad:snap-center "
               >
                 <img
-                  className="w-full lg:h-auto relative z-0 rounded-lg transition-all duration-300 hover:scale-110 hover:cursor-pointer"
+                  className="w-full lg:h-auto relative z-0 rounded-lg transition-all duration-300 hover:scale-110 "
                   src={inscontentAll.img}
                 ></img>
               </figure>

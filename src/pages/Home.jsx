@@ -49,7 +49,7 @@ function Home() {
         <GototopBtn />
         <section id="section1" className="h-screen">
           <aside className="relative flex flex-col max-w-3xl">
-            <div className="mt-60 ml-20">
+            <div className="mt-60 ml-20 ssm:ml-5">
               <Quote></Quote>
             </div>
           </aside>

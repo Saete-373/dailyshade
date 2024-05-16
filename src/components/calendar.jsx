@@ -12,7 +12,9 @@ import { SelectTag } from "../../backend/components/selectTag";
 import { TimePicker } from "antd";
 import EmotionCircle from "./emotionCircle";
 import GradientColor from "./gradientColor";
-import MomentBtn from "./momentButton";
+import { MomentaryBtn } from "./momentaryBtn";
+import Recordbtn from "./button";
+
 
 export const EmoDataContext = React.createContext();
 export const EmoContext = React.createContext();
@@ -326,19 +328,18 @@ function Calendar({ sDay }) {
                     ))}
                   </ul>
                 </div>
-                <div className="flex justify-centers place-content-center  ">
-                  <div>
-                    <button
-                      type="submit"
-                      className=" inline-flex items-center justify-center rounded-full bg-base-pink px-12 py-3 text-sm  text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker w-full"
-                    >
-                      บันทึกเลย
-                    </button>
-                  </div>
-                  <div className="">
-                    <MomentBtn
-                      filteredRecords={filteredRecord(records, selectDate)}
-                    />
+
+                <div className="flex justify-center place-content-center place-items-center ">
+                  <button
+                    type="submit"
+                    className="z-99 inline-flex items-center justify-center rounded-3xl bg-base-pink  w-36 py-3 text-sm  text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker cursor-pointer"
+                  >
+                    บันทึก
+                  </button>
+
+                  <div className="pb-20">
+                    <MomentaryBtn filteredRecords={filteredRecord(records, selectDate)} />
+
                   </div>
                 </div>
               </div>
