@@ -3,9 +3,12 @@
   margin: 0 auto;
   padding: 0 auto;
   text-align: center;
+  font-family: Anakotmai;
+  font-weight: 300;
 }
-body{
-  background-color:  rgba(255, 229, 212, 0.4);
+
+body {
+  background-color: rgba(255, 229, 212, 0.4);
 }
 .logo {
   height: 6em;
@@ -42,4 +45,3 @@ body{
 .read-the-docs {
   color: #888;
 }
-

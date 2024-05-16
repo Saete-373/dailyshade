@@ -8,16 +8,14 @@ function Recordbtn() {
   const GoToRecord = () => {
     if (userEmail) {
       // swipe to calendar
-    }
-    else {
-      alert("โปรดเข้าสู่ระบบก่อนเริ่มบันทึก")
-      
+    } else {
+      alert("โปรดเข้าสู่ระบบก่อนเริ่มบันทึก");
     }
   };
   return (
     <>
       <button
-        className=" inline-flex items-center justify-center rounded-full bg-base-pink px-12 py-3 text-sm  text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker w-full"
+        className=" inline-flex items-center justify-center rounded-full bg-base-pink px-12 py-3 text-sm  text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker max-w-full w-full ssm:w-40"
         onClick={GoToRecord}
       >
         บันทึกเลย

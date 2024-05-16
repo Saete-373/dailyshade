@@ -3,7 +3,7 @@ import { useState, useEffect, useContext, useReducer } from "react";
 import dayjs from "dayjs";
 import axios from "axios";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
-import {EmailContext} from "../App"
+import { EmailContext } from "../App";
 import { generateDate, months } from "../../backend/components/Calendar";
 import { cn } from "../../backend/components/cn";
 import { filteredRecord } from "../../backend/components/filteredRecord";
@@ -12,9 +12,9 @@ import { SelectTag } from "../../backend/components/selectTag";
 import { TimePicker } from "antd";
 import EmotionCircle from "./emotionCircle";
 import GradientColor from "./gradientColor";
+import { MomentaryBtn } from "./momentaryBtn";
 
 import Recordbtn from "./button";
-import MomentBtn from "./momentButton";
 
 export const EmoContext = React.createContext();
 
@@ -70,7 +70,7 @@ function Calendar({ sDay }) {
         const color_id = filter_1tag[0].color_id;
         const allTag = res.data.map((tag) => [tag, false]);
         console.log(allTag);
-        setSelectColorID(color_id)
+        setSelectColorID(color_id);
         setTags(allTag);
       })
       .catch((err) => {
@@ -283,12 +283,16 @@ function Calendar({ sDay }) {
                     ))}
                   </ul>
                 </div>
-                <div className="flex justify-centers place-content-center  ">
-                  <div>
-                    <Recordbtn />
-                  </div>
-                  <div className="">
-                    <MomentBtn />
+                <div className="flex justify-center place-content-center place-items-center ">
+                  <button
+                    type="submit"
+                    className="z-99 inline-flex items-center justify-center rounded-3xl bg-base-pink  w-36 py-3 text-sm  text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker cursor-pointer"
+                  >
+                    บันทึก
+                  </button>
+
+                  <div className="pb-20">
+                    <MomentaryBtn />
                   </div>
                 </div>
               </div>

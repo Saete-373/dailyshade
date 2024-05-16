@@ -1,10 +1,10 @@
-function Momentary(){
-    return(
-        <>
-            <div className="h-screen"></div>
-
-        </>
-    )
+import React from "react";
+function Momentary() {
+  return (
+    <>
+      <div className="h-screen"></div>
+    </>
+  );
 }
 
-export default Momentary
+export default Momentary;

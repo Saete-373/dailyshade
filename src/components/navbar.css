@@ -1,0 +1,10 @@
+@media screen and (max-width: 480px) {
+  .topnav.responsive {
+    position: relative;
+  }
+
+  .topnav.responsive div {
+    float: none;
+    display: block;
+  }
+}
