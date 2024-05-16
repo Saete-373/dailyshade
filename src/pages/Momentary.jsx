@@ -37,9 +37,7 @@ function Momentary() {
             <div>
               <ul>
                 {selectRecords.map((rec, index) => (
-                  <>
-                    <li key={index}></li>
-                  </>
+                  <li key={index}></li>
                 ))}
               </ul>
             </div>

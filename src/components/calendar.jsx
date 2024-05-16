@@ -14,6 +14,7 @@ import EmotionCircle from "./emotionCircle";
 import GradientColor from "./gradientColor";
 import MomentBtn from "./momentButton";
 
+export const EmoDataContext = React.createContext();
 export const EmoContext = React.createContext();
 export const TagContext = React.createContext();
 
@@ -22,18 +23,22 @@ function Calendar({ sDay }) {
   const [today, setToday] = useState(currentDate);
   const [selectDate, setSelectDate] = useState(currentDate);
   const [selectTime, setSelectTime] = useState(currentDate);
+
   const [userEmail, setUserEmail] = useContext(EmailContext);
+  const [colorData, setColorData] = useState([]);
   const [records, setRecords] = useState([]);
   const [toggleAdd, setToggleAdd] = useState(false);
-  const [color, setColor] = useState("#888888");
+  const [selectColor, setselectColor] = useState("#888888");
   const [selectColorID, setSelectColorID] = useState("");
   const [tags, setTags] = useState([]);
   const [isGetTags, setGetTags] = useState(true);
 
-  const reducer = (state, action) => {
+  const reducerR = (state, action) => {
     switch (action.type) {
       case "ADD":
         return [...state, action.newRecord];
+      case "REFRESH":
+        return state;
       default:
         return state;
     }
@@ -41,21 +46,25 @@ function Calendar({ sDay }) {
 
   const initialState = records;
 
-  const [recordReducer, dispatch] = useReducer(reducer, initialState);
+  const [recordReducer, dispatch] = useReducer(reducerR, initialState);
 
   const days = ["อา.", "จ.", "อ.", "พ.", "พฤ.", "ศ.", "ส."];
 
   axios.defaults.withCredentials = true;
 
   useEffect(() => {
+    dispatch({ type: "REFRESH" });
+
     if (userEmail) {
       GetUserRecord();
 
-      if (color != "#888888") {
+      GetColorData();
+
+      if (selectColor != "#888888") {
         if (isGetTags) GetTags();
       }
     }
-  }, [userEmail, recordReducer, color, isGetTags]);
+  }, [userEmail, recordReducer, selectColor, isGetTags]);
 
   const GetUserRecord = () => {
     axios
@@ -77,12 +86,14 @@ function Calendar({ sDay }) {
   const GetTags = () => {
     axios
       .post("http://localhost:5000/gradient/getTagsByColor", {
-        selected_color: color,
+        selected_color: selectColor,
       })
       .then((res) => {
+        console.log(res.data);
         const filter_1tag = res.data.filter((tag) => tag.color_id.length == 1);
         const color_id = filter_1tag[0].color_id[0];
         const allTag = res.data.map((tag) => [tag, false]);
+        console.log(allTag);
         setSelectColorID(color_id);
         setTags(allTag);
       })
@@ -90,6 +101,17 @@ function Calendar({ sDay }) {
         console.log(err);
       });
     setGetTags(false);
+  };
+
+  const GetColorData = () => {
+    axios
+      .get("http://localhost:5000/gradient/getColors")
+      .then((res) => {
+        setColorData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const selectDay = (day) => {
@@ -273,11 +295,13 @@ function Calendar({ sDay }) {
 
               <p className="pb-5">ตอนนี้คุณรู้สึกอย่างไร</p>
               <div className="flex justify-center pb-5">
-                <EmoContext.Provider value={[color, setColor]}>
-                  <TagContext.Provider value={[isGetTags, setGetTags]}>
-                    <EmotionCircle />
-                  </TagContext.Provider>
-                </EmoContext.Provider>
+                <EmoDataContext.Provider value={[colorData, setColorData]}>
+                  <EmoContext.Provider value={[selectColor, setselectColor]}>
+                    <TagContext.Provider value={[isGetTags, setGetTags]}>
+                      <EmotionCircle />
+                    </TagContext.Provider>
+                  </EmoContext.Provider>
+                </EmoDataContext.Provider>
               </div>
               <div>
                 <div className="pb-5">
