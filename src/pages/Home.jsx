@@ -5,6 +5,7 @@ import Calendar from "../components/calendar";
 import EmotionsCardPanel from "../components/EmotionsCardPanel";
 import Inscontent from "../components/insContent";
 import GototopBtn from "../components/gototopBtn";
+import { FileInput } from "flowbite-react";
 
 export const EmailContext = createContext();
 
@@ -12,6 +13,7 @@ function Home() {
   const [isFindUser, setFindUser] = useState(true);
   const [userEmail, setUserEmail] = useState();
   const [sDay, setSDay] = useState();
+  const [image, setImage] = useState();
 
   useEffect(() => {
     if (isFindUser) {
@@ -26,6 +28,18 @@ function Home() {
         });
     }
   }, []);
+
+  const getURL = (evt) => {
+    var reader = new FileReader();
+    reader.readAsDataURL(evt.target.files[0]);
+    reader.onload = () => {
+      console.log(reader.result);
+      setImage(reader.result);
+    };
+    reader.onerror = (err) => {
+      console.log(err);
+    };
+  };
 
   axios.defaults.withCredentials = true;
 
@@ -47,7 +61,9 @@ function Home() {
         ) : (
           ""
         )}
-
+        <input type="file" id="fileInput" onChange={getURL}></input>
+        <button onClick={getURL}>click me</button>
+        <img src={image} />
         <section id="section3">
           <article>
             <EmotionsCardPanel></EmotionsCardPanel>

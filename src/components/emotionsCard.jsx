@@ -1,12 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import happy from "../assets/Happy.png";
-import surprise from "../assets/Surprise.png";
-import angry from "../assets/Angry.png";
-import sad from "../assets/Sad.png";
-import bad from "../assets/Bad.png";
-import fearful from "../assets/Fearful.png";
-import disgusted from "../assets/Disgutsed.png";
+import angry from "../assets/E1_Angry.png";
+import disgusted from "../assets/E2_Disgusted.png";
+import sad from "../assets/E3_Sad.png";
+import happy from "../assets/E4_Happy.png";
+import surprise from "../assets/E5_Surprise.png";
+import bad from "../assets/E6_Bad.png";
+import fearful from "../assets/E7_Fearful.png";
 import "./myCSS.css";
 
 function EmotionsCard() {
@@ -18,7 +18,7 @@ function EmotionsCard() {
       description:
         "ภาวะที่เราพึงพอใจ เพลิดเพลินกับบางสิ่งและเป็นสัญญาณของการมีสุขภาวะที่ดี",
     },
-    
+
     {
       image: surprise,
       name: "Surprise",
