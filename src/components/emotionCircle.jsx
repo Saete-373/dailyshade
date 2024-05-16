@@ -1,37 +1,36 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { EmoDataContext } from "./calendar";
 import { EmoContext } from "./calendar";
+import { TagContext } from "./calendar";
 import "./emotionCircle.css";
-import cir0 from "../assets/pro0.png";
-import cir1 from "../assets/pro1.png";
-import cir2 from "../assets/pro2.png";
-import cir3 from "../assets/pro3.png";
-import cir4 from "../assets/pro4.png";
-import cir5 from "../assets/pro5.png";
-import cir6 from "../assets/pro6.png";
-import cir7 from "../assets/pro7.png";
 
 function EmotionCircle() {
+  const [colorData, setColorData] = useContext(EmoDataContext);
+  const [selectColor, setselectColor] = useContext(EmoContext);
+  const [isGetTags, setGetTags] = useContext(TagContext);
+
+  const color_data = colorData.filter((color) => color.color_name != "Numb");
+  const numb_data = colorData.filter((color) => color.color_name == "Numb")[0];
+
   const [isActive, setActive] = useState(false);
-  // const [color, setColor] = useState("#888888");
-  const [color, setColor] = useContext(EmoContext);
-  const [allColor, setAllColor] = useState();
-  // const [selectEmoIDX, setSelectEmoIDX] = useContext(EmoContext);
+  const [allColor, setAllColor] = useState(color_data);
+  const [numb, setNumb] = useState(numb_data);
   const [selectEmoIDX, setSelectEmoIDX] = useState(7);
 
-  const emo_pics = [cir1, cir2, cir3, cir4, cir5, cir6, cir7];
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/gradient/getColors")
-      .then((res) => {
-        setAllColor(res.data.map((color) => color.color));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:5000/gradient/getColors")
+  //     .then((res) => {
+  //       const color_datas = res.data;
+  //       setNumb(color_datas.filter((color) => color.color_name == "Numb"));
+  //       setColorData(color_datas.filter((color) => color.color_name != "Numb"));
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   const onToggle = () => {
     if (isActive == true) {
@@ -42,8 +41,10 @@ function EmotionCircle() {
   };
 
   const SelectEmo = (index) => {
+    console.log(numb);
     setSelectEmoIDX(index);
-    setColor(allColor[index]);
+    setselectColor(allColor[index].color);
+    setGetTags(true);
     setActive(false);
   };
 
@@ -54,15 +55,20 @@ function EmotionCircle() {
           <div
             className="toggle"
             onClick={onToggle}
-            style={{ backgroundColor: color }}
+            style={{
+              backgroundColor: selectColor,
+            }}
           >
-            {selectEmoIDX >= 0 && selectEmoIDX <= emo_pics.length - 1 ? (
-              <img src={emo_pics[selectEmoIDX]} />
+            {selectEmoIDX != allColor.length ? (
+              <img
+                src={allColor[selectEmoIDX].emo_pic}
+                style={{ transform: "rotate(270deg)" }}
+              />
             ) : (
-              <img src={cir0} />
+              <img src={numb.emo_pic} style={{ transform: "rotate(270deg)" }} />
             )}
           </div>
-          {emo_pics.map((pic, index) => {
+          {allColor.map((pic, index) => {
             return isActive ? (
               <li
                 key={index}
@@ -71,7 +77,7 @@ function EmotionCircle() {
                 }}
               >
                 <img
-                  src={pic}
+                  src={pic.emo_pic}
                   style={{
                     transform:
                       "rotate(calc(" + ((360 / -7) * index + 270) + "deg))",
@@ -86,7 +92,7 @@ function EmotionCircle() {
                   transitionDelay: "calc(" + 0.1 * index + "s)",
                 }}
               >
-                <img src={pic} />
+                <img src={pic.emo_pic} />
               </li>
             );
           })}

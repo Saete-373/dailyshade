@@ -2,7 +2,6 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { EmailContext } from "../App";
 import DSlogo from "../assets/DSlogo.png";
 import "./navbar.css";
 function toggleDropdown() {
@@ -21,23 +20,41 @@ function gotoEmotions() {
 }
 function StickyNavbar() {
   const [userData, setUserData] = useState();
-  const [userEmail, setUserEmail] = useContext(EmailContext);
+  const [isFindUser, setFindUser] = useState(true);
+  const [userEmail, setUserEmail] = useState();
   const navigate = useNavigate();
   const [isToggle, setIstoggle] = useState(false);
 
   useEffect(() => {
+    if (isFindUser) {
+      GetUserData();
+    }
+  }, [isFindUser]);
+
+  const GetUserData = () => {
     axios
-      .post("http://localhost:5000/user/getUserData", {
-        email: userEmail,
-      })
+      .get("http://localhost:5000/user/getUser")
       .then((res) => {
-        // console.log(res.data);
-        setUserData(res.data);
+        if (res.data.isLogin) {
+          setUserEmail(res.data.email);
+          axios
+            .post("http://localhost:5000/user/getUserData", {
+              email: res.data.email,
+            })
+            .then((res) => {
+              setUserData(res.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+        setFindUser(false);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [userEmail]);
+  };
+  
 
   const logOut = () => {
     axios
@@ -62,6 +79,8 @@ function StickyNavbar() {
       setIstoggle(false);
     }
   }
+  axios.defaults.withCredentials = true;
+
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-30 mx-auto border border-white bg-white/80 py-3 shadow backdrop-blur-lg max-w-full">

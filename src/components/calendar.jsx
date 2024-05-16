@@ -3,7 +3,7 @@ import { useState, useEffect, useContext, useReducer } from "react";
 import dayjs from "dayjs";
 import axios from "axios";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
-import { EmailContext } from "../App";
+import { EmailContext } from "../pages/Home";
 import { generateDate, months } from "../../backend/components/Calendar";
 import { cn } from "../../backend/components/cn";
 import { filteredRecord } from "../../backend/components/filteredRecord";
@@ -13,39 +13,63 @@ import { TimePicker } from "antd";
 import EmotionCircle from "./emotionCircle";
 import GradientColor from "./gradientColor";
 import { MomentaryBtn } from "./momentaryBtn";
-
 import Recordbtn from "./button";
 
+
+export const EmoDataContext = React.createContext();
 export const EmoContext = React.createContext();
+export const TagContext = React.createContext();
 
 function Calendar({ sDay }) {
   const currentDate = dayjs();
   const [today, setToday] = useState(currentDate);
   const [selectDate, setSelectDate] = useState(currentDate);
   const [selectTime, setSelectTime] = useState(currentDate);
+
   const [userEmail, setUserEmail] = useContext(EmailContext);
+  const [colorData, setColorData] = useState([]);
   const [records, setRecords] = useState([]);
   const [toggleAdd, setToggleAdd] = useState(false);
-  const [color, setColor] = useState("#888888");
+  const [selectColor, setselectColor] = useState("#888888");
   const [selectColorID, setSelectColorID] = useState("");
   const [tags, setTags] = useState([]);
-  const [reducerValue, forceUpdate] = useReducer((x) => x + 1, 0);
+  const [isGetTags, setGetTags] = useState(true);
+
+  const reducerR = (state, action) => {
+    switch (action.type) {
+      case "ADD":
+        return [...state, action.newRecord];
+      case "REFRESH":
+        return state;
+      default:
+        return state;
+    }
+  };
+
+  const initialState = records;
+
+  const [recordReducer, dispatch] = useReducer(reducerR, initialState);
 
   const days = ["อา.", "จ.", "อ.", "พ.", "พฤ.", "ศ.", "ส."];
 
   axios.defaults.withCredentials = true;
 
   useEffect(() => {
+    dispatch({ type: "REFRESH" });
+
     if (userEmail) {
       GetUserRecord();
-    }
-    if (color != "#888888") {
-      GetTags();
-    }
-  }, [userEmail, color, reducerValue]);
 
-  const GetUserRecord = async () => {
-    await axios
+      GetColorData();
+
+      if (selectColor != "#888888") {
+        if (isGetTags) GetTags();
+      }
+    }
+  }, [userEmail, recordReducer, selectColor, isGetTags]);
+
+  const GetUserRecord = () => {
+    axios
       .post("http://localhost:5000/gradient/getUserRecord", {
         email: userEmail,
       })
@@ -54,24 +78,38 @@ function Calendar({ sDay }) {
           (rec) => (rec.datetime = dayjs(rec.datetime, "YYYY-MM-DD HH:mm:ssZ"))
         );
         setRecords(res.data);
+        console.log("yay");
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const GetTags = async () => {
-    await axios
+  const GetTags = () => {
+    axios
       .post("http://localhost:5000/gradient/getTagsByColor", {
-        selected_color: color,
+        selected_color: selectColor,
       })
       .then((res) => {
+        console.log(res.data);
         const filter_1tag = res.data.filter((tag) => tag.color_id.length == 1);
-        const color_id = filter_1tag[0].color_id;
+        const color_id = filter_1tag[0].color_id[0];
         const allTag = res.data.map((tag) => [tag, false]);
         console.log(allTag);
         setSelectColorID(color_id);
         setTags(allTag);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setGetTags(false);
+  };
+
+  const GetColorData = () => {
+    axios
+      .get("http://localhost:5000/gradient/getColors")
+      .then((res) => {
+        setColorData(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -94,7 +132,7 @@ function Calendar({ sDay }) {
     setSelectTime(time);
   };
 
-  const HandleSubmit = (evt) => {
+  const HandleSubmit = async (evt) => {
     evt.preventDefault();
 
     const selectedTagIDs = tags
@@ -117,18 +155,20 @@ function Calendar({ sDay }) {
 
     axios
       .post("http://localhost:5000/gradient/addRecord", {
-        user_id: userEmail,
+        email: userEmail,
         color_id: selectColorID,
         tag_ids: selectedTagIDs,
         datetime: newDateTime,
       })
       .then((res) => {
-        console.log(res.data);
+        console.log(res.data.log);
+        dispatch({ type: "ADD", newRecord: res.data.newRecord });
       })
       .catch((err) => {
         console.log(err);
       });
-    forceUpdate();
+    setToggleAdd(false);
+    setGetTags(true);
   };
 
   return (
@@ -206,6 +246,7 @@ function Calendar({ sDay }) {
                         )}
                         onClick={() => {
                           selectDay(date);
+                          console.log(date.format("YYYY-MM-DD"));
                         }}
                       >
                         {records
@@ -256,9 +297,13 @@ function Calendar({ sDay }) {
 
               <p className="pb-5">ตอนนี้คุณรู้สึกอย่างไร</p>
               <div className="flex justify-center pb-5">
-                <EmoContext.Provider value={[color, setColor]}>
-                  <EmotionCircle />
-                </EmoContext.Provider>
+                <EmoDataContext.Provider value={[colorData, setColorData]}>
+                  <EmoContext.Provider value={[selectColor, setselectColor]}>
+                    <TagContext.Provider value={[isGetTags, setGetTags]}>
+                      <EmotionCircle />
+                    </TagContext.Provider>
+                  </EmoContext.Provider>
+                </EmoDataContext.Provider>
               </div>
               <div>
                 <div className="pb-5">
@@ -283,6 +328,7 @@ function Calendar({ sDay }) {
                     ))}
                   </ul>
                 </div>
+
                 <div className="flex justify-center place-content-center place-items-center ">
                   <button
                     type="submit"
@@ -292,7 +338,8 @@ function Calendar({ sDay }) {
                   </button>
 
                   <div className="pb-20">
-                    <MomentaryBtn />
+                    <MomentaryBtn filteredRecords={filteredRecord(records, selectDate)} />
+
                   </div>
                 </div>
               </div>
