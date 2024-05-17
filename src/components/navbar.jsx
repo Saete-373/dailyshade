@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import DSlogo from "../assets/DSlogo.png";
-
+import "./navbar.css";
 function toggleDropdown() {
   const list = document.querySelector("#dropdown");
   list.classList.toggle("hidden");
@@ -23,6 +23,7 @@ function StickyNavbar() {
   const [isFindUser, setFindUser] = useState(true);
   const [userEmail, setUserEmail] = useState();
   const navigate = useNavigate();
+  const [isToggle, setIstoggle] = useState(false);
 
   useEffect(() => {
     if (isFindUser) {
@@ -66,7 +67,18 @@ function StickyNavbar() {
       });
     navigate("/login");
   };
+  function myFunction() {
+    var x = document.getElementById("myTopnav");
 
+    if (x.classList.contains("topnav") && isToggle == false) {
+      x.classList.add("responsive");
+      setIstoggle(true);
+    }
+    if (x.classList.contains("topnav") && isToggle == true) {
+      x.classList.remove("responsive");
+      setIstoggle(false);
+    }
+  }
   axios.defaults.withCredentials = true;
 
   return (
@@ -74,20 +86,20 @@ function StickyNavbar() {
       <header className="fixed inset-x-0 top-0 z-30 mx-auto border border-white bg-white/80 py-3 shadow backdrop-blur-lg max-w-full">
         <div className="px-10">
           <div className="flex items-center justify-between ">
-            <div className="flex shrink-0 w-1/5">
+            <div className="flex shrink-0 w-1/5 ssm:w-2/4">
               <a aria-current="page" className="flex items-center" href="/">
                 <img className="h-10 w-auto rounded-lg" src={DSlogo} alt="" />
-                <p className="inline-block rounded-lg px-3 py-1 text-base font-medium text-text-color transition-all duration-200 ">
+                <p className="inline-block rounded-lg px-3 py-1 text-base font-medium font-serif text-text-color transition-all duration-200 ">
                   DailyShade
                 </p>
               </a>
             </div>
-            <div className="w-3/5 md:block md:w-auto" id="navbar-default">
-              <ul className="font-medium flex  p-4 md:p-0 mt-4 flex-row md:space-x-8 md:mt-0  ">
+            <div className="w-3/5 lg:flex lg:w-auto ssm:flex ssm:justify-end ssm:place-content-end ssm:w-2/4 ">
+              <ul className=" flex  p-4 md:p-0 mt-4 flex-row md:space-x-8 md:mt-0 ssm:hidden justify-center">
                 <li>
                   <a
                     aria-current="page"
-                    className="group inline-block lg px-6 py-1 font-medium text-text-color"
+                    className="group inline-block  px-6 py-1  text-text-color"
                     href="/"
                   >
                     หน้าหลัก
@@ -96,7 +108,7 @@ function StickyNavbar() {
                 </li>
                 <li>
                   <a
-                    className="group inline-block lg px-6 py-1 font-medium text-text-color cursor-pointer"
+                    className="group inline-block  px-6 py-1  text-text-color cursor-pointer"
                     onClick={gotoCalendar}
                   >
                     ปฏิทิน
@@ -105,7 +117,7 @@ function StickyNavbar() {
                 </li>
                 <li>
                   <a
-                    className="group inline-block lg px-6 py-1 font-medium text-text-color cursor-pointer"
+                    className="group inline-block  px-6 py-1  text-text-color cursor-pointer"
                     onClick={gotoEmotions}
                   >
                     ความรู้สึก
@@ -113,23 +125,48 @@ function StickyNavbar() {
                   </a>
                 </li>
               </ul>
+              <a
+                href="javascript:void(0);"
+                className="hidden ssm:block ssm:absolute ssm:right-5 ssm:top-4 "
+                onClick={myFunction}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-8 h-8"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                </svg>
+              </a>
             </div>
-            <div className="flex items-center justify-end gap-4 w-1/5">
+            <div className="flex items-center justify-end gap-4 w-1/5 ">
               {userEmail ? (
-                <>
+                <div className="flex topnav " id="myTopnav">
                   <img
                     onClick={toggleDropdown}
                     id="dropdownButton"
-                    className="h-10 w-auto inline-block rounded-full hover:ring-2"
+                    className="h-10 w-auto inline-block rounded-full hover:ring-2 ssm:hidden "
                     src={DSlogo}
                     alt=""
                   ></img>
                   <div
                     id="dropdown"
-                    className=" divide-y rounded border-[1px] border-gray-300 bg-white py-3 px-4 absolute top-14 max-w-64 w-64 shadow-md text-left hidden"
+                    className=" divide-y rounded border-[1px] border-gray-300 backdrop-blur-md bg-white/30 py-3 px-4 absolute top-14 right-10 max-w-64 w-64 shadow-md text-left hidden "
                   >
                     <ul>
                       <li className="cursor-pointer rounded hover:bg-gray-300 p-2 ">
+                        <img
+                          className="h-10 w-auto ssm:inline-block rounded-full hover:ring-2 hidden"
+                          src={DSlogo}
+                          alt=""
+                        ></img>
                         <p>@{userData ? userData.username : "johndoe123"}</p>
                         <p className=" p-2 font-semibold">
                           {userData ? userData.email : "johndoe123@gmail.com"}
@@ -249,18 +286,18 @@ function StickyNavbar() {
                       </li>
                     </ul>
                   </div>
-                </>
+                </div>
               ) : (
-                <div className="flex gap-2">
+                <div className="flex gap-2 ssm:hidden ipad:items-end ipad:justify-end topnav">
                   <a
-                    className=" items-center justify-center rounded-full bg-white px-3 py-2 text-sm  text-text-color shadow-sm ring-1 ring-inset ring-gray-300 transition-all duration-150 hover:bg-pink-darker sm:inline-flex"
+                    className="ipad:hidden  items-center justify-center rounded-full bg-white px-3 py-2 text-sm  text-text-color shadow-sm ring-1 ring-inset ring-gray-300 transition-all duration-150 hover:bg-pink-darker sm:inline-flex"
                     href="/"
                   >
                     สมัครบัญชี
                   </a>
                   <a
                     className="inline-flex items-center justify-center rounded-full bg-base-pink px-3 py-2 text-sm  text-text-color shadow-sm transition-all duration-150 hover:bg-pink-darker focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                    href="/login"
+                    href="/auth"
                   >
                     เข้าสู่ระบบ
                   </a>

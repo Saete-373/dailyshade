@@ -59,7 +59,7 @@ function Quote() {
       <aside className="flex">
         <div className="text-left">
           <p
-            className="text-pretty quote-text text-3xl text-gray-700 mb-5 leading-relaxed"
+            className="text-pretty quote-text text-3xl text-gray-700 mb-5 leading-relaxed font-serif"
             id="quoteText"
           >
             Spread love everywhere you go. Let no one ever come to you without
@@ -69,7 +69,7 @@ function Quote() {
             กุเอง
           </p>
           <p className="pb-8 text-left pt-10 text-xl">วันนี้เป็นอย่างไรบ้าง?</p>
-          <div className="mb-36 w-1/4">
+          <div className="mb-36 w-1/4 ssm:w-2/4">
             <Recordbtn></Recordbtn>
           </div>
         </div>

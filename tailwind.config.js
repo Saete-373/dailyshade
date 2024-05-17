@@ -14,7 +14,7 @@ module.exports = {
         "wheat-color": "#EFEDEC",
       },
       screens: {
-        'ssm' : '480px',
+        'ssm' : {'max': '480px'},
         'sm': '640px',
         // => @media (min-width: 640px) { ... }
   
@@ -31,6 +31,11 @@ module.exports = {
         // => @media (min-width: 1536px) { ... }
         'ipad': {'max': '1024px'},
         // => @media (max-width: 767px) { ... }
+      },
+      animation: {
+        'spin-slow': 'spin 20s linear infinite',
+        'spin-fast': 'spin 10s linear infinite',
+        'shake' : 'animation: shake 3s infinite',
       }
     },
   },

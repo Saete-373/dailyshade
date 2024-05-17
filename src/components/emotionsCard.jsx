@@ -10,7 +10,7 @@ import fearful from "../assets/E7_Fearful.png";
 import "./myCSS.css";
 
 function EmotionsCard() {
-  const [isMoving, setMoving] = useState(false);
+  const [isMoving, setMoving] = useState(true);
   const emotions = [
     {
       image: happy,
@@ -70,7 +70,7 @@ function EmotionsCard() {
 
   useEffect(() => {
     if (!isMoving) return;
-    const timeout = setTimeout(() => setMoving(false), 500);
+    const timeout = setTimeout(() => setMoving(false), 1000);
     return () => clearTimeout(timeout);
   }, [isMoving]);
 
@@ -99,14 +99,14 @@ function EmotionsCard() {
               ></img>
             </div>
             <h2
-              className="text-2xl font-medium text-neutral-800 uppercase pb-1"
+              className="text-2xl font-normal text-neutral-800 uppercase pb-1"
               id="emotionName"
             >
               {emotion.name}
             </h2>
             <p
               id="emotionDescription"
-              className="text-pretty leading-relaxed px-2 text-sm"
+              className="text-pretty leading-relaxed px-2 text-base"
             >
               {emotion.description}
             </p>
