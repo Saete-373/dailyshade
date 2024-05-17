@@ -26,7 +26,16 @@
   align-items: center;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 3px 4px rgb(0, 0, 0, 0.15);
+
+}
+
+.menu img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+
 }
 
 .toggle {
