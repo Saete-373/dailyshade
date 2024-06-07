@@ -5,28 +5,45 @@
   position: relative;
   /* อันนี้คือขนาดทั้งหมด ให้ปรับขนาดแค่ตรงนี้ */
   width: 150px;
-  height: 150px;
   transform: rotate(90deg);
 }
-
+.h-150 {
+  height: 150px;
+}
+.h-0 {
+  height: 0;
+}
+.hide {
+  height: 0;
+}
 .menu li {
   position: absolute;
   left: 2%;
   list-style: none;
   width: 20%;
-  height: 20%;
   transform-origin: 250%;
   transition: 0.5s;
   transform: rotate(0deg) translateX(200%);
+  object-fit: contain;
 }
-
+.menu img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: contain;
+}
 .menu li img {
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 3px 4px rgb(0, 0, 0, 0.15);
+  object-fit: contain;
+}
+.menu li img:hover {
+  transform: scale(1.1);
 }
 
 .toggle {
@@ -35,7 +52,7 @@
   align-items: center;
   position: absolute;
   width: 27%;
-  height: 27%;
+  height: auto;
   border-radius: 50%;
   z-index: 10000;
   cursor: pointer;

@@ -61,9 +61,9 @@ function DeleteModal(props) {
                           <span className="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
                             <button
                               type="button"
-                              className="inline-flex justify-center w-full rounded-xl border border-transparent px-10 py-2 bg-red-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+                              className="inline-flex justify-center rounded-xl border border-transparent px-12 py-2 bg-red-600 leading-6  text-white shadow-sm hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5"
                             >
-                              DELETE
+                              ยืนยัน
                             </button>
                           </span>
                         </div>
@@ -77,9 +77,9 @@ function DeleteModal(props) {
                   <button
                     type="button"
                     onClick={() => props.setTrigger(false)}
-                    className="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+                    className="inline-flex justify-center w-full rounded-md border  px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150 sm:text-sm sm:leading-5"
                   >
-                    Cancel
+                    ยกเลิก
                   </button>
                 </span>
               </div>

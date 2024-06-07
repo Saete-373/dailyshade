@@ -12,6 +12,7 @@ module.exports = {
         "text-color": "#2F0601",
         "ins-color": "#d6249f",
         "wheat-color": "#EFEDEC",
+        "midnight": "#101720",
       },
       screens: {
         'ssm' : {'max': '480px'},

@@ -49,7 +49,7 @@ function Register() {
         .then((res) => {
           console.log(res.data.log);
           setLog(res.data.log);
-          navigate("/login");
+          navigate("/auth");
         })
         .catch((err) => {
           console.log(err.response.data.log);
@@ -184,14 +184,14 @@ function Register() {
 
           <button
             type="submit"
-            className="uppercase inline-flex items-center justify-center rounded-3xl bg-base-pink  w-full py-4 text-sm  text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker mt-2"
+            className="uppercase inline-flex items-center justify-center rounded-3xl bg-base-pink  w-full py-4 text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker mt-2"
           >
             สร้างบัญชี
           </button>
           <div className="pt-5">
             มีบัญชีอยู่แล้ว?
             <span
-              className=" pl-5 underline cursor-pointer"
+              className=" pl-5 hover:underline underline-offset-4 cursor-pointer"
               id="flipButtonBack"
             >
               เข้าสู่ระบบ

@@ -17,6 +17,7 @@ import Account from "./pages/Account";
 import FogetPW from "./pages/FogetPW";
 import Footer from "./components/footer";
 import { Auth } from "./pages/Authen";
+import { Verify } from "./pages/verify";
 
 function App() {
   const router = createBrowserRouter([
@@ -59,6 +60,14 @@ function App() {
           <StickyNavbar />
           <Home />
           <Footer />
+        </>
+      ),
+    },
+    {
+      path: "/verify",
+      element: (
+        <>
+          <Verify />
         </>
       ),
     },

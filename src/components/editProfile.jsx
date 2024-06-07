@@ -2,8 +2,44 @@ import React from "react";
 import Recordbtn from "./button";
 import png from "../assets/3.png";
 import { useRef } from "react";
+import { useState, useEffect, useContext } from "react";
 
+import axios from "axios";
 function EditProfile() {
+  const [userData, setUserData] = useState();
+  const [isFindUser, setFindUser] = useState(true);
+  const [userEmail, setUserEmail] = useState();
+
+  useEffect(() => {
+    if (isFindUser) {
+      GetUserData();
+    }
+  }, [isFindUser]);
+
+  const GetUserData = () => {
+    axios
+      .get("http://localhost:5000/user/getUser")
+      .then((res) => {
+        if (res.data.isLogin) {
+          setUserEmail(res.data.email);
+          axios
+            .post("http://localhost:5000/user/getUserData", {
+              email: res.data.email,
+            })
+            .then((res) => {
+              setUserData(res.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+        setFindUser(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  axios.defaults.withCredentials = true;
   const uploadedImage = React.useRef(null);
   const handleImageUpload = (e) => {
     const [file] = e.target.files;
@@ -26,7 +62,7 @@ function EditProfile() {
             <div className="flex flex-col pb-2">
               <label className="text-left">อีเมล</label>
               <div className="flex">
-                <span className="inline-flex items-center px-3 text-sm text-gray-900 border-2 rounded-s-xl border-white">
+                <span className="inline-flex items-center px-3 text-sm text-gray-900 rounded-s-xl border-none bg-white">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -39,15 +75,18 @@ function EditProfile() {
                 </span>
                 <input
                   disabled
-                  placeholder="กุเองจ้า@mail.com"
-                  className="rounded-e-xl p-2 bg-white-100 border-2 border-white w-full placeholder-black-400"
+                  placeholder={
+                    userData ? userData.email : "johndoe123@gmail.com"
+                  }
+                  className="cursor-not-allowed rounded-e-xl p-2 bg-white border-none w-full placeholder-gray-500"
                 />
               </div>
             </div>
+
             <div className="flex flex-col pb-2">
               <label className="text-left">ชื่อผู้ใช้</label>
               <div className="flex">
-                <span className="inline-flex items-center px-3 text-sm text-gray-900 border-2 rounded-s-xl border-white">
+                <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-white rounded-s-xl border-none ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -65,14 +104,16 @@ function EditProfile() {
                 </span>
                 <input
                   type="text"
-                  className="rounded-e-xl p-2 bg-transparent border-2 border-white w-full"
+                  defaultValue={userData ? userData.username : "johndoe123"}
+                  placeholder="ชื่อผู้ใช้"
+                  className="rounded-e-xl p-2 border-none bg-white-100  w-full placeholder-gray-500"
                 />
               </div>
             </div>
-            <div className="flex flex-col pb-2">
+            {/* <div className="flex flex-col pb-2">
               <label className="text-left">วันเกิด</label>
               <div className="flex">
-                <span className="inline-flex items-center px-3 text-sm text-gray-900 border-2 rounded-s-xl border-white">
+                <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-white rounded-s-xl border-none">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -84,17 +125,18 @@ function EditProfile() {
                 </span>
                 <input
                   placeholder="Select date"
-                  type="text"
-                  className="rounded-e-xl p-2 bg-transparent border-2 border-white w-full"
+                  type="date"
+                  className="rounded-e-xl p-2 border-none bg-white-100  w-full placeholder-gray-500"
                 />
               </div>
-            </div>
+            </div> */}
           </div>
+
           <div className="w-2/5 flex flex-col justify-center place-items-center">
             <div>
               <img
                 ref={uploadedImage}
-                className="h-36 w-36 object-cover rounded-full"
+                className="h-36 w-36 object-cover rounded-full border-4 border-base-pink"
                 src={png}
                 alt="Current profile photo"
               />
@@ -102,20 +144,24 @@ function EditProfile() {
             <label className="block pt-5">
               <input
                 type="file"
-                className=" w-32 text-sm text-slate-500 
-      file:mr-4 file:py-2 file:px-6
-      file:rounded-xl file:border-white file:bg-transparent
-      file:text-sm file:font-semibold
- file:text-pink-darker
-      hover:file:bg-base-pink
-    "
+                className="w-32 text-sm text-slate-500 
+                          file:mr-4 file:py-2 file:px-6
+                          file:rounded-xl file:border-none file:bg-base-pink
+                          file:text-sm file:font-light
+                        file:text-text-color
+                        hover:file:bg-pink-darker hover:file:cursor-pointer"
                 onChange={handleImageUpload}
               />
             </label>
           </div>
         </div>
-        <div className=" w-3/5 p-10">
-          <Recordbtn />
+        <div className=" w-3/5 px-10">
+          <button
+            type="submit"
+            className="z-99 inline-flex items-center justify-center rounded-3xl bg-base-pink w-full py-3 text-sm  text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker cursor-pointer"
+          >
+            บันทึกการเปลี่ยนแปลง
+          </button>
         </div>
       </form>
     </>
