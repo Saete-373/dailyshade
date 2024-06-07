@@ -58,7 +58,7 @@ function EmotionsCard() {
   ];
   const cards = Array.from(document.querySelectorAll(".card"));
 
-  const handleMouseMove = () => {
+  const handleMouseMove = (event) => {
     for (const card of cards) {
       const rect = card.getBoundingClientRect();
       const x = event.clientX - rect.left;
@@ -85,21 +85,21 @@ function EmotionsCard() {
       <div
         onMouseMove={handleMouseMove}
         id="cards"
-        className="flex gap-5 flex-wrap m-8 justify-center ipad:flex ipad:flex-row ipad:flex-nowrap ipad:pl-20 ipad:pr-20 ipad:gap-x-10 "
+        className="flex gap-5 flex-wrap m-7 justify-center ipad:flex ipad:flex-row ipad:flex-nowrap ipad:pl-20 ipad:pr-20 ipad:gap-x-10 "
       >
         {emotions.map((emotion, index) => (
           <div
             key={index}
-            className="card flex flex-col justify-centent-center rounded-md border-2 border-white py-10 px-2 max-w-56 w-56 ipad:flex ipad:snap-always ipad:snap-center "
+            className="card flex flex-col justify-centent-center rounded-lg border-2 border-white py-6 px-2 max-w-56 w-56 ipad:flex ipad:snap-always ipad:snap-center "
           >
             <div className="flex justify-center pb-2">
               <img
                 src={emotion.image}
-                className="rounded-full max-w-56 w-24"
+                className="rounded-full max-w-52 w-20"
               ></img>
             </div>
             <h2
-              className="text-2xl font-normal text-neutral-800 uppercase pb-1"
+              className="text-xl font-normal text-neutral-800 uppercase pb-1"
               id="emotionName"
             >
               {emotion.name}

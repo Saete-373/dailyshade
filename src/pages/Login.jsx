@@ -40,7 +40,7 @@ function Login() {
   };
 
   return (
-    <div className="flex place-items-center border-2 border-white-100 rounded-xl gap-5 bg-white/20 backdrop-blur-md">
+    <div className="flex place-items-center border-2 border-white-100 rounded-xl gap-5 bg-white/20 backdrop-blur-md ">
       <div className="max-w-full w-8/12 hidden lg:flex h- rounded-l-xl">
         <img src={png} className=" w-fit h-fit"></img>
       </div>
@@ -96,14 +96,14 @@ function Login() {
           </div>
           <div className="flex justify-between">
             <p className="text-sm text-left pl-1 text-red-600">{log}</p>
-            <div className="text-right underline pb-4">
+            <div className="text-right hover:underline underline-offset-4 pb-4">
               <NavLink to="/forgetpw">ลืมรหัสผ่าน?</NavLink>
             </div>
           </div>
 
           <button
             type="submit"
-            className="uppercase inline-flex items-center justify-center rounded-3xl bg-base-pink  w-full py-4 text-sm  text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker "
+            className="uppercase inline-flex items-center justify-center rounded-3xl bg-base-pink  w-full py-4 text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker "
           >
             เข้าสู่ระบบ
           </button>
@@ -111,7 +111,7 @@ function Login() {
           <div className="pt-5">
             ยังไม่มีบัญชี?
             <span
-              className=" pl-5 underline cursor-pointer btn-flip"
+              className=" pl-5 hover:underline underline-offset-4 cursor-pointer btn-flip"
               id="flipButton"
             >
               สร้างบัญชี

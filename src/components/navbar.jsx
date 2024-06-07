@@ -2,7 +2,8 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
-import DSlogo from "../assets/DSlogo.png";
+import DSlogo from "../assets/logo.png";
+import happy from "../assets/E4_Happy.png";
 import "./navbar.css";
 function toggleDropdown() {
   const list = document.querySelector("#dropdown");
@@ -54,7 +55,6 @@ function StickyNavbar() {
         console.log(err);
       });
   };
-  
 
   const logOut = () => {
     axios
@@ -65,7 +65,7 @@ function StickyNavbar() {
       .catch((err) => {
         console.log(err);
       });
-    navigate("/login");
+    navigate("/auth");
   };
   function myFunction() {
     var x = document.getElementById("myTopnav");
@@ -89,7 +89,7 @@ function StickyNavbar() {
             <div className="flex shrink-0 w-1/5 ssm:w-2/4">
               <a aria-current="page" className="flex items-center" href="/">
                 <img className="h-10 w-auto rounded-lg" src={DSlogo} alt="" />
-                <p className="inline-block rounded-lg px-3 py-1 text-base font-medium font-serif text-text-color transition-all duration-200 ">
+                <p className="inline-block rounded-lg px-3 py-1 text-lg font-medium font-serif text-text-color transition-all duration-200 ">
                   DailyShade
                 </p>
               </a>
@@ -120,13 +120,12 @@ function StickyNavbar() {
                     className="group inline-block  px-6 py-1  text-text-color cursor-pointer"
                     onClick={gotoEmotions}
                   >
-                    ความรู้สึก
+                    รู้จักอารมณ์
                     <div className="bg-base-pink h-[3px] w-0 group-hover:w-full transition-all duration-500 "></div>
                   </a>
                 </li>
               </ul>
               <a
-                href="javascript:void(0);"
                 className="hidden ssm:block ssm:absolute ssm:right-5 ssm:top-4 "
                 onClick={myFunction}
               >
@@ -152,8 +151,8 @@ function StickyNavbar() {
                   <img
                     onClick={toggleDropdown}
                     id="dropdownButton"
-                    className="h-10 w-auto inline-block rounded-full hover:ring-2 ssm:hidden "
-                    src={DSlogo}
+                    className="h-10 w-auto inline-block rounded-full hover:ring-2 hover:ring-pink-darker ssm:hidden border-2 border-base-pink "
+                    src={happy}
                     alt=""
                   ></img>
                   <div
@@ -174,7 +173,7 @@ function StickyNavbar() {
                       </li>
                     </ul>
                     <ul>
-                      <NavLink to="/account">
+                      <a href="/account">
                         <li className="flex rounded hover:bg-gray-300 p-2 max-w-full">
                           <label className="inline-flex items-center w-full space-x-2">
                             <svg
@@ -192,7 +191,7 @@ function StickyNavbar() {
                             <span className="cursor-pointer">การตั้งค่า</span>
                           </label>
                         </li>
-                      </NavLink>
+                      </a>
 
                       <li className="flex rounded hover:bg-gray-300 p-2 max-w-full">
                         <label className="inline-flex items-center w-full space-x-20">
@@ -293,7 +292,7 @@ function StickyNavbar() {
                     className="ipad:hidden  items-center justify-center rounded-full bg-white px-3 py-2 text-sm  text-text-color shadow-sm ring-1 ring-inset ring-gray-300 transition-all duration-150 hover:bg-pink-darker sm:inline-flex"
                     href="/"
                   >
-                    สมัครบัญชี
+                    สร้างบัญชี
                   </a>
                   <a
                     className="inline-flex items-center justify-center rounded-full bg-base-pink px-3 py-2 text-sm  text-text-color shadow-sm transition-all duration-150 hover:bg-pink-darker focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"

@@ -19,19 +19,6 @@ function EmotionCircle() {
   const [numb, setNumb] = useState(numb_data);
   const [selectEmoIDX, setSelectEmoIDX] = useState(7);
 
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:5000/gradient/getColors")
-  //     .then((res) => {
-  //       const color_datas = res.data;
-  //       setNumb(color_datas.filter((color) => color.color_name == "Numb"));
-  //       setColorData(color_datas.filter((color) => color.color_name != "Numb"));
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
-
   const onToggle = () => {
     if (isActive == true) {
       setActive(false);
@@ -51,7 +38,7 @@ function EmotionCircle() {
   return (
     <>
       <div className="screen">
-        <div className="menu">
+        <div className={`menu ${isActive ? "h-150" : "h-16"}`}>
           <div
             className="toggle"
             onClick={onToggle}
