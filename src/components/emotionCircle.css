@@ -42,6 +42,7 @@
   cursor: pointer;
   object-fit: contain;
 }
+
 .menu li img:hover {
   transform: scale(1.1);
 }
