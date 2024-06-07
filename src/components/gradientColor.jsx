@@ -4,11 +4,19 @@ import { MatchCycleColors } from "../../backend/components/MatchCycleColors";
 import "./gradientColor.css";
 
 function gradientColor(props) {
-  const [colors, setColors] = useState([]);
-
   const size = props.size * 4;
 
-  const circle_size = size * 0.125;
+  const [colors, setColors] = useState([]);
+  const [circleBlur, setCircleBlur] = useState(size * 0.125);
+
+  const c1_style =
+    "w-[97.5%] h-[97.5%] opacity-80 rounded-full absolute mt-[62.5%] ml-[62.5%]";
+
+  const c2_style =
+    "w-[97.5%] h-[97.5%] opacity-80 rounded-full absolute mt-[62.5%] mr-[62.5%]";
+
+  const c3_style =
+    "w-[70%] h-[70%] opacity-80 rounded-full absolute mb-[44.2%]";
 
   let color_ids = [];
   if (props.filteredRecord) {
@@ -22,7 +30,6 @@ function gradientColor(props) {
       })
       .then((res) => {
         setColors(res.data);
-        // console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -30,12 +37,13 @@ function gradientColor(props) {
   };
 
   useEffect(() => {
-    GetColorsByID();
-  }, [props.filteredRecord]);
+    setCircleBlur(size * 0.125);
+
+  }, [colors]);
 
   useEffect(() => {
     GetColorsByID();
-  }, [size]);
+  }, [props.filteredRecord]);
 
   return (
     <div className="flex justify-center items-center w-[87.5%] h-[87.5%] bg-white rounded-full overflow-hidden ">
@@ -45,38 +53,29 @@ function gradientColor(props) {
       >
         <div
           id="c1"
-          className={
-            "w-[97.5%] h-[97.5%] blur-[" +
-            circle_size.toString() +
-            "px] opacity-80 rounded-full absolute mt-[62.5%] ml-[62.5%]"
-          }
+          className={c1_style}
           style={{
             backgroundImage:
               "conic-gradient(" + MatchCycleColors(colors)[0] + ")",
+            filter: "blur(" + circleBlur + "px)",
           }}
         />
         <div
           id="c2"
-          className={
-            "w-[97.5%] h-[97.5%] blur-[" +
-            circle_size.toString() +
-            "px] opacity-80 rounded-full absolute mt-[62.5%] mr-[62.5%]"
-          }
+          className={c2_style}
           style={{
             backgroundImage:
               "conic-gradient(" + MatchCycleColors(colors)[1] + ")",
+            filter: "blur(" + circleBlur + "px)",
           }}
         />
         <div
           id="c3"
-          className={
-            "w-[70%] h-[70%] blur-[" +
-            circle_size +
-            "px] opacity-80 rounded-full absolute mb-[44.2%]"
-          }
+          className={c3_style}
           style={{
             backgroundImage:
               "conic-gradient(" + MatchCycleColors(colors)[2] + ")",
+            filter: "blur(" + circleBlur + "px)",
           }}
         />
       </div>
