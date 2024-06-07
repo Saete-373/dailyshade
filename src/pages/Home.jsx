@@ -63,9 +63,6 @@ function Home() {
         ) : (
           ""
         )}
-        {/* <input type="file" id="fileInput" onChange={getURL}></input>
-        <button onClick={getURL}>click me</button> */}
-        <img src={image} />
         <section id="section3">
           <article>
             <EmotionsCardPanel></EmotionsCardPanel>
