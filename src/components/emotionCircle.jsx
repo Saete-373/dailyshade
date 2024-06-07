@@ -28,7 +28,6 @@ function EmotionCircle() {
   };
 
   const SelectEmo = (index) => {
-    console.log(numb);
     setSelectEmoIDX(index);
     setselectColor(allColor[index].color);
     setGetTags(true);
@@ -46,6 +45,7 @@ function EmotionCircle() {
               backgroundColor: selectColor,
             }}
           >
+
             {selectEmoIDX != allColor.length ? (
               <img
                 src={allColor[selectEmoIDX].emo_pic}

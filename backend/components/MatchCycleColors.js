@@ -35,7 +35,14 @@ export function MatchCycleColors(_clist) {
       }
     }
   }
-
+  if (
+    result_dict["cycle1"].length === 2 &&
+    result_dict["cycle2"].length === 0 &&
+    result_dict["cycle3"].length === 0
+  ) {
+    result_dict["cycle2"] = result_dict["cycle1"];
+    result_dict["cycle3"] = result_dict["cycle1"];
+  }
   // encode to string
   for (let c in result_dict) {
     // result each cycle
@@ -99,5 +106,7 @@ export function MatchCycleColors(_clist) {
     // 0 1 2 3 4 5 6
     result_list.push(result);
   }
+
+  // console.log(result_list);
   return result_list;
-};
+}

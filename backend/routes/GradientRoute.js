@@ -42,10 +42,34 @@ router.post("/getColorsByID", async (req, res) => {
   }
 });
 
+router.post("/getColorByID", async (req, res) => {
+  const { color_id } = req.body;
+
+  try {
+    const color_id_obj = new mongoose.Types.ObjectId(color_id);
+    const color = await EmotionModel.findOne({
+      _id: color_id_obj,
+    });
+
+    return res.status(200).json({ emotion: color });
+  } catch (err) {
+    return res.status(404).json({ log: "ยังไม่มีการบันทึกในระบบ" });
+  }
+});
+
 router.get("/getColors", async (req, res) => {
   try {
     const colors = await EmotionModel.find({});
     return res.status(200).json(colors);
+  } catch (err) {
+    return res.status(404).json({ log: "ไม่มีสีในระบบ" });
+  }
+});
+
+router.get("/getTags", async (req, res) => {
+  try {
+    const tags = await TagModel.find({});
+    return res.status(200).json(tags);
   } catch (err) {
     return res.status(404).json({ log: "ไม่มีสีในระบบ" });
   }
@@ -86,13 +110,33 @@ router.post("/addRecord", async (req, res) => {
     await record.save();
 
     return res.status(200).json({
-      log: "บันทึกข้อมูลสำเร็จ", newRecord: record
+      log: "บันทึกข้อมูลสำเร็จ",
+      newRecord: record,
     });
   } catch (err) {
     return res.status(500).json({
       log: "ไม่สามารถบันทึกได้",
       error: err.message,
     });
+  }
+});
+
+router.post("/deleteRecord", async (req, res) => {
+  const { rec_id } = req.body;
+  const record_id = new mongoose.Types.ObjectId(rec_id);
+
+  try {
+    const deletedEmotion = await EmotionRecordModel.deleteOne({
+      _id: record_id,
+    });
+    console.log("Deleted emotion count:", deletedEmotion.deletedCount);
+    if (deletedEmotion.deletedCount === 1)
+      return res.status(200).json({ log: "ลบบันทึกอารมณ์เสร็จสิ้น" });
+    else {
+      return res.status(403).json({ log: "ข้อมูลไม่ถูกต้อง" });
+    }
+  } catch (error) {
+    console.error("Error deleting emotion:", error);
   }
 });
 

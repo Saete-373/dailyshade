@@ -13,7 +13,6 @@ function Home() {
   const [isFindUser, setFindUser] = useState(true);
   const [userEmail, setUserEmail] = useState();
   const [sDay, setSDay] = useState();
-  const [image, setImage] = useState();
 
   useEffect(() => {
     if (isFindUser) {
@@ -28,18 +27,6 @@ function Home() {
         });
     }
   }, []);
-
-  const getURL = (evt) => {
-    var reader = new FileReader();
-    reader.readAsDataURL(evt.target.files[0]);
-    reader.onload = () => {
-      console.log(reader.result);
-      setImage(reader.result);
-    };
-    reader.onerror = (err) => {
-      console.log(err);
-    };
-  };
 
   axios.defaults.withCredentials = true;
 
