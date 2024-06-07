@@ -24,10 +24,10 @@ function App() {
       path: "auth",
       element: <Auth />,
     },
-    // {
-    //   path: "login",
-    //   element: <Login />,
-    // },
+    {
+      path: "login",
+      element: <Login />,
+    },
     {
       path: "forgetpw",
       element: <FogetPW />,
@@ -68,39 +68,3 @@ function App() {
 }
 
 export default App;
-
-//Customer route
-// {
-//   path: 'customer',
-//   element: <Navbar />,
-//   children: [{
-//           path: 'main',
-//           element: <CustomerMain />
-//       },{
-//           path: 'status',
-//           element: <StatusBar firstpage={'รอยืนยัน'} secondpage={'กำลังทำ'} thirdpage={'ให้คะแนน'} />,
-//           children: [{
-//                   path: 'wait',
-//                   element: <UserStatusWait />
-//               },{
-//                   path: 'work',
-//                   element: <UserStatusWork />
-//               },{
-//                   path: 'end',
-//                   element: <UserStatusRating />
-//               }]
-//       },{
-//           path: 'profile',
-//           element: <UserProfile />
-//       },{
-//           path: 'profile/edit',
-//           element: <UserProfileEdit />
-//       },{
-//           path: 'maids/profile/:id',
-//           element: <UserOtherProfile />
-//       },{
-//           path: 'maids/profile/:id/employ',
-//           element: <UserMaidEmploy />
-//       }
-//   ]
-// }

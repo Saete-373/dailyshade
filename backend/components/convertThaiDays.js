@@ -9,5 +9,5 @@ const thai_days = [
 ];
 
 export function getDay(date) {
-  return thai_days[date.day()];
-};
+  if (date) return thai_days[date.day()];
+}

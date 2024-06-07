@@ -126,7 +126,7 @@ function StickyNavbar() {
                 </li>
               </ul>
               <a
-                href="javascript:void(0);"
+                href="AHrefJavascript"
                 className="hidden ssm:block ssm:absolute ssm:right-5 ssm:top-4 "
                 onClick={myFunction}
               >

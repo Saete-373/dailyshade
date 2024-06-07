@@ -15,7 +15,6 @@ import GradientColor from "./gradientColor";
 import { MomentaryBtn } from "./momentaryBtn";
 import Recordbtn from "./button";
 
-
 export const EmoDataContext = React.createContext();
 export const EmoContext = React.createContext();
 export const TagContext = React.createContext();
@@ -78,7 +77,7 @@ function Calendar({ sDay }) {
           (rec) => (rec.datetime = dayjs(rec.datetime, "YYYY-MM-DD HH:mm:ssZ"))
         );
         setRecords(res.data);
-        console.log("yay");
+        // console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -91,11 +90,9 @@ function Calendar({ sDay }) {
         selected_color: selectColor,
       })
       .then((res) => {
-        console.log(res.data);
         const filter_1tag = res.data.filter((tag) => tag.color_id.length == 1);
         const color_id = filter_1tag[0].color_id[0];
         const allTag = res.data.map((tag) => [tag, false]);
-        console.log(allTag);
         setSelectColorID(color_id);
         setTags(allTag);
       })
@@ -153,7 +150,7 @@ function Calendar({ sDay }) {
         selectTime.second()
     ).toDate();
 
-    axios
+    await axios
       .post("http://localhost:5000/gradient/addRecord", {
         email: userEmail,
         color_id: selectColorID,
@@ -242,20 +239,22 @@ function Calendar({ sDay }) {
                           date > currentDate
                             ? "cursor-not-allowed"
                             : "cursor-pointer",
-                          "w-10 h-10 border-8  grid place-content-center rounded-full hover:border-base-pink transition-all "
+                          "w-10 h-10 border-8  grid place-content-center rounded-full hover:border-base-pink transition-all"
                         )}
                         onClick={() => {
                           selectDay(date);
-                          console.log(date.format("YYYY-MM-DD"));
                         }}
                       >
                         {records
                           .map((rec) => rec.datetime.format("YYYY-MM-DD"))
                           .includes(date.format("YYYY-MM-DD")) ? (
-                          <GradientColor
-                            date={date.date()}
-                            filteredRecord={filteredRecord(records, date)}
-                          />
+                          <div className="flex justify-center items-center w-10 h-10 rounded-full">
+                            <GradientColor
+                              size={10}
+                              date={date.date()}
+                              filteredRecord={filteredRecord(records, date)}
+                            />
+                          </div>
                         ) : (
                           <div className="flex justify-center items-center w-[35px] h-[35px] bg-white rounded-full">
                             <p className="absolute text-black">{date.date()}</p>
@@ -317,7 +316,7 @@ function Calendar({ sDay }) {
                         key={index}
                         className={
                           "border-white border-2 px-5 rounded-2xl cursor-pointer " +
-                          (tags[index][1] ? "bg-gray-400" : "bg-white")
+                          (tags[index][1] ? "bg-gray-400" : "bg-gray-50")
                         }
                         onClick={() => {
                           setTags(SelectTag(tags, index));
@@ -338,8 +337,7 @@ function Calendar({ sDay }) {
                   </button>
 
                   <div className="pb-20">
-                    <MomentaryBtn filteredRecords={filteredRecord(records, selectDate)} />
-
+                    <MomentaryBtn selectDate={selectDate} />
                   </div>
                 </div>
               </div>

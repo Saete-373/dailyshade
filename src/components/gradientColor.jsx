@@ -5,7 +5,10 @@ import "./gradientColor.css";
 
 function gradientColor(props) {
   const [colors, setColors] = useState([]);
-  
+
+  const size = props.size * 4;
+
+  const circle_size = size * 0.125;
 
   let color_ids = [];
   if (props.filteredRecord) {
@@ -19,50 +22,65 @@ function gradientColor(props) {
       })
       .then((res) => {
         setColors(res.data);
+        // console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-      
   };
 
   useEffect(() => {
     GetColorsByID();
-  }, []);
+  }, [props.filteredRecord]);
+
+  useEffect(() => {
+    GetColorsByID();
+  }, [size]);
 
   return (
-    <div className="flex justify-center items-center w-[35px] h-[35px] bg-white rounded-full">
+    <div className="flex justify-center items-center w-[87.5%] h-[87.5%] bg-white rounded-full overflow-hidden ">
       <div
         id="c"
-        className="flex w-full h-full justify-center items-center relative overflow-hidden rounded-full"
+        className="flex w-full h-full justify-center items-center relative rounded-full"
       >
         <div
           id="c1"
-          className="w-[35px] h-[35px] blur-[5px] opacity-80 rounded-full absolute ml-[17.67766953px] mt-[17.67766953px]"
+          className={
+            "w-[97.5%] h-[97.5%] blur-[" +
+            circle_size.toString() +
+            "px] opacity-80 rounded-full absolute mt-[62.5%] ml-[62.5%]"
+          }
           style={{
             backgroundImage:
               "conic-gradient(" + MatchCycleColors(colors)[0] + ")",
           }}
-        ></div>
+        />
         <div
           id="c2"
-          className="w-[35px] h-[35px] blur-[5px] opacity-80 rounded-full absolute mb-[25px]"
+          className={
+            "w-[97.5%] h-[97.5%] blur-[" +
+            circle_size.toString() +
+            "px] opacity-80 rounded-full absolute mt-[62.5%] mr-[62.5%]"
+          }
           style={{
             backgroundImage:
               "conic-gradient(" + MatchCycleColors(colors)[1] + ")",
           }}
-        ></div>
+        />
         <div
           id="c3"
-          className="w-[35px] h-[35px] blur-[5px] opacity-80 rounded-full absolute mr-[17.67766953px] mt-[17.67766953px]"
+          className={
+            "w-[70%] h-[70%] blur-[" +
+            circle_size +
+            "px] opacity-80 rounded-full absolute mb-[44.2%]"
+          }
           style={{
             backgroundImage:
               "conic-gradient(" + MatchCycleColors(colors)[2] + ")",
           }}
-        ></div>
+        />
       </div>
-
-      <p className="absolute text-black">{props.date}</p>
+      {props.date && <p className="absolute text-black">{props.date}</p>}
     </div>
   );
 }
