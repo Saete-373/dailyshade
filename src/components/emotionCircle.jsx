@@ -37,8 +37,15 @@ function EmotionCircle() {
   return (
     <>
       <div className="screen">
-        <div className="menu">
-          <div className="toggle" onClick={onToggle}>
+        <div className={`menu ${isActive ? "h-150" : "h-16"}`}>
+          <div
+            className="toggle"
+            onClick={onToggle}
+            style={{
+              backgroundColor: selectColor,
+            }}
+          >
+
             {selectEmoIDX != allColor.length ? (
               <img
                 src={allColor[selectEmoIDX].emo_pic}

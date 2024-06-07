@@ -3,29 +3,26 @@ import Recordbtn from "./button";
 function Quote() {
   const quotes = [
     {
-      text: "The greatest glory in living lies not in never falling, but in rising every time we fall.",
-      author: "Nelson Mandela",
+      text: "If you want to live a happy life, tie it to a goal, not to people or things.",
+      author: "Albert Einstein",
     },
     {
-      text: "The way to get started is to quit talking and begin doing.",
-      author: "Walt Disney",
+      text: "The best way to cheer yourself up is to cheer someone else up.",
+      author: "Mark Twain",
     },
     {
-      text: "Your time is limited, don't waste it living someone else's life.",
-      author: "Steve Jobs",
+      text: "There is only one happiness in this life: to love and be loved.",
+      author: "George Sand",
     },
     {
-      text: "If life were predictable it would cease to be life, and be without flavor.",
-      author: "Eleanor Roosevelt",
+      text: "Apologizing doesn't always mean you're wrong and the other person is right. It means you value your relationship more than your ego.",
+      author: "Anonymous",
     },
     {
-      text: "Life is what happens when you're busy making other plans.",
-      author: "John Lennon",
+      text: "Emotion can be the enemy, if you give into your emotion, you lose yourself. You must be at one with your emotions, because the body always follows the mind.",
+      author: "Bruce Lee",
     },
-    {
-      text: "The future belongs to those who believe in the beauty of their dreams.",
-      author: "Eleanor Roosevelt",
-    },
+
     {
       text: "Spread love everywhere you go. Let no one ever come to you without leaving happier.",
       author: "Mother Teresa",
@@ -35,12 +32,12 @@ function Quote() {
       author: "Abraham Lincoln",
     },
     {
-      text: "Life is either a daring adventure or nothing at all.",
-      author: "Helen Keller",
+      text: "The most important decision you make is to be in a good mood.",
+      author: "Voltaire",
     },
     {
-      text: "Many of life's failures are people who did not realize how close they were to success when they gave up.",
-      author: "Thomas A. Edison",
+      text: "One thing you can't hide - is when you're crippled inside.",
+      author: "John Lennon",
     },
   ];
 
@@ -50,7 +47,7 @@ function Quote() {
       const quote = quotes[randomIndex];
       document.getElementById("quoteText").textContent = `"${quote.text}"`;
       document.getElementById("authorText").textContent = `— ${quote.author}`;
-    }, 5000);
+    }, 10000);
     return () => clearInterval(interval);
   }, []);
 
@@ -62,14 +59,14 @@ function Quote() {
             className="text-pretty quote-text text-3xl text-gray-700 mb-5 leading-relaxed font-serif"
             id="quoteText"
           >
-            Spread love everywhere you go. Let no one ever come to you without
-            leaving happier.
+            Your emotions are the slaves to your thoughts, and you are the slave
+            to your emotions.
           </p>
           <p className="author-text text-xl text-gray-600 " id="authorText">
-            กุเอง
+            —Elizabeth Gilbert
           </p>
           <p className="pb-8 text-left pt-10 text-xl">วันนี้เป็นอย่างไรบ้าง?</p>
-          <div className="mb-36 w-1/4 ssm:w-2/4">
+          <div className="mb-36 w-2/4 ssm:w-2/4">
             <Recordbtn></Recordbtn>
           </div>
         </div>

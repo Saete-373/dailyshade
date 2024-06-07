@@ -2,6 +2,7 @@ import React from "react";
 import reccircle from "../assets/reccircle.png";
 import uparrow from "../assets/uparrow.png";
 import { NavLink, useNavigate } from "react-router-dom";
+
 export function MomentaryBtn({ selectDate }) {
   return (
     <>
@@ -22,7 +23,6 @@ export function MomentaryBtn({ selectDate }) {
               JSON.stringify(select_date)
             );
           }
-
           window.location.href = "http://localhost:5173/momentary";
         }}
       >

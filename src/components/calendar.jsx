@@ -13,7 +13,7 @@ import { TimePicker } from "antd";
 import EmotionCircle from "./emotionCircle";
 import GradientColor from "./gradientColor";
 import { MomentaryBtn } from "./momentaryBtn";
-import Recordbtn from "./button";
+import "./scrollbarCustom.css";
 
 export const EmoDataContext = React.createContext();
 export const EmoContext = React.createContext();
@@ -170,13 +170,12 @@ function Calendar({ sDay }) {
 
   return (
     <>
-      <div className="flex w-screen flex-row justify-center px-20 py-20">
-        <div className="flex flex-row px-20 w-screen justify-center ">
+      <div className="flex  flex-row justify-center px-20 py-20">
+        <div className="flex ipad:flex-col flex-row px-20 w-screen justify-center ">
           <div
             className={
-              "w-3/5 h-3/6" +
-              (toggleAdd ? "rounded-l-xl" : "rounded-xl") +
-              " bg-white/60 text-text-color p-10 border-white border-2"
+              "w-3/5 bg-white text-text-color p-10 border-white border-2" +
+              (toggleAdd ? " rounded-l-xl" : " rounded-xl")
             }
           >
             <div className="flex justify-between px-8 pb-3 ">
@@ -229,13 +228,12 @@ function Calendar({ sDay }) {
                       <h1
                         className={cn(
                           currentMonth ? "text-text-color" : "text-text-color",
-                          today
-                            ? "border-base-pink text-text-color"
-                            : "border-transparent",
                           selectDate.toDate().toDateString() ===
                             date.toDate().toDateString()
                             ? "border-base-pink text-text-color"
-                            : "text-text-color",
+                            : today
+                            ? "border-base-pink/30 text-text-color"
+                            : "border-transparent",
                           date > currentDate
                             ? "cursor-not-allowed"
                             : "cursor-pointer",
@@ -270,14 +268,27 @@ function Calendar({ sDay }) {
 
           {toggleAdd ? (
             <form
-              className="flex flex-col w-2/5 p-4 rounded-r-xl bg-white/30 text-text-color px-16 "
+              className="flex flex-col  w-2/5 p-4 rounded-r-xl bg-white text-text-color px-16 "
               onSubmit={HandleSubmit}
             >
               <button
                 onClick={() => setToggleAdd(false)}
-                className="place-self-end"
+                className="absolute ml-96 pb-10"
               >
-                X
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-7 h-7"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  />
+                </svg>
               </button>
 
               <div className="pb-5">
@@ -294,7 +305,7 @@ function Calendar({ sDay }) {
                 </span>
               </div>
 
-              <p className="pb-5">ตอนนี้คุณรู้สึกอย่างไร</p>
+              <p className="pb-5">ตอนนี้คุณรู้สึกอย่างไร?</p>
               <div className="flex justify-center pb-5">
                 <EmoDataContext.Provider value={[colorData, setColorData]}>
                   <EmoContext.Provider value={[selectColor, setselectColor]}>
@@ -305,41 +316,38 @@ function Calendar({ sDay }) {
                 </EmoDataContext.Provider>
               </div>
               <div>
-                <div className="pb-5">
-                  <p className="pb-3">
-                    คำที่สามารถอธิบายความรู้สึกของคุณได้ดีที่สุด
-                  </p>
+                {selectColor === "#888888" ? null : (
+                  <div className="pb-5">
+                    <p className="pb-3">
+                      คำที่สามารถอธิบายความรู้สึกของคุณได้ดีที่สุด
+                    </p>
 
-                  <ul className="flex flex-wrap row gap-1">
-                    {tags.map((tag, index) => (
-                      <li
-                        key={index}
-                        className={
-                          "border-white border-2 px-5 rounded-2xl cursor-pointer " +
-                          (tags[index][1] ? "bg-gray-400" : "bg-gray-50")
-                        }
-                        onClick={() => {
-                          setTags(SelectTag(tags, index));
-                        }}
-                      >
-                        {tag[0].tag}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="flex justify-center place-content-center place-items-center ">
-                  <button
-                    type="submit"
-                    className="z-99 inline-flex items-center justify-center rounded-3xl bg-base-pink  w-36 py-3 text-sm  text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker cursor-pointer"
-                  >
-                    บันทึก
-                  </button>
-
-                  <div className="pb-20">
-                    <MomentaryBtn selectDate={selectDate} />
+                    <ul className="flex flex-wrap row gap-2 h-40 overflow-y-scroll">
+                      {tags.map((tag, index) => (
+                        <li
+                          key={index}
+                          className={
+                            "border-base-pink border-2 px-5 rounded-2xl cursor-pointer " +
+                            (tags[index][1]
+                              ? "bg-base-pink border-pink-darker"
+                              : "bg-white")
+                          }
+                          onClick={() => {
+                            setTags(SelectTag(tags, index));
+                          }}
+                        >
+                          {tag[0].tag}
+                        </li>
+                      ))}
+                    </ul>
+                    <button
+                      type="submit"
+                      className="z-99 inline-flex items-center justify-center rounded-3xl bg-base-pink mt-5 w-36 py-2 text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker cursor-pointer"
+                    >
+                      บันทึก
+                    </button>
                   </div>
-                </div>
+                )}
               </div>
             </form>
           ) : (

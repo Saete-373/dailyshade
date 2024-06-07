@@ -6,7 +6,7 @@ import EmotionsCardPanel from "../components/EmotionsCardPanel";
 import Inscontent from "../components/insContent";
 import GototopBtn from "../components/gototopBtn";
 import { FileInput } from "flowbite-react";
-
+import { Bubble } from "../components/bubble";
 export const EmailContext = createContext();
 
 function Home() {
@@ -33,12 +33,14 @@ function Home() {
   return (
     <>
       <EmailContext.Provider value={[userEmail, setUserEmail]}>
-        <GototopBtn />
-        <section id="section1" className="h-screen">
-          <aside className="relative flex flex-col max-w-3xl">
-            <div className="mt-60 ml-20 ssm:ml-5">
+        <section id="section1" className="h-screen bg-home">
+          <aside className="relative flex  max-w-screen  ">
+            <div className="mt-56 ml-20 ssm:ml-5 max-w-xl w-xl">
               <Quote></Quote>
             </div>
+            {/* <div className="absolute -z-10 right-0">
+              <Bubble />
+            </div> */}
           </aside>
         </section>
         {userEmail ? (
@@ -48,6 +50,7 @@ function Home() {
         ) : (
           ""
         )}
+        <img src={image} />
         <section id="section3">
           <article>
             <EmotionsCardPanel></EmotionsCardPanel>

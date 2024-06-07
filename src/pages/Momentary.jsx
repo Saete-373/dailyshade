@@ -6,6 +6,9 @@ import { getDay } from "../../backend/components/convertThaiDays";
 import { months } from "../../backend/components/Calendar";
 import { filteredRecord } from "../../backend/components/filteredRecord";
 import GradientColor from "../components/gradientColor";
+import { DateBar } from "../components/dateBar";
+import { RecordList } from "../components/RecordList";
+
 
 function Momentary() {
   const select_date = dayjs(
@@ -169,7 +172,7 @@ function Momentary() {
 
   return (
     <>
-      <div className="flex max-w-screen justify-center">
+      <div className="flex max-w-screen justify-center pt-10">
         <div className="flex flex-row justify-center w-9/12 max-h-full h-screen place-items-center">
           <div className="w-full max-h-screen h-5/6 border-2 border-black-50 rounded-l-xl gap-5">
             <div className="flex row justify-between">
