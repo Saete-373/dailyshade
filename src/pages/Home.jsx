@@ -50,7 +50,6 @@ function Home() {
         ) : (
           ""
         )}
-        <img src={image} />
         <section id="section3">
           <article>
             <EmotionsCardPanel></EmotionsCardPanel>

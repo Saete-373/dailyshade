@@ -9,7 +9,6 @@ import GradientColor from "../components/gradientColor";
 import { DateBar } from "../components/dateBar";
 import { RecordList } from "../components/RecordList";
 
-
 function Momentary() {
   const select_date = dayjs(
     JSON.parse(window.localStorage.getItem("selectDate"))
@@ -76,10 +75,15 @@ function Momentary() {
 
           const filter_record = filteredRecord(convRecords, _selectDate);
 
-          const sorted_record = sortByDatetime(filter_record);
+          if (filter_record !== null) {
+            const sorted_record = sortByDatetime(filter_record);
 
-          setSelectRecords(sorted_record);
-          setCountEmotions(groupByColorId(sorted_record));
+            setSelectRecords(sorted_record);
+            setCountEmotions(groupByColorId(sorted_record));
+          } else {
+            setSelectRecords([]);
+            setCountEmotions([]);
+          }
         }
       })
       .catch((err) => {
@@ -193,7 +197,8 @@ function Momentary() {
                 onClick={handleNextDay}
               />
             </div>
-            {selectRecords?.length > 0 ? (
+            {/* {console.log(selectRecords.length)} */}
+            {selectRecords.length > 0 ? (
               <div>
                 <ul className="flex flex-col">
                   {selectRecords?.map((rec, index) => (

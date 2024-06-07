@@ -346,6 +346,9 @@ function Calendar({ sDay }) {
                     >
                       บันทึก
                     </button>
+                    <div className="pb-20">
+                      <MomentaryBtn selectDate={selectDate} />
+                    </div>
                   </div>
                 )}
               </div>
