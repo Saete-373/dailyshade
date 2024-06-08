@@ -289,12 +289,6 @@ function StickyNavbar() {
               ) : (
                 <div className="flex gap-2 ssm:hidden ipad:items-end ipad:justify-end topnav">
                   <a
-                    className="ipad:hidden  items-center justify-center rounded-full bg-white px-3 py-2 text-sm  text-text-color shadow-sm ring-1 ring-inset ring-gray-300 transition-all duration-150 hover:bg-pink-darker sm:inline-flex"
-                    href="/"
-                  >
-                    สร้างบัญชี
-                  </a>
-                  <a
                     className="inline-flex items-center justify-center rounded-full bg-base-pink px-3 py-2 text-sm  text-text-color shadow-sm transition-all duration-150 hover:bg-pink-darker focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                     href="/auth"
                   >
