@@ -1,5 +1,5 @@
 import { useState, useEffect, useReducer } from "react";
-import axios from "axios";
+import api from "../axios";
 import { MatchCycleColors } from "../../../backend/components/MatchCycleColors";
 import "./styles/gradientColor.css";
 
@@ -24,8 +24,8 @@ function gradientColor(props) {
   }
 
   const GetColorsByID = async () => {
-    await axios
-      .post(process.env.REACT_API + "/getColorsByID", {
+    await api
+      .post("/getColorsByID", {
         color_ids: color_ids,
       })
       .then((res) => {

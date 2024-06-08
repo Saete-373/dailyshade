@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
-import axios from "axios";
+import { NavLink, useNavigate } from "react-router-dom";
+import api from "../axios";
 import png from "../assets/login.png";
 import "./styles/bg.css";
+import CLIENT_PATH from "../clientPath";
 
 function Login() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [loginUser, setLoginUser] = useState({
     email: "",
@@ -15,13 +17,12 @@ function Login() {
   const [log, setLog] = useState("");
 
   const login = async () => {
-    await axios
-      .post(process.env.REACT_API + "/login", {
+    await api
+      .post("/login", {
         email: loginUser.email,
         password: loginUser.password,
       })
       .then((res) => {
-        console.log(res.data.log);
         setLog(res.data.log);
 
         console.log(res.data);
@@ -33,8 +34,9 @@ function Login() {
             email: res.data.payload.user.email,
           },
         });
-        window.localStorage.setItem("token", res.data.token);
-        window.location.href = process.env.CLIENT_PATH + "/";
+        localStorage.setItem("token", res.data.token);
+        // navigate("/");
+        window.location.href = CLIENT_PATH + "/";
       })
       .catch((err) => {
         console.log(err.response.data.log);
@@ -54,8 +56,6 @@ function Login() {
     evt.preventDefault();
     login();
   };
-
-  axios.defaults.withCredentials = true;
 
   return (
     <div className="flex place-items-center border-2 border-white-100 rounded-xl gap-5 bg-white/20 backdrop-blur-md ">

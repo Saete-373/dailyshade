@@ -20,8 +20,8 @@ exports.register = async (req, res) => {
     const encryptedPassword = await bcrypt.hash(password, salt);
 
     await UserModel.create({
-      username,
-      email,
+      username: username,
+      email: email,
       password: encryptedPassword,
     });
 
@@ -52,15 +52,28 @@ exports.login = async (req, res) => {
       jwt.sign(
         payload,
         process.env.SECRET,
-        { expiresIn: 3600 },
+        { expiresIn: "7d" },
         (err, token) => {
           if (err) throw err;
-          return res.json({ token: token, payload: payload });
+          res.status(200).json({ token, payload });
         }
       );
     } else {
       return res.status(404).json({ log: "ไม่พบบัญชีผู้ใช้" });
     }
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ log: "เซิฟเวอร์ขัดข้อง" });
+  }
+};
+
+exports.currentUser = async (req, res) => {
+  try {
+    const user = req.user;
+    const user_data = await UserModel.findOne({ email: user.email }).select(
+      "-password"
+    );
+    return res.status(200).json({ user: user_data });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ log: "เซิฟเวอร์ขัดข้อง" });

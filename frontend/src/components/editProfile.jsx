@@ -4,7 +4,7 @@ import png from "../assets/3.png";
 import { useRef } from "react";
 import { useState, useEffect, useContext } from "react";
 
-import axios from "axios";
+import api from "../axios";
 function EditProfile() {
   const [userData, setUserData] = useState();
   const [isFindUser, setFindUser] = useState(true);
@@ -17,13 +17,13 @@ function EditProfile() {
   }, [isFindUser]);
 
   const GetUserData = () => {
-    axios
-      .get(process.env.REACT_API + "/getUser")
+    api
+      .get("/getUser")
       .then((res) => {
         if (res.data.isLogin) {
           setUserEmail(res.data.email);
-          axios
-            .post(process.env.REACT_API + "/getUserData", {
+          api
+            .post("/getUserData", {
               email: res.data.email,
             })
             .then((res) => {
@@ -39,7 +39,7 @@ function EditProfile() {
         console.log(err);
       });
   };
-  axios.defaults.withCredentials = true;
+
   const uploadedImage = React.useRef(null);
   const handleImageUpload = (e) => {
     const [file] = e.target.files;

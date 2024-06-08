@@ -1,23 +1,41 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
-import axios from "axios";
-import { EmoDataContext } from "./calendar";
-import { EmoContext } from "./calendar";
-import { TagContext } from "./calendar";
+import api from "../axios";
 import "./styles/emotionCircle.css";
 
-function EmotionCircle() {
-  const [colorData, setColorData] = useContext(EmoDataContext);
-  const [selectColor, setselectColor] = useContext(EmoContext);
-  const [isGetTags, setGetTags] = useContext(TagContext);
+function EmotionCircle({ selectColor, setselectColor }) {
+  const [colorData, setColorData] = useState([]);
 
-  const color_data = colorData.filter((color) => color.color_name != "Numb");
-  const numb_data = colorData.filter((color) => color.color_name == "Numb")[0];
+  const [allColor, setAllColor] = useState([]);
+  const [numb, setNumb] = useState({});
+  const [selectEmoIDX, setSelectEmoIDX] = useState(7);
 
   const [isActive, setActive] = useState(false);
-  const [allColor, setAllColor] = useState(color_data);
-  const [numb, setNumb] = useState(numb_data);
-  const [selectEmoIDX, setSelectEmoIDX] = useState(7);
+
+  const GetColorData = async () => {
+    await api
+      .get("/getColors")
+      .then((res) => {
+        console.log(res.data);
+        setColorData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    GetColorData();
+  }, []);
+
+  useEffect(() => {
+    const color_data = colorData.filter((color) => color.color_name != "Numb");
+    const numb_data = colorData.filter(
+      (color) => color.color_name == "Numb"
+    )[0];
+    setAllColor(color_data);
+    setNumb(numb_data);
+  }, [colorData]);
 
   const onToggle = () => {
     if (isActive == true) {
@@ -29,9 +47,11 @@ function EmotionCircle() {
 
   const SelectEmo = (index) => {
     setSelectEmoIDX(index);
-    setselectColor(allColor[index].color);
-    setGetTags(true);
+
     setActive(false);
+
+    // localstorage
+    setselectColor(allColor[index].color);
   };
 
   return (
@@ -45,17 +65,19 @@ function EmotionCircle() {
               backgroundColor: selectColor,
             }}
           >
-
-            {selectEmoIDX != allColor.length ? (
+            {selectEmoIDX != allColor?.length ? (
               <img
-                src={allColor[selectEmoIDX].emo_pic}
+                src={allColor[selectEmoIDX]?.emo_pic}
                 style={{ transform: "rotate(270deg)" }}
               />
             ) : (
-              <img src={numb.emo_pic} style={{ transform: "rotate(270deg)" }} />
+              <img
+                src={numb?.emo_pic}
+                style={{ transform: "rotate(270deg)" }}
+              />
             )}
           </div>
-          {allColor.map((pic, index) => {
+          {allColor?.map((pic, index) => {
             return isActive ? (
               <li
                 key={index}
@@ -64,7 +86,7 @@ function EmotionCircle() {
                 }}
               >
                 <img
-                  src={pic.emo_pic}
+                  src={pic?.emo_pic}
                   style={{
                     transform:
                       "rotate(calc(" + ((360 / -7) * index + 270) + "deg))",
@@ -79,7 +101,7 @@ function EmotionCircle() {
                   transitionDelay: "calc(" + 0.1 * index + "s)",
                 }}
               >
-                <img src={pic.emo_pic} />
+                <img src={pic?.emo_pic} />
               </li>
             );
           })}

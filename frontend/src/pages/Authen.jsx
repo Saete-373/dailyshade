@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Register from "./Register";
 import Login from "./Login";
 import "./styles/bg.css";
+
 export function Auth() {
   useEffect(() => {
     const flipbtn = document.getElementById("flipButton");

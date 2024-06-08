@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../axios";
 import png from "../assets/regis.png";
 import "./styles/bg.css";
 
@@ -22,8 +22,8 @@ function Register() {
   };
 
   const register = async () => {
-    await axios
-      .post(process.env.REACT_API + "/register", {
+    await api
+      .post("/register", {
         username: regisUser.username,
         email: regisUser.email,
         password: regisUser.password,

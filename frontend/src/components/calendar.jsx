@@ -1,116 +1,54 @@
 import React from "react";
 import { useState, useEffect, useContext, useReducer } from "react";
+import { useSelector } from "react-redux";
 import dayjs from "dayjs";
-import axios from "axios";
+import api from "../axios";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
-import { EmailContext } from "../pages/Home";
 import { generateDate, months } from "../../../backend/components/Calendar";
 import { cn } from "../../../backend/components/cn";
 import { filteredRecord } from "../../../backend/components/filteredRecord";
-import { getDay } from "../../../backend/components/convertThaiDays";
-import { SelectTag } from "../../../backend/components/selectTag";
-import { TimePicker } from "antd";
-import EmotionCircle from "./emotionCircle";
 import GradientColor from "./gradientColor";
-import { MomentaryBtn } from "./momentaryBtn";
-import "./scrollbarCustom.css";
+import AddEmotion from "./addEmotion";
+import "./styles/scrollbarCustom.css";
 
-export const EmoDataContext = React.createContext();
-export const EmoContext = React.createContext();
-export const TagContext = React.createContext();
+const getUser = (state) => ({ ...state.user });
 
 function Calendar({ sDay }) {
+  const user = useSelector(getUser);
   const currentDate = dayjs();
   const [today, setToday] = useState(currentDate);
-  const [selectDate, setSelectDate] = useState(currentDate);
-  const [selectTime, setSelectTime] = useState(currentDate);
 
-  const [userEmail, setUserEmail] = useContext(EmailContext);
-  const [colorData, setColorData] = useState([]);
+  const [selectDate, setSelectDate] = useState(currentDate);
+
   const [records, setRecords] = useState([]);
   const [toggleAdd, setToggleAdd] = useState(false);
-  const [selectColor, setselectColor] = useState("#888888");
-  const [selectColorID, setSelectColorID] = useState("");
-  const [tags, setTags] = useState([]);
-  const [isGetTags, setGetTags] = useState(true);
-
-  const reducerR = (state, action) => {
-    switch (action.type) {
-      case "ADD":
-        return [...state, action.newRecord];
-      case "REFRESH":
-        return state;
-      default:
-        return state;
-    }
-  };
-
-  const initialState = records;
-
-  const [recordReducer, dispatch] = useReducer(reducerR, initialState);
 
   const days = ["อา.", "จ.", "อ.", "พ.", "พฤ.", "ศ.", "ส."];
 
-  axios.defaults.withCredentials = true;
+  useEffect(() => {
+    GetUserRecord();
+  }, [user.email]);
 
   useEffect(() => {
-    dispatch({ type: "REFRESH" });
+    GetUserRecord();
+  }, [toggleAdd]);
 
-    if (userEmail) {
-      GetUserRecord();
-
-      GetColorData();
-
-      if (selectColor != "#888888") {
-        if (isGetTags) GetTags();
-      }
-    }
-  }, [userEmail, recordReducer, selectColor, isGetTags]);
-
-  const GetUserRecord = () => {
-    axios
-      .post(process.env.REACT_API + "/getUserRecord", {
-        email: userEmail,
-      })
-      .then((res) => {
-        res.data.forEach(
-          (rec) => (rec.datetime = dayjs(rec.datetime, "YYYY-MM-DD HH:mm:ssZ"))
-        );
-        setRecords(res.data);
-        // console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const GetTags = () => {
-    axios
-      .post(process.env.REACT_API + "/getTagsByColor", {
-        selected_color: selectColor,
-      })
-      .then((res) => {
-        const filter_1tag = res.data.filter((tag) => tag.color_id.length == 1);
-        const color_id = filter_1tag[0].color_id[0];
-        const allTag = res.data.map((tag) => [tag, false]);
-        setSelectColorID(color_id);
-        setTags(allTag);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    setGetTags(false);
-  };
-
-  const GetColorData = () => {
-    axios
-      .get(process.env.REACT_API + "/getColors")
-      .then((res) => {
-        setColorData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const GetUserRecord = async () => {
+    if (user.email)
+      await api
+        .post("/getUserRecord", {
+          email: user.email,
+        })
+        .then((res) => {
+          res.data.forEach(
+            (rec) =>
+              (rec.datetime = dayjs(rec.datetime, "YYYY-MM-DD HH:mm:ssZ"))
+          );
+          setRecords(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
   };
 
   const selectDay = (day) => {
@@ -123,49 +61,6 @@ function Calendar({ sDay }) {
         syear: day.year(),
       });
     }
-  };
-
-  const handleTime = (time) => {
-    setSelectTime(time);
-  };
-
-  const HandleSubmit = async (evt) => {
-    evt.preventDefault();
-
-    const selectedTagIDs = tags
-      .filter((tag) => tag[1])
-      .map((tag) => tag[0]._id);
-
-    const newDateTime = new dayjs(
-      selectDate.year() +
-        "-" +
-        (selectDate.month() + 1) +
-        "-" +
-        selectDate.date() +
-        "T" +
-        selectTime.hour() +
-        ":" +
-        selectTime.minute() +
-        ":" +
-        selectTime.second()
-    ).toDate();
-
-    await axios
-      .post(process.env.REACT_API + "/addRecord", {
-        email: userEmail,
-        color_id: selectColorID,
-        tag_ids: selectedTagIDs,
-        datetime: newDateTime,
-      })
-      .then((res) => {
-        console.log(res.data.log);
-        dispatch({ type: "ADD", newRecord: res.data.newRecord });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    setToggleAdd(false);
-    setGetTags(true);
   };
 
   return (
@@ -268,93 +163,11 @@ function Calendar({ sDay }) {
             </div>
           </div>
 
-          {toggleAdd ? (
-            <form
-              className="flex flex-col relative w-2/5 p-4 rounded-r-xl ipad:rounded-b-xl ipad:rounded-tr-none bg-white text-text-color min-ipad:px-16 ipad:w-full"
-              onSubmit={HandleSubmit}
-            >
-              {/* <button onClick={() => setToggleAdd(false)} className="">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-7 h-7"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                  />
-                </svg>
-              </button> */}
-
-              <div className="pb-5">
-                {"วัน" + getDay(selectDate) + "ที่"} {selectDate.date() + " "}
-                {months[selectDate.month()]} {selectDate.year() + 543}
-                <span className="pl-5">
-                  <TimePicker
-                    onChange={handleTime}
-                    value={selectTime}
-                    defaultValue={currentDate}
-                    format={"HH:mm"}
-                    className="w-20"
-                  />
-                </span>
-              </div>
-
-              <p className="pb-5">ตอนนี้คุณรู้สึกอย่างไร?</p>
-              <div className="flex justify-center pb-5">
-                <EmoDataContext.Provider value={[colorData, setColorData]}>
-                  <EmoContext.Provider value={[selectColor, setselectColor]}>
-                    <TagContext.Provider value={[isGetTags, setGetTags]}>
-                      <EmotionCircle />
-                    </TagContext.Provider>
-                  </EmoContext.Provider>
-                </EmoDataContext.Provider>
-              </div>
-              <div>
-                {selectColor === "#888888" ? null : (
-                  <div className="pb-5">
-                    <p className="pb-3">
-                      คำที่สามารถอธิบายความรู้สึกของคุณได้ดีที่สุด
-                    </p>
-
-                    <ul className="flex flex-wrap row gap-2 max-h-40 overflow-y-auto">
-                      {tags.map((tag, index) => (
-                        <li
-                          key={index}
-                          className={
-                            "border-base-pink border-2 px-5 rounded-2xl cursor-pointer " +
-                            (tags[index][1]
-                              ? "bg-base-pink border-pink-darker"
-                              : "bg-white")
-                          }
-                          onClick={() => {
-                            setTags(SelectTag(tags, index));
-                          }}
-                        >
-                          {tag[0].tag}
-                        </li>
-                      ))}
-                    </ul>
-                    <button
-                      type="submit"
-                      className="z-99 inline-flex items-center justify-center rounded-3xl bg-base-pink mt-5 w-36 py-2 text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker cursor-pointer"
-                    >
-                      บันทึก
-                    </button>
-                    <div className="pb-20">
-                      <MomentaryBtn selectDate={selectDate} />
-                    </div>
-                  </div>
-                )}
-              </div>
-            </form>
-          ) : (
-            <></>
-          )}
+          <AddEmotion
+            toggleAdd={toggleAdd}
+            setToggleAdd={setToggleAdd}
+            selectDate={selectDate}
+          />
         </div>
       </div>
     </>

@@ -1,3 +1,6 @@
+import React from "react";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import {
   BrowserRouter,
   Routes,
@@ -8,6 +11,7 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import "./index.css";
+import api from "./axios";
 import StickyNavbar from "./components/navbar";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
@@ -20,6 +24,36 @@ import { Auth } from "./pages/Authen";
 import { Verify } from "./pages/verify";
 
 function App() {
+  const dispatch = useDispatch()
+  const currentUser = async (authtoken) => {
+    await api
+      .post(
+        "/currentUser",
+        {},
+        {
+          headers: {
+            authtoken: authtoken,
+          },
+        }
+      )
+      .then((res) => {
+        dispatch({
+          type: "LOGIN",
+          payload: {
+            token: authtoken,
+            email: res.data.user.email,
+          },
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+  const idToken = localStorage.token;
+  if (idToken) {
+    currentUser(idToken);
+  }
+
   const router = createBrowserRouter([
     {
       path: "auth",

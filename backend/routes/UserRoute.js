@@ -5,8 +5,8 @@ const { getUser, getUserData } = require("../controllers/user");
 
 const { auth } = require("../middleware/auth");
 
-router.post("/getUser", auth, getUser);
+router.get("/getUser", getUser);
 
-router.post("/getUserData", auth, getUserData);
+router.post("/getUserData", getUserData);
 
 module.exports = router;

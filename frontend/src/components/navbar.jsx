@@ -1,71 +1,60 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import api from "../axios";
 import DSlogo from "../assets/logo.png";
 import happy from "../assets/E4_Happy.png";
 import "./styles/navbar.css";
+import CLIENT_PATH from "../clientPath";
+
+const getUser = (state) => ({ ...state.user });
+
 function toggleDropdown() {
   const list = document.querySelector("#dropdown");
   list.classList.toggle("hidden");
 }
+
 function gotoCalendar() {
   document.getElementById("section2").scrollIntoView({
     behavior: "smooth",
   });
 }
+
 function gotoEmotions() {
   document.getElementById("section3").scrollIntoView({
     behavior: "smooth",
   });
 }
+
 function StickyNavbar() {
+  const user = useSelector(getUser);
+  const dispatch = useDispatch();
   const [userData, setUserData] = useState();
-  const [isFindUser, setFindUser] = useState(true);
-  const [userEmail, setUserEmail] = useState();
-  const navigate = useNavigate();
   const [isToggle, setIstoggle] = useState(false);
 
   useEffect(() => {
-    if (isFindUser) {
-      GetUserData();
-    }
-  }, [isFindUser]);
+    GetUserData();
+  }, [user]);
 
-  const GetUserData = () => {
-    axios
-      .get(process.env.REACT_API + "/getUser")
+  const GetUserData = async () => {
+    await api
+      .post("/getUserData", {
+        email: user.email,
+      })
       .then((res) => {
-        if (res.data.isLogin) {
-          setUserEmail(res.data.email);
-          axios
-            .post(process.env.REACT_API + "/getUserData", {
-              email: res.data.email,
-            })
-            .then((res) => {
-              setUserData(res.data);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-        setFindUser(false);
+        setUserData(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const logOut = () => {
-    axios
-      .get(process.env.REACT_API + "/logout")
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    navigate("/auth");
+  const logOut = async () => {
+    dispatch({
+      type: "LOGOUT",
+      payload: null,
+    });
+    window.location.href = CLIENT_PATH + "/auth";
   };
   function myFunction() {
     var x = document.getElementById("myTopnav");
@@ -79,7 +68,6 @@ function StickyNavbar() {
       setIstoggle(false);
     }
   }
-  axios.defaults.withCredentials = true;
 
   return (
     <>
@@ -146,7 +134,7 @@ function StickyNavbar() {
               </a>
             </div>
             <div className="flex items-center justify-end gap-4 w-1/5 ">
-              {userEmail ? (
+              {user ? (
                 <div className="flex topnav " id="myTopnav">
                   <img
                     onClick={toggleDropdown}

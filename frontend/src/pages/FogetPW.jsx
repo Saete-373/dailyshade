@@ -1,5 +1,6 @@
 import { ForgottenPassword } from "../components/ForgottenPassword";
 import "./styles/bg.css";
+
 function FogetPW() {
   return (
     <div

@@ -4,15 +4,20 @@ const router = express.Router();
 const {
   register,
   login,
+  currentUser,
   //   listUser,
   //   editUser,
   //   deleteUser,
   //   currentUser,
 } = require("../controllers/auth");
 
+const { auth } = require("../middleware/auth");
+
 router.post("/register", register);
 
 router.post("/login", login);
+
+router.post("/currentUser", auth, currentUser);
 
 //@Endpoint  http://localhost:3000/api/current-user
 //@Method    POST

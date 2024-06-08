@@ -2,6 +2,7 @@ import React from "react";
 import reccircle from "../assets/reccircle.png";
 import uparrow from "../assets/uparrow.png";
 import { NavLink, useNavigate } from "react-router-dom";
+import CLIENT_PATH from "../clientPath"
 
 export function MomentaryBtn({ selectDate }) {
   return (
@@ -23,7 +24,7 @@ export function MomentaryBtn({ selectDate }) {
               JSON.stringify(select_date)
             );
           }
-          window.location.href = "http://localhost:5173/momentary";
+          window.location.href = CLIENT_PATH + "/momentary";
         }}
       >
         <div className="flex place-content-center place-items-center  ">

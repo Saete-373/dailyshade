@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect, useContext, createContext } from "react";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
+import api from "../axios";
 export const RecordList = () => {
   const { state } = useLocation();
   const [selectRecords, setSelectRecords] = useState(state.filteredRecords);
@@ -10,7 +10,7 @@ export const RecordList = () => {
     console.log(selectRecords);
   }, [selectRecords]);
 
-  axios.defaults.withCredentials = true;
+
   return (
     <div>
       {/* <ul>

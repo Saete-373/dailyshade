@@ -3,7 +3,8 @@ export function userReducer(state = null, action) {
     case "LOGIN":
       return action.payload;
     case "LOGOUT":
-      return "YoYo";
+      localStorage.clear()
+      return action.payload;
     default:
       return state;
   }

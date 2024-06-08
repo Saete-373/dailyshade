@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import dayjs from "dayjs";
-import axios from "axios";
+import api from "../axios";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
+import CLIENT_PATH from "../clientPath";
 import { getDay } from "../../../backend/components/convertThaiDays";
 import { months } from "../../../backend/components/Calendar";
 import { filteredRecord } from "../../../backend/components/filteredRecord";
@@ -9,36 +11,23 @@ import GradientColor from "../components/gradientColor";
 import { DateBar } from "../components/dateBar";
 import { RecordList } from "../components/RecordList";
 
+const getUser = (state) => ({ ...state.user });
+
 function Momentary() {
+  const user = useSelector(getUser);
   const select_date = dayjs(
     JSON.parse(window.localStorage.getItem("selectDate"))
   );
   const [selectRecords, setSelectRecords] = useState([]);
   const [countEmotions, setCountEmotions] = useState([]);
   const [sDate, setSDate] = useState(select_date);
-  const [isFindUser, setFindUser] = useState(true);
-  const [userEmail, setUserEmail] = useState();
   const [allEmotion, setAllEmotion] = useState();
   const [allTag, setAllTag] = useState();
   const [toggleEdit, setToggleEdit] = useState();
 
-  const getUser = async () => {
-    await axios
-      .get(process.env.REACT_API + "/getUser")
-      .then((res) => {
-        if (res.data.isLogin) {
-          setUserEmail(res.data.email);
-        }
-        setFindUser(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   const fetchColors = async () => {
-    await axios
-      .get(process.env.REACT_API + "/getColors")
+    await api
+      .get("/getColors")
       .then((res) => {
         setAllEmotion(res.data);
       })
@@ -48,8 +37,8 @@ function Momentary() {
   };
 
   const fetchTags = async () => {
-    await axios
-      .get(process.env.REACT_API + "/getTags")
+    await api
+      .get("/getTags")
       .then((res) => {
         const tag_data = res.data.map(
           (tag) => new Object({ tag_id: tag._id, tag: tag.tag })
@@ -62,41 +51,39 @@ function Momentary() {
   };
 
   const GetUserRecord = async (_selectDate = sDate) => {
-    await axios
-      .post(process.env.REACT_API + "/getUserRecord", {
-        email: userEmail,
-      })
-      .then((res) => {
-        if (res.data != null) {
-          const convRecords = res.data?.map((rec) => ({
-            ...rec,
-            datetime: dayjs(rec.datetime, "YYYY-MM-DD HH:mm:ssZ"),
-          }));
+    if (user.email)
+      await api
+        .post("/getUserRecord", {
+          email: user.email,
+        })
+        .then((res) => {
+          if (res.data != null) {
+            const convRecords = res.data?.map((rec) => ({
+              ...rec,
+              datetime: dayjs(rec.datetime, "YYYY-MM-DD HH:mm:ssZ"),
+            }));
 
-          const filter_record = filteredRecord(convRecords, _selectDate);
+            const filter_record = filteredRecord(convRecords, _selectDate);
 
-          if (filter_record !== null) {
-            const sorted_record = sortByDatetime(filter_record);
+            if (filter_record !== null) {
+              const sorted_record = sortByDatetime(filter_record);
 
-            setSelectRecords(sorted_record);
-            setCountEmotions(groupByColorId(sorted_record));
-          } else {
-            setSelectRecords([]);
-            setCountEmotions([]);
+              setSelectRecords(sorted_record);
+              setCountEmotions(groupByColorId(sorted_record));
+            } else {
+              setSelectRecords([]);
+              setCountEmotions([]);
+            }
           }
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
   };
 
   useEffect(() => {
-    if (isFindUser) {
-      getUser();
-    }
-    if (userEmail) GetUserRecord();
-  }, [userEmail]);
+    GetUserRecord();
+  }, [user.email]);
 
   useEffect(() => {
     fetchColors();
@@ -134,14 +121,14 @@ function Momentary() {
   };
 
   const handleDelete = async (_recID) => {
-    await axios
-      .post(process.env.REACT_API + "/deleteRecord", {
+    await api
+      .post("/deleteRecord", {
         rec_id: _recID,
       })
       .then((res) => {
         console.log(res.data.log);
 
-        window.location.href = "http://localhost:5173/momentary";
+        window.location.href = CLIENT_PATH + "/momentary";
       })
       .catch((err) => {
         console.log(err);
@@ -171,8 +158,6 @@ function Momentary() {
       window.localStorage.setItem("selectDate", JSON.stringify(next_day));
     }
   };
-
-  axios.defaults.withCredentials = true;
 
   return (
     <>
