@@ -27,11 +27,13 @@ module.exports = {
   
         'xl': '1280px',
         // => @media (min-width: 1280px) { ... }
-  
+
         '2xl': '1536px',
         // => @media (min-width: 1536px) { ... }
+        'min-ipad': {'min': '1025px'},
         'ipad': {'max': '1024px'},
-        // => @media (max-width: 767px) { ... }
+        'ipad-mini': {'max': '720px'},
+        'max-lg' : `@media not all and (min-width: 1024px) { ... }`,
       },
       animation: {
         'spin-slow': 'spin 20s linear infinite',

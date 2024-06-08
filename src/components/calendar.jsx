@@ -170,19 +170,21 @@ function Calendar({ sDay }) {
 
   return (
     <>
-      <div className="flex  flex-row justify-center px-20 py-20">
-        <div className="flex ipad:flex-col flex-row px-20 w-screen justify-center ">
+      <div className="flex flex-row justify-center px-20 py-20 ipad-mini:px-0">
+        <div className="flex ipad:flex-col flex-row px-20 ipad-mini:px-8 w-screen justify-center ipad:place-content-center ipad:place-items-center">
           <div
             className={
-              "w-3/5 bg-white text-text-color p-10 border-white border-2" +
-              (toggleAdd ? " rounded-l-xl" : " rounded-xl")
+              "w-3/5 bg-white text-text-color p-10 ssm:p-5 border-white border-2 ipad:w-full " +
+              (toggleAdd
+                ? " rounded-l-xl ipad:rounded-t-xl ipad:rounded-bl-none"
+                : " rounded-xl")
             }
           >
-            <div className="flex justify-between px-8 pb-3 ">
+            <div className="flex justify-between px-8 ssm:px-0 pb-3 ">
               <h1 className="font-semibold ">
                 {months[today.month()]}, {today.year() + 543}
               </h1>
-              <div className="flex items-center gap-10">
+              <div className="flex items-center gap-10 ssm:gap-2">
                 <GrFormPrevious
                   className="w-5 h-5 cursor-pointer"
                   onClick={() => {
@@ -268,13 +270,10 @@ function Calendar({ sDay }) {
 
           {toggleAdd ? (
             <form
-              className="flex flex-col  w-2/5 p-4 rounded-r-xl bg-white text-text-color px-16 "
+              className="flex flex-col relative w-2/5 p-4 rounded-r-xl ipad:rounded-b-xl ipad:rounded-tr-none bg-white text-text-color min-ipad:px-16 ipad:w-full"
               onSubmit={HandleSubmit}
             >
-              <button
-                onClick={() => setToggleAdd(false)}
-                className="absolute ml-96 pb-10"
-              >
+              {/* <button onClick={() => setToggleAdd(false)} className="">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -289,7 +288,7 @@ function Calendar({ sDay }) {
                     d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                   />
                 </svg>
-              </button>
+              </button> */}
 
               <div className="pb-5">
                 {"วัน" + getDay(selectDate) + "ที่"} {selectDate.date() + " "}
@@ -322,7 +321,7 @@ function Calendar({ sDay }) {
                       คำที่สามารถอธิบายความรู้สึกของคุณได้ดีที่สุด
                     </p>
 
-                    <ul className="flex flex-wrap row gap-2 h-40 overflow-y-scroll">
+                    <ul className="flex flex-wrap row gap-2 max-h-40 overflow-y-auto">
                       {tags.map((tag, index) => (
                         <li
                           key={index}
