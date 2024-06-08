@@ -20,11 +20,11 @@ export function Auth() {
   return (
     <>
       <main
-        className="flip-card flex justify-center max-w-screen w-screen max-h-screen h-screen place-items-center"
+        className="flip-card flex justify-center max-w-screen max-h-screen h-screen place-items-center"
         id="css-selector"
       >
         <div
-          className=" flex place-items-center justify-center  max-h-full h-4/5 max-w-full w-screen flip-card-inner m-10"
+          className=" flex place-items-center justify-center max-h-full h-4/5 w-screen flip-card-inner m-10"
           id="flip-card-inner"
         >
           <div className="flip-card-front max-w-4xl w-3xl max-h-screen h-4/5">
