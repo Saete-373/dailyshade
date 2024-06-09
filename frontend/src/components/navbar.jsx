@@ -122,10 +122,12 @@ function StickyNavbar() {
                   <img
                     onClick={toggleDropdown}
                     id="dropdownButton"
-                    className="h-10 w-auto inline-block rounded-full hover:ring-2 hover:ring-pink-darker border-2 border-base-pink "
-                    src={image !== "" && image != undefined
-                      ? "../../public/imageGalleries/" + image
-                      : happy}
+                    className="h-10 w-10 inline-block rounded-full hover:ring-2 hover:ring-pink-darker border-2 border-base-pink "
+                    src={
+                      image !== "" && image != undefined
+                        ? "../../public/imageGalleries/" + image
+                        : happy
+                    }
                     alt=""
                   ></img>
                   <div
