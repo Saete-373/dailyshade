@@ -39,6 +39,50 @@ function Quote() {
       text: "One thing you can't hide - is when you're crippled inside.",
       author: "John Lennon",
     },
+    {
+      text: "Kindness isn’t weakness, but strength.",
+      author: "Cinderella (2021)",
+    },
+    {
+      text: "Just because someone stumbles and loses their path, doesn’t mean they’re lost forever.",
+      author: "Professor X",
+    },
+    {
+      text: "Life moves pretty fast. If you don’t stop and look around once in a while, you could miss it.",
+      author: "Ferris Bueller",
+    },
+    {
+      text: "Don’t let anyone ever make you feel like you don’t deserve what you want.",
+      author: "Heath Ledger as Patrick Verona",
+    },
+    {
+      text: "You cannot live your life to please others. The choice must be yours.",
+      author: "White Queen",
+    },
+    {
+      text: "It’s not destroying. It’s making something new.",
+      author: "Natalie Portman as Lena",
+    },
+    {
+      text: "Only if you find peace within yourself will you find true connection with others.",
+      author: "Palm Reader",
+    },
+    {
+      text: "When you decide to be something, you can be it.",
+      author: "Frank Costello",
+    },
+    {
+      text: "Fear is the mind-killer.",
+      author: "Dune (2020)",
+    },
+    {
+      text: "Life is like a box of chocolates, you never know what you’re gonna get.",
+      author: "Forrest Gump (1994)",
+    },
+    {
+      text: "It’s only after we’ve lost everything that we’re free to do anything.",
+      author: "Fight Club (1999)",
+    },
   ];
 
   useEffect(() => {
