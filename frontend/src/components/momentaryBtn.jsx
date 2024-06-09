@@ -2,9 +2,10 @@ import React from "react";
 import reccircle from "../assets/reccircle.png";
 import uparrow from "../assets/uparrow.png";
 import { NavLink, useNavigate } from "react-router-dom";
-import CLIENT_PATH from "../clientPath"
+import CLIENT_PATH from "../clientPath";
+import dayjs from "dayjs";
 
-export function MomentaryBtn({ selectDate }) {
+export function MomentaryBtn({ selectDate = dayjs() }) {
   return (
     <>
       <button
