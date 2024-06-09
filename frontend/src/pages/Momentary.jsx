@@ -214,7 +214,9 @@ function Momentary() {
             </div>
             {selectRecords.length > 0 ? (
               <div className="w-full flex flex-col gap-y-10">
-                <p className="text-start text-slate-700">Momentary Emotions</p>
+                <p className="text-start text-slate-700 pl-20 ssm:pl-0">
+                  Momentary Emotions
+                </p>
                 <ul className="flex flex-col gap-y-5">
                   {selectRecords?.map((rec, index) => (
                     <li
@@ -223,7 +225,7 @@ function Momentary() {
                     >
                       <div className="flex w-2/6 place-items-center gap-2">
                         <label className="w-1/2 ipad-mini:w-15 ipad-mini:text-sm">
-                          {dayjs(rec.datetime).hour()} :{" "}
+                          {dayjs(rec.datetime).hour()}:
                           {dayjs(rec.datetime).minute()}
                         </label>
                         <div className="">
@@ -304,18 +306,30 @@ function Momentary() {
                 </ul>
                 {/* <AddRecord /> */}
                 <div className="w-full">
-                  <p className="text-start text-slate-700">สรุปผล</p>
+                  <p className="text-start text-slate-700 pl-20 ssm:pl-0">
+                    สรุปผล
+                  </p>
                   {selectRecords && (
-                    <div className="flex flex-row ipad-mini:flex-col justify-center place-items-center">
+                    <div className="flex flex-row ipad-mini:flex-col justify-center place-items-center gap-x-10">
                       <div className="flex justify-center items-center w-80 h-80 ipad-mini:w-52 ipad-mini:h-52 rounded-full">
                         <GradientColor
                           size={36}
                           filteredRecord={selectRecords}
                         />
                       </div>
-                      <ul className="flex flex-col ">
+                      <ul className="flex flex-col ipad-mini:flex-row ipad-mini:flex-wrap ipad-mini:gap-x-4">
                         {countEmotions.map((cemo, index) => (
-                          <li key={index} className="flex gap-3 ">
+                          <li key={index} className="flex gap-3 items-center">
+                            {allEmotion
+                              ?.filter((emo) => emo._id === cemo.color_id)
+                              .map((emo) => (
+                                <div
+                                  key={emo._id}
+                                  className="w-3 h-3 rounded-full"
+                                  style={{ backgroundColor: emo.color }}
+                                ></div>
+                              ))}
+
                             <label className="">{cemo.count}</label>
                             <label className="flex">
                               {allEmotion

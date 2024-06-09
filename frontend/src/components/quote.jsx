@@ -40,7 +40,7 @@ function Quote() {
   return (
     <>
       <aside className="flex">
-        <div className="text-left">
+        <div className="text-left flex flex-col">
           <p
             className="text-pretty quote-text text-3xl text-gray-700 mb-5 leading-relaxed font-serif"
             id="quoteText"
@@ -51,7 +51,7 @@ function Quote() {
             —{quote?.author}
           </p>
           <p className="pb-8 text-left pt-10 text-xl">วันนี้เป็นอย่างไรบ้าง?</p>
-          <div className="mb-36 w-2/4 ssm:w-2/4">
+          <div className="mb-36 w-3/4 ssm:w-3/4">
             <Recordbtn></Recordbtn>
           </div>
         </div>

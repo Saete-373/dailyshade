@@ -10,7 +10,7 @@ export function MomentaryBtn({ selectDate = dayjs() }) {
     <>
       <button
         type="button"
-        className="absolute rounded-full bg-snow border-2 border-white cursor-pointer pl-5"
+        className="absolute rounded-full bg-snow border-2 border-steel card-shadow5 cursor-pointer right-0 bottom-0 mb-3 mr-3"
         onClick={() => {
           const select_date = selectDate;
           if (window.localStorage.getItem("selectDate")) {
@@ -29,11 +29,15 @@ export function MomentaryBtn({ selectDate = dayjs() }) {
         }}
       >
         <div className="flex place-content-center place-items-center  ">
-          <img src={uparrow} alt="" className="w-7 absolute shake z-10" />
+          <img
+            src={uparrow}
+            alt=""
+            className="w-10 ssm:w-8 absolute shake z-10"
+          />
           <img
             src={reccircle}
             alt=""
-            className="w-16 transition delay-900 animate-spin-slow"
+            className="w-20 ssm:w-16 transition delay-900 animate-spin-slow"
           />
         </div>
       </button>
