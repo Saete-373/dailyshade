@@ -1,14 +1,41 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import api from "../axios";
+import { toast } from "react-toastify";
+
 export const ForgottenPassword = () => {
-  const navigate = useNavigate();
+
+  const [value, setValue] = useState({
+    email: "",
+  });
+
+  const handleChange = (e) => {
+    setValue({
+      ...value,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await api
+      .post("/forgetPass", value)
+      .then((response) => {
+        toast.success(response.data.log);
+      })
+      .catch((error) => {
+        toast.error(error.response.data.log);
+      });
+  };
+
   return (
-    <form className="flex flex-col h-full">
+    <form className="flex flex-col h-full" onSubmit={handleSubmit}>
       <div>
         <h1 className="pb-5 pt-10 text-3xl">ลืมรหัสผ่าน</h1>
       </div>
       <div className="flex flex-col place-items-center">
-        <h2 className="pb-5 text-xl">
+        <h2 className="pb-5 px-5 text-lg">
           กรุณาระบุอีเมลของคุณและเราจะส่งลิงก์เพื่อให้คุณรีเซ็ตรหัสผ่าน
         </h2>
         <div className="flex flex-col pb-2 w-4/6">
@@ -27,6 +54,7 @@ export const ForgottenPassword = () => {
             <input
               type="email"
               name="email"
+              onChange={handleChange}
               className="rounded-e-3xl p-3 bg-gray-200 w-full focus:outline-none "
             />
           </div>

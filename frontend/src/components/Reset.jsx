@@ -1,15 +1,61 @@
 import React from "react";
+import { useState } from "react";
+import api from "../axios";
+import { toast } from "react-toastify";
 
 export const ResetPass = () => {
+  const [input, setInput] = useState({
+    newPass: "",
+    confPass: "",
+  });
+
+  const resetPass = async () => {
+    const token = window.location.pathname.split("/").pop();
+    await api
+      .put(`/resetPass/${token}`, {
+        newPass: input.newPass,
+        confPass: input.confPass,
+      })
+      .then((res) => {
+        toast.success(res.data.log);
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error(err.response.data.log);
+      });
+  };
+
+  const handleChange = (evt) => {
+    const key = evt.target.name;
+    const value = evt.target.value;
+    setInput((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const check_empty = input.newPass === "" || input.confPass === "";
+    const in_range = 8 <= input.newPass.length && input.newPass.length <= 20;
+    if (check_empty) {
+      toast.error("กรุณากรอกข้อมูลให้ครบถ้วน");
+    } else if (!in_range) {
+      toast.error("กรุณากรอกรหัสผ่าน 8-20 ตัวอักษร");
+    } else {
+      resetPass();
+    }
+  };
+
   return (
-    <form className="flex flex-col place-items-center h-full">
+    <form
+      className="flex flex-col place-items-center h-full"
+      onSubmit={handleSubmit}
+    >
       <div>
         <h1 className="pb-5 pt-10 text-3xl">เปลี่ยนรหัสผ่าน</h1>
       </div>
-      <div className="flex flex-col  w-4/6 ">
+      <div className="flex flex-col w-4/6">
         <label className="text-left">รหัสผ่านใหม่</label>
         <div className="flex">
-          <span className="inline-flex items-center px-3 text-sm text-gray-800  rounded-s-3xl bg-gray-200">
+          <span className="inline-flex items-center px-3 text-sm text-gray-800 rounded-s-3xl bg-gray-200">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -25,7 +71,9 @@ export const ResetPass = () => {
           </span>
           <input
             type="password"
-            name="password"
+            name="newPass"
+            onChange={handleChange}
+            required
             className="rounded-e-3xl p-3 bg-gray-200 w-full focus:outline-none"
           />
         </div>
@@ -49,14 +97,16 @@ export const ResetPass = () => {
           </span>
           <input
             type="password"
-            name="cpassword"
+            name="confPass"
+            onChange={handleChange}
+            required
             className="rounded-e-3xl p-3 bg-gray-200 w-full focus:outline-none"
           />
         </div>
         <div className="flex justify-center pt-5 pb-10 w-full">
           <button
             type="submit"
-            className="inline-flex items-center w-full justify-center rounded-3xl bg-base-pink py-3 text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker  px-10 "
+            className="inline-flex items-center w-full justify-center rounded-3xl bg-base-pink py-3 text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker px-10"
           >
             ยืนยัน
           </button>
