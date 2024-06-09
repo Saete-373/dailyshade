@@ -13,6 +13,9 @@ module.exports = {
         "ins-color": "#d6249f",
         "wheat-color": "#EFEDEC",
         "midnight": "#101720",
+        "oil-slick": "#031602",
+        "snow": "#FFFAFA",
+        "steel": "#FAF9F6"
       },
       screens: {
         'ssm' : {'max': '480px'},

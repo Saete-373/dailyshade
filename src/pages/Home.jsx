@@ -35,7 +35,7 @@ function Home() {
       <EmailContext.Provider value={[userEmail, setUserEmail]}>
         <section id="section1" className="h-screen bg-home">
           <aside className="relative flex  max-w-screen  ">
-            <div className="mt-56 ml-20 ssm:ml-5 max-w-xl w-xl">
+            <div className="mt-40 ml-20 ssm:ml-5 max-w-xl w-xl">
               <Quote></Quote>
             </div>
             {/* <div className="absolute -z-10 right-0">
@@ -55,7 +55,7 @@ function Home() {
             <EmotionsCardPanel></EmotionsCardPanel>
           </article>
         </section>
-        <section className="mt-20 mb-20">
+        <section id="section4" className="mt-20 mb-20">
           <Inscontent></Inscontent>
         </section>
       </EmailContext.Provider>
