@@ -8,7 +8,7 @@ import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import { generateDate, months } from "../../../backend/components/Calendar";
 import { cn } from "../../../backend/components/cn";
 import { filteredRecord } from "../../../backend/components/filteredRecord";
-import GradientColor from "./gradientColor";
+import QueueColor from "./queueColor";
 import AddEmotion from "./addEmotion";
 import "./styles/scrollbarCustom.css";
 
@@ -149,7 +149,7 @@ function Calendar({ sDay }) {
                           .map((rec) => rec.datetime.format("YYYY-MM-DD"))
                           .includes(date.format("YYYY-MM-DD")) ? (
                           <div className="flex justify-center items-center w-10 h-10 rounded-full">
-                            <GradientColor
+                            <QueueColor
                               size={10}
                               date={date.date()}
                               filteredRecord={filteredRecord(records, date)}
