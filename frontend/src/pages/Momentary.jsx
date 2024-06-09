@@ -36,7 +36,7 @@ function Momentary() {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(err.response.data.log)
+        toast.error(err.response.data.log);
       });
   };
 
@@ -50,7 +50,7 @@ function Momentary() {
         setAllTag(tag_data);
       })
       .catch((err) => {
-        toast.error(err.response.data.log)
+        toast.error(err.response.data.log);
       });
   };
 
@@ -82,7 +82,7 @@ function Momentary() {
         })
         .catch((err) => {
           console.log(err);
-          toast.error(err.response.data.log)
+          toast.error(err.response.data.log);
         });
   };
 
@@ -132,12 +132,12 @@ function Momentary() {
       })
       .then((res) => {
         console.log(res.data.log);
-        toast.success(res.data.log)
+        toast.success(res.data.log);
         window.location.href = CLIENT_PATH + "/momentary";
       })
       .catch((err) => {
         console.log(err);
-        toast.error(err.response.data.log)
+        toast.error(err.response.data.log);
       });
   };
 
@@ -168,7 +168,7 @@ function Momentary() {
   return (
     <>
       <div className="flex max-w-screen min-h-screen justify-center">
-        <div className="flex justify-center w-9/12 h-full place-items-center m-5">
+        <div className="flex justify-center w-9/12 h-full place-items-center m-5 ipad-mini:w-11/12">
           <div className="card-shadow2 w-full h-5/6  bg-snow rounded-xl p-10 flex flex-col gap-y-10 justify-center place-items-center">
             <div className="flex flex-row w-full justify-between">
               <button onClick={handlePrevDay}>
@@ -178,7 +178,7 @@ function Momentary() {
                   viewBox="0 0 24 24"
                   strokeWidth="1.5"
                   stroke="#031602"
-                  className="w-10 h-10"
+                  className="w-10 h-10 ipad-mini:w-6 ipad-mini:h-6"
                 >
                   <path
                     strokeLinecap="round"
@@ -187,7 +187,7 @@ function Momentary() {
                   />
                 </svg>
               </button>
-              <h1 className="text-2xl content-center cursor-pointer text-oil-slick">
+              <h1 className="text-2xl ipad-mini:text-lg content-center cursor-pointer text-oil-slick">
                 {sDate && (
                   <label>
                     {"วัน" + getDay(sDate) + "ที่"} {sDate.date() + " "}
@@ -202,7 +202,7 @@ function Momentary() {
                   viewBox="0 0 24 24"
                   strokeWidth="1.5"
                   stroke="#031602"
-                  className="w-10 h-10"
+                  className="w-10 h-10  ipad-mini:w-6 ipad-mini:h-6"
                 >
                   <path
                     strokeLinecap="round"
@@ -219,10 +219,10 @@ function Momentary() {
                   {selectRecords?.map((rec, index) => (
                     <li
                       key={index}
-                      className="flex w-full px-5 place-items-start justify-between"
+                      className="flex w-full px-5 ssm:px-0 place-items-start justify-between"
                     >
-                      <div className="flex w-2/6 place-items-center">
-                        <label className="w-1/2">
+                      <div className="flex w-2/6 place-items-center gap-2">
+                        <label className="w-1/2 ipad-mini:w-15 ipad-mini:text-sm">
                           {dayjs(rec.datetime).hour()} :{" "}
                           {dayjs(rec.datetime).minute()}
                         </label>
@@ -231,13 +231,13 @@ function Momentary() {
                             src={allEmotion
                               ?.filter((emo) => emo._id === rec.color_id)
                               .map((emo) => emo.emo_pic)}
-                            className="w-14 h-14"
+                            className="w-14 h-14 ipad-mini:w-10 ipad-mini:h-10"
                           />
                         </div>
                       </div>
 
                       <div className="flex w-3/6 flex-col items-start">
-                        <label className="text-lg font-normal">
+                        <label className="text-lg ipad-mini:text-md font-normal">
                           {allEmotion
                             ?.filter((emo) => emo._id === rec.color_id)
                             .map((emo) => emo.color_name)}
@@ -265,7 +265,7 @@ function Momentary() {
                           </div>
                         ) : null}
                       </div>
-                      <div className="flex w-1/6 place-items-center justify-end">
+                      <div className="flex w-1/6 ipad-mini:w-2 place-items-center justify-end">
                         <button
                           onClick={() => handleDelete(rec._id)}
                           className="svg-button w-1/2"
@@ -306,8 +306,8 @@ function Momentary() {
                 <div className="w-full">
                   <p className="text-start text-slate-700">สรุปผล</p>
                   {selectRecords && (
-                    <div className="flex w- flex-row justify-center ">
-                      <div className="flex justify-center items-center w-80 h-80 rounded-full">
+                    <div className="flex flex-row ipad-mini:flex-col justify-center place-items-center">
+                      <div className="flex justify-center items-center w-80 h-80 ipad-mini:w-52 ipad-mini:h-52 rounded-full">
                         <GradientColor
                           size={36}
                           filteredRecord={selectRecords}
