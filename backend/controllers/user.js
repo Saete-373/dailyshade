@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const UserModel = require("../models/User");
-const sendEmail = require('../sendEmail');
+const sendEmail = require("../sendEmail");
 const jwt = require("jsonwebtoken");
 
 exports.getUserData = async (req, res) => {
@@ -62,6 +62,12 @@ exports.updateProfile = async (req, res) => {
       return res.status(404).json({ log: "ไม่พบผู้ใช้นี้ในระบบ" });
     }
 
+    const userFromUserName = await UserModel.findOne({ username: username });
+
+    if (userFromUserName) {
+      return res.status(400).json({ log: "username ถูกใช้ไปแล้ว" });
+    }
+
     const updateUser = await UserModel.findOneAndUpdate(
       { email: auth_email },
       { username: username, user_pic: user_pic }
@@ -91,7 +97,7 @@ exports.forgetPass = async (req, res) => {
     if (!user) {
       return res.status(404).json({ log: "ไม่พบบัญชีผู้ใช้" });
     }
-    
+
     const payload = {
       user: {
         email: user.email,
@@ -104,7 +110,9 @@ exports.forgetPass = async (req, res) => {
       { expiresIn: "10m" },
       async (err, token) => {
         if (err) {
-          return res.status(500).json({ log: "เกิดข้อผิดพลาดในการสร้างโทเค็น" });
+          return res
+            .status(500)
+            .json({ log: "เกิดข้อผิดพลาดในการสร้างโทเค็น" });
         }
 
         const emailContent = `<h3>รีเซ็ตรหัสผ่าน</h3>
@@ -113,7 +121,7 @@ exports.forgetPass = async (req, res) => {
         <p>ลิงก์นี้จะหมดอายุภายใน 10 นาที</p>
        `;
         try {
-          await sendEmail(email, "รีเซ็ตรหัสผ่าน",emailContent);
+          await sendEmail(email, "รีเซ็ตรหัสผ่าน", emailContent);
           return res.status(200).json({ log: "ส่งอีเมลสำเร็จ" });
         } catch (emailError) {
           return res.status(500).json({ log: "เกิดข้อผิดพลาดในการส่งอีเมล" });
@@ -121,11 +129,11 @@ exports.forgetPass = async (req, res) => {
       }
     );
   } catch (err) {
-    return res.status(500).json({ log: "เกิดข้อผิดพลาดในการค้นหาผู้ใช้", error: err.message });
+    return res
+      .status(500)
+      .json({ log: "เกิดข้อผิดพลาดในการค้นหาผู้ใช้", error: err.message });
   }
 };
-
-
 
 exports.resetPass = async (req, res) => {
   try {
