@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import api from "../axios";
 import png from "../assets/regis.png";
 import "./styles/bg.css";
@@ -30,12 +31,12 @@ function Register() {
       })
       .then((res) => {
         console.log(res.data.log);
-        setLog(res.data.log);
+        toast.success(res.data.log);
         navigate("/auth");
       })
       .catch((err) => {
         console.log(err.response.data.log);
-        setLog(err.response.data.log);
+        toast.error(err.response.data.log);
       });
   };
 
@@ -45,9 +46,9 @@ function Register() {
       !(8 <= regisUser.password.length <= 20) ||
       !(8 <= regisUser.cpassword.length <= 20)
     ) {
-      setLog("โปรดกรอกรหัสผ่าน 8-20 ตัวอักษร");
+      toast.error("โปรดกรอกรหัสผ่าน 8-20 ตัวอักษร");
     } else if (regisUser.password != regisUser.cpassword) {
-      setLog("รหัสผ่านไม่ตรงกัน กรุณากรอกใหม่");
+      toast.error("รหัสผ่านไม่ตรงกัน กรุณากรอกใหม่");
     } else {
       register();
     }
@@ -177,7 +178,7 @@ function Register() {
                     clipRule="evenodd"
                   />
                 </svg> */}
-              <p className="text-sm text-left pl-1 text-red-600">{log}</p>
+              {/* <p className="text-sm text-left pl-1 text-red-600">{log}</p> */}
             </span>
           </div>
 

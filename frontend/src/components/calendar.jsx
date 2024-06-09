@@ -1,6 +1,7 @@
 import React from "react";
-import { useState, useEffect, useContext, useReducer } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import dayjs from "dayjs";
 import api from "../axios";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
@@ -48,6 +49,7 @@ function Calendar({ sDay }) {
         })
         .catch((err) => {
           console.log(err);
+          toast.error(err.response.data.log);
         });
   };
 
@@ -151,7 +153,7 @@ function Calendar({ sDay }) {
                             />
                           </div>
                         ) : (
-                          <div className="flex justify-center items-center w-[35px] h-[35px] bg-white rounded-full">
+                          <div className="flex justify-center items-center w-[35px] h-[35px] bg-snow rounded-full">
                             <p className="absolute text-black">{date.date()}</p>
                           </div>
                         )}

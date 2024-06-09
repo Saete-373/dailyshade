@@ -96,7 +96,7 @@ function SettingPanel() {
                   </label>
                 </button>
               </li>
-              <li
+              {/* <li
                 className="flex rounded hover:bg-gray-300 p-14 max-w-full pb-4 pt-4"
                 tab-to="third"
               >
@@ -117,7 +117,7 @@ function SettingPanel() {
                     <span className="cursor-pointer">ลบบัญชี</span>
                   </label>
                 </button>
-              </li>
+              </li> */}
             </ul>
           </div>
           <div className="flex flex-col text-left h-1/5 place-content-end">
@@ -156,9 +156,9 @@ function SettingPanel() {
           <div className=" hidden" tab-id="second">
             <ChangePassword />
           </div>
-          <div className=" hidden" tab-id="third">
+          {/* <div className=" hidden" tab-id="third">
             <DeleteAccount />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

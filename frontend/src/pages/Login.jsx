@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import api from "../axios";
 import png from "../assets/login.png";
 import "./styles/bg.css";
@@ -23,9 +24,8 @@ function Login() {
         password: loginUser.password,
       })
       .then((res) => {
-        setLog(res.data.log);
-
         console.log(res.data);
+        toast.success(res.data.log);
 
         dispatch({
           type: "LOGIN",
@@ -40,7 +40,7 @@ function Login() {
       })
       .catch((err) => {
         console.log(err.response.data.log);
-        setLog(err.response.data.log);
+        toast.error(err.response.data.log);
       });
   };
 
