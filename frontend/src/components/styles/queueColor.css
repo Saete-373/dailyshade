@@ -3,10 +3,10 @@
   width: 99%;
   height: 99%;
   border-radius: 9999px;
+  animation: switch-fade 7s infinite linear;
+
 }
 
-.ball.active {
-  animation: switch-fade 5s infinite linear;
   opacity: 0;
 }
 
@@ -21,4 +21,3 @@
     opacity: 0;
   }
 }
-

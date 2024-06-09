@@ -46,7 +46,7 @@ function queueColor(props) {
       const nextIndex = (color.indexOf(showColor) + 1) % colors.length;
 
       setShowColor(colors[nextIndex]);
-    }, 5000);
+    }, 7000);
 
     return () => clearInterval(intervalId);
   }, [showColor, colors]);

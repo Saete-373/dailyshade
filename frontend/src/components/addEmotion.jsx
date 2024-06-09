@@ -143,12 +143,12 @@ const AddEmotion = ({ toggleAdd, setToggleAdd, selectDate }) => {
                   คำที่สามารถอธิบายความรู้สึกของคุณได้ดีที่สุด
                 </p>
 
-                <ul className="flex flex-wrap row gap-2 max-h-36 overflow-y-auto">
+                <ul className="flex flex-wrap row gap-2 max-h-36 overflow-y-auto px-5 py-2 ">
                   {tags.map((tag, index) => (
                     <li
                       key={index}
                       className={
-                        "border-base-pink border-2 px-5 rounded-2xl cursor-pointer " +
+                        "border-base-pink border-2 px-5 rounded-2xl cursor-pointer transition ease-in-out delay-150 scale-100 hover:scale-105 " +
                         (tags[index][1]
                           ? "bg-base-pink border-pink-darker"
                           : "bg-snow")
@@ -172,7 +172,7 @@ const AddEmotion = ({ toggleAdd, setToggleAdd, selectDate }) => {
                   // maxLength="120"
                   placeholder="อยากบอกตัวเองว่าอะไร"
                   onChange={handleNote}
-                  className="w-full h-15 resize-none text-sm p-2 text-gray-900 bg-gray-100 rounded-lg border-2 border-base-pink focus:ring-pink-darker focus:border-pink-darker"
+                  className="w-full h-15 resize-none text-sm p-2 text-gray-900 bg-steel rounded-lg border-2 border-base-pink focus:ring-pink-darker focus:border-pink-darker"
                 ></textarea>
                 <div className="flex row justify-between pt-3">
                   {/* <div></div> */}
