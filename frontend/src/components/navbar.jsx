@@ -35,7 +35,8 @@ function StickyNavbar() {
   const dispatch = useDispatch();
   const [userData, setUserData] = useState();
   const [image, setImage] = useState("");
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  
   useEffect(() => {
     GetUserData();
   }, [user]);
@@ -47,7 +48,7 @@ function StickyNavbar() {
       })
       .then((res) => {
         setUserData(res.data);
-        setImage(res.data.user_pic);
+        setImage(res.data?.user_pic);
       })
       .catch((err) => {
         console.log(err);

@@ -7,16 +7,16 @@ function gradientColor(props) {
   const size = props.size * 4;
 
   const [colors, setColors] = useState([]);
-  const [circleBlur, setCircleBlur] = useState(size * 0.125);
+  const [circleBlur, setCircleBlur] = useState(size * 0.15);
 
   const c1_style =
-    "w-[97.5%] h-[97.5%] opacity-80 rounded-full absolute mt-[62.5%] ml-[62.5%]";
+    "w-[97.5%] h-[97.5%] opacity-70 rounded-full absolute mt-[62.5%] ml-[62.5%]";
 
   const c2_style =
-    "w-[97.5%] h-[97.5%] opacity-80 rounded-full absolute mt-[62.5%] mr-[62.5%]";
+    "w-[97.5%] h-[97.5%] opacity-70 rounded-full absolute mt-[62.5%] mr-[62.5%]";
 
   const c3_style =
-    "w-[70%] h-[70%] opacity-80 rounded-full absolute mb-[44.2%]";
+    "w-[75%] h-[75%] opacity-70 rounded-full absolute mb-[44.2%]";
 
   let color_ids = [];
   if (props.filteredRecord) {
