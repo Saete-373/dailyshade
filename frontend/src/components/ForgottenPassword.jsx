@@ -9,7 +9,7 @@ export const ForgottenPassword = () => {
       </div>
       <div className="flex flex-col place-items-center">
         <h2 className="pb-5 text-xl">
-          กรุณาระบุอีเมลของคุณและเราจะส่งลิงห์เพื่อให้คุณรีเซ็ตรหัสผ่าน
+          กรุณาระบุอีเมลของคุณและเราจะส่งลิงก์เพื่อให้คุณรีเซ็ตรหัสผ่าน
         </h2>
         <div className="flex flex-col pb-2 w-4/6">
           <div className="flex">

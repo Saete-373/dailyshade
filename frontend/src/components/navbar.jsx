@@ -34,8 +34,7 @@ function StickyNavbar() {
   const user = useSelector(getUser);
   const dispatch = useDispatch();
   const [userData, setUserData] = useState();
-  const [isToggle, setIstoggle] = useState(false);
-
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   useEffect(() => {
     GetUserData();
   }, [user]);
@@ -60,25 +59,13 @@ function StickyNavbar() {
     });
     window.location.href = CLIENT_PATH + "/auth";
   };
-  function myFunction() {
-    var x = document.getElementById("myTopnav");
-
-    if (x.classList.contains("topnav") && isToggle == false) {
-      x.classList.add("responsive");
-      setIstoggle(true);
-    }
-    if (x.classList.contains("topnav") && isToggle == true) {
-      x.classList.remove("responsive");
-      setIstoggle(false);
-    }
-  }
 
   return (
     <>
       <header className="sticky inset-x-0 top-0 z-30 mx-auto border  bg-snow py-3 shadow backdrop-blur-lg max-w-full">
         <div className="px-10">
           <div className="flex items-center justify-between ">
-            <div className="flex shrink-0 w-1/5 ssm:w-2/4">
+            <div className="flex shrink-0 w-1/5 ipad:w-2/4">
               <a aria-current="page" className="flex items-center" href="/">
                 <img className="h-10 w-auto rounded-lg" src={DSlogo} alt="" />
                 <p className="inline-block rounded-lg px-3 py-1 text-lg font-medium font-serif text-text-color transition-all duration-200 ">
@@ -86,8 +73,8 @@ function StickyNavbar() {
                 </p>
               </a>
             </div>
-            <div className="w-3/5 lg:flex lg:w-auto ssm:flex ssm:justify-end ssm:place-content-end ssm:w-2/4 ">
-              <ul className=" flex  p-4 md:p-0 mt-4 flex-row md:space-x-8 md:mt-0 ssm:hidden justify-center">
+            <div className="w-3/5 lg:flex lg:w-auto ipad:flex ipad:justify-end ipad:place-content-end ipad:w-2/4 ">
+              <ul className=" flex  p-4 md:p-0 mt-4 flex-row md:space-x-8 md:mt-0 ipad:hidden justify-center">
                 <li>
                   <a
                     aria-current="page"
@@ -126,25 +113,6 @@ function StickyNavbar() {
                   </a>
                 </li>
               </ul>
-              <a
-                className="hidden ssm:block ssm:absolute ssm:right-5 ssm:top-4 "
-                onClick={myFunction}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-8 h-8"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                  />
-                </svg>
-              </a>
             </div>
             <div className="flex items-center justify-end gap-4 w-1/5 ">
               {user.email ? (
@@ -152,7 +120,7 @@ function StickyNavbar() {
                   <img
                     onClick={toggleDropdown}
                     id="dropdownButton"
-                    className="h-10 w-auto inline-block rounded-full hover:ring-2 hover:ring-pink-darker ssm:hidden border-2 border-base-pink "
+                    className="h-10 w-auto inline-block rounded-full hover:ring-2 hover:ring-pink-darker border-2 border-base-pink "
                     src={happy}
                     alt=""
                   ></img>
@@ -162,11 +130,6 @@ function StickyNavbar() {
                   >
                     <ul>
                       <li className="cursor-pointer rounded hover:bg-gray-300 p-2 ">
-                        <img
-                          className="h-10 w-auto ssm:inline-block rounded-full hover:ring-2 hidden"
-                          src={DSlogo}
-                          alt=""
-                        ></img>
                         <p>@{userData ? userData.username : "johndoe123"}</p>
                         <p className=" p-2 font-semibold">
                           {userData ? userData.email : "johndoe123@gmail.com"}

@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import EditProfile from "./editProfile";
 import ChangePassword from "./changePass";
 import DeleteAccount from "./DeleteAccount";
-
+import { useDispatch, useSelector } from "react-redux";
+import CLIENT_PATH from "../clientPath";
 function SettingPanel() {
+  const dispatch = useDispatch();
   useEffect(() => {
     const handleTabClick = (e) => {
       const link = e.currentTarget.getAttribute("tab-to");
@@ -46,7 +48,13 @@ function SettingPanel() {
       });
     };
   }, []);
-
+  const logOut = async () => {
+    dispatch({
+      type: "LOGOUT",
+      payload: null,
+    });
+    window.location.href = CLIENT_PATH + "/auth";
+  };
   return (
     <div className="flex max-w-screen justify-center">
       <div className="flex flex-row justify-center w-9/12 max-h-full h-screen place-items-center">
@@ -123,7 +131,7 @@ function SettingPanel() {
           <div className="flex flex-col text-left h-1/5 place-content-end">
             <ul className="leading-loose">
               <li className="flex rounded hover:bg-gray-300 p-14 max-w-full pb-8 pt-8">
-                <button>
+                <button onClick={logOut}>
                   <label className="inline-flex items-center w-full space-x-2">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
