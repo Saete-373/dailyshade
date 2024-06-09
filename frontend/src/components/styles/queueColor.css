@@ -3,6 +3,9 @@
   width: 99%;
   height: 99%;
   border-radius: 9999px;
+}
+
+.ball.active {
   animation: switch-fade 5s infinite linear;
   opacity: 0;
 }

@@ -55,7 +55,7 @@ function queueColor(props) {
     <div className="flex justify-center items-center w-[87.5%] h-[87.5%] bg-white rounded-full  overflow-hidden">
       <div className="flex w-full h-full justify-center items-center relative rounded-full">
         <div
-          className="ball"
+          className={colors.length === 1 ? "ball" : "ball active"}
           style={{
             backgroundColor: showColor,
             filter: "blur(" + circleBlur + "px)",
