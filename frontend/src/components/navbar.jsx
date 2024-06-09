@@ -25,7 +25,11 @@ function gotoEmotions() {
     behavior: "smooth",
   });
 }
-
+function gotoIns() {
+  document.getElementById("section4").scrollIntoView({
+    behavior: "smooth",
+  });
+}
 function StickyNavbar() {
   const user = useSelector(getUser);
   const dispatch = useDispatch();
@@ -71,7 +75,7 @@ function StickyNavbar() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-30 mx-auto border border-white bg-white/80 py-3 shadow backdrop-blur-lg max-w-full">
+      <header className="sticky inset-x-0 top-0 z-30 mx-auto border  bg-snow py-3 shadow backdrop-blur-lg max-w-full">
         <div className="px-10">
           <div className="flex items-center justify-between ">
             <div className="flex shrink-0 w-1/5 ssm:w-2/4">
@@ -112,6 +116,15 @@ function StickyNavbar() {
                     <div className="bg-base-pink h-[3px] w-0 group-hover:w-full transition-all duration-500 "></div>
                   </a>
                 </li>
+                <li>
+                  <a
+                    className="group inline-block  px-6 py-1  text-text-color cursor-pointer"
+                    onClick={gotoIns}
+                  >
+                    Instagram
+                    <div className="bg-base-pink h-[3px] w-0 group-hover:w-full transition-all duration-500 "></div>
+                  </a>
+                </li>
               </ul>
               <a
                 className="hidden ssm:block ssm:absolute ssm:right-5 ssm:top-4 "
@@ -145,7 +158,7 @@ function StickyNavbar() {
                   ></img>
                   <div
                     id="dropdown"
-                    className=" divide-y rounded border-[1px] border-gray-300 backdrop-blur-md bg-white/30 py-3 px-4 absolute top-14 right-10 max-w-64 w-64 shadow-md text-left hidden "
+                    className=" divide-y rounded border-[1px] border-gray-300 backdrop-blur-md bg-snow py-3 px-4 absolute top-14 right-10 max-w-64 w-64 shadow-md text-left hidden "
                   >
                     <ul>
                       <li className="cursor-pointer rounded hover:bg-gray-300 p-2 ">

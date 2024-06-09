@@ -22,6 +22,7 @@ import FogetPW from "./pages/FogetPW";
 import Footer from "./components/footer";
 import { Auth } from "./pages/Authen";
 import { Verify } from "./pages/verify";
+import { ResetPW } from "./pages/ResetPW";
 
 function App() {
   const dispatch = useDispatch()
@@ -102,6 +103,14 @@ function App() {
       element: (
         <>
           <Verify />
+        </>
+      ),
+    },
+    {
+      path: "/resetpassword",
+      element: (
+        <>
+          <ResetPW />
         </>
       ),
     },

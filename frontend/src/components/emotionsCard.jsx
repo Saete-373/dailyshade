@@ -90,7 +90,7 @@ function EmotionsCard() {
         {emotions.map((emotion, index) => (
           <div
             key={index}
-            className="card flex flex-col justify-centent-center rounded-lg border-2 border-white py-6 px-2 max-w-56 w-56 ipad:flex ipad:snap-always ipad:snap-center "
+            className="card flex flex-col justify-centent-center rounded-lg border-2 border-snow py-6 px-2 max-w-56 w-56 ipad:flex ipad:snap-always ipad:snap-center "
           >
             <div className="flex justify-center pb-2">
               <img

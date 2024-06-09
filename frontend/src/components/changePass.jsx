@@ -8,12 +8,12 @@ function ChangePassword() {
     <>
       <h2 className="pt-12 text-xl pl-10 text-left">เปลี่ยนรหัสผ่าน</h2>
       <form>
-        <div className="flex max-w-full justify-start place-content-center gap-10 p-10">
+        <div className="flex flex-col max-w-full justify-start place-content-center gap-10 p-10">
           <div className="w-3/5">
             <div className="flex flex-col pb-2">
               <label className="text-left">รหัสผ่าน</label>
               <div className="flex">
-                <span className="inline-flex items-center px-3 text-sm text-gray-800  rounded-s-3xl bg-white/40">
+                <span className="inline-flex items-center px-3 text-sm text-gray-800  rounded-s-3xl bg-gray-200">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -30,7 +30,7 @@ function ChangePassword() {
                 <input
                   type="password"
                   name="password"
-                  className="rounded-e-3xl p-3 bg-white/40 w-full focus:outline-none"
+                  className="rounded-e-3xl p-3 bg-gray-200 w-full focus:outline-none"
                   required
                 />
               </div>
@@ -41,7 +41,7 @@ function ChangePassword() {
             <div className="flex flex-col pb-2">
               <label className="text-left">รหัสผ่านใหม่</label>
               <div className="flex">
-                <span className="inline-flex items-center px-3 text-sm text-gray-800  rounded-s-3xl bg-white/40">
+                <span className="inline-flex items-center px-3 text-sm text-gray-800  rounded-s-3xl bg-gray-200">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -58,7 +58,7 @@ function ChangePassword() {
                 <input
                   type="password"
                   name="password"
-                  className="rounded-e-3xl p-3 bg-white/40 w-full focus:outline-none"
+                  className="rounded-e-3xl p-3 bg-gray-200 w-full focus:outline-none"
                   required
                 />
               </div>
@@ -66,7 +66,7 @@ function ChangePassword() {
             <div className="flex flex-col pb-2">
               <label className="text-left">ยืนยันรหัสผ่าน</label>
               <div className="flex">
-                <span className="inline-flex items-center px-3 text-sm text-gray-800  rounded-s-3xl bg-white/40">
+                <span className="inline-flex items-center px-3 text-sm text-gray-800  rounded-s-3xl bg-gray-200">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -85,20 +85,20 @@ function ChangePassword() {
                 <input
                   type="password"
                   name="password"
-                  className="rounded-e-3xl p-3 bg-white/40 w-full focus:outline-none"
+                  className="rounded-e-3xl p-3 bg-gray-200 w-full focus:outline-none"
                   required
                 />
               </div>
             </div>
           </div>
-        </div>
-        <div className=" w-3/5 px-10">
-          <button
-            type="submit"
-            className="z-99 inline-flex items-center justify-center rounded-3xl bg-base-pink w-full py-3 text-sm  text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker cursor-pointer"
-          >
-            บันทึกการเปลี่ยนแปลง
-          </button>
+          <div className=" w-3/5">
+            <button
+              type="submit"
+              className="z-99 inline-flex items-center justify-center rounded-3xl bg-base-pink w-full py-3 text-sm  text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker cursor-pointer"
+            >
+              บันทึกการเปลี่ยนแปลง
+            </button>
+          </div>
         </div>
       </form>
     </>

@@ -9,7 +9,7 @@ export function MomentaryBtn({ selectDate }) {
     <>
       <button
         type="button"
-        className="absolute rounded-full bg-white/80 p-1 border-2 border-white  cursor-pointer ml-10 "
+        className="absolute rounded-full bg-snow border-2 border-white cursor-pointer pl-5"
         onClick={() => {
           const select_date = selectDate;
           if (window.localStorage.getItem("selectDate")) {
