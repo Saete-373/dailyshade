@@ -147,7 +147,7 @@ function StickyNavbar() {
               </a>
             </div>
             <div className="flex items-center justify-end gap-4 w-1/5 ">
-              {user ? (
+              {user.email ? (
                 <div className="flex topnav " id="myTopnav">
                   <img
                     onClick={toggleDropdown}

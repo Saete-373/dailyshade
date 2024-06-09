@@ -9,7 +9,7 @@ export const ResetPass = () => {
       <div className="flex flex-col  w-4/6 ">
         <label className="text-left">รหัสผ่านใหม่</label>
         <div className="flex">
-          <span className="inline-flex items-center px-3 text-sm text-gray-800  rounded-s-3xl bg-white/40">
+          <span className="inline-flex items-center px-3 text-sm text-gray-800  rounded-s-3xl bg-gray-200">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -26,12 +26,12 @@ export const ResetPass = () => {
           <input
             type="password"
             name="password"
-            className="rounded-e-3xl p-3 bg-white/40 w-full focus:outline-none"
+            className="rounded-e-3xl p-3 bg-gray-200 w-full focus:outline-none"
           />
         </div>
         <label className="text-left">ยืนยันรหัสผ่าน</label>
         <div className="flex">
-          <span className="inline-flex items-center px-3 text-sm text-gray-800 rounded-s-3xl bg-white/40">
+          <span className="inline-flex items-center px-3 text-sm text-gray-800 rounded-s-3xl bg-gray-200">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -50,7 +50,7 @@ export const ResetPass = () => {
           <input
             type="password"
             name="cpassword"
-            className="rounded-e-3xl p-3 bg-white/40 w-full focus:outline-none"
+            className="rounded-e-3xl p-3 bg-gray-200 w-full focus:outline-none"
           />
         </div>
         <div className="flex justify-center pt-5 pb-10 w-full">
