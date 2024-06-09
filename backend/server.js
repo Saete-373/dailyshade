@@ -1,15 +1,21 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
+const bodyParser = require("body-parser");
+const morgan = require("morgan");
 const dotenv = require("dotenv");
+const { readdirSync } = require("fs");
+const connectDB = require("./db");
 
 dotenv.config();
 
-const userRouter = require("./routes/UserRoute");
-const gradientRouter = require("./routes/GradientRoute");
-
 const app = express();
+
+connectDB();
+
 app.use(express.json());
+
+app.use(morgan("dev"));
+app.use(bodyParser.json({ limit: "20mb" }));
 app.use(
   cors({
     origin: ["http://localhost:5173"],
@@ -18,14 +24,11 @@ app.use(
   })
 );
 
-app.use("/user", userRouter);
-app.use("/gradient", gradientRouter);
+readdirSync("./routes").map((route) => {
+  app.use("/api", require("./routes/" + route));
+});
 
-mongoose.connect(
-  "mongodb+srv://Saete373:rnSSFGS0JSbJRhmP@ourdailyshade.mjqf4di.mongodb.net/dailyshade_db"
-);
-
-const PORT = 5000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
