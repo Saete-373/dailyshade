@@ -34,6 +34,7 @@ function StickyNavbar() {
   const user = useSelector(getUser);
   const dispatch = useDispatch();
   const [userData, setUserData] = useState();
+  const [image, setImage] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   useEffect(() => {
     GetUserData();
@@ -46,6 +47,7 @@ function StickyNavbar() {
       })
       .then((res) => {
         setUserData(res.data);
+        setImage(res.data.user_pic);
       })
       .catch((err) => {
         console.log(err);
@@ -121,7 +123,9 @@ function StickyNavbar() {
                     onClick={toggleDropdown}
                     id="dropdownButton"
                     className="h-10 w-auto inline-block rounded-full hover:ring-2 hover:ring-pink-darker border-2 border-base-pink "
-                    src={happy}
+                    src={image !== "" && image != undefined
+                      ? "../../public/imageGalleries/" + image
+                      : happy}
                     alt=""
                   ></img>
                   <div
