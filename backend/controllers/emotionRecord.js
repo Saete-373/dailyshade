@@ -16,7 +16,7 @@ exports.getUserRecord = async (req, res) => {
 };
 
 exports.addRecord = async (req, res) => {
-  const { email, color_id, tag_ids, datetime } = req.body;
+  const { email, color_id, tag_ids, datetime, note } = req.body;
 
   const color_id_obj = new mongoose.Types.ObjectId(color_id);
   const tag_ids_obj = tag_ids.map((tag) => new mongoose.Types.ObjectId(tag));
@@ -32,6 +32,7 @@ exports.addRecord = async (req, res) => {
       color_id: color_id_obj,
       tags: tag_ids_obj,
       datetime: final_datetime,
+      note: note,
     });
     await record.save();
 

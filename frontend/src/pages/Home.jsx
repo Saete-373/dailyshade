@@ -42,7 +42,7 @@ function Home() {
           <EmotionsCardPanel></EmotionsCardPanel>
         </article>
       </section>
-      <section className="mt-20 mb-20">
+      <section id="section4" className="mt-20 mb-20">
         <Inscontent></Inscontent>
       </section>
     </>

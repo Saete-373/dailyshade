@@ -1,6 +1,6 @@
 import React from "react";
 import { ResetPass } from "../components/Reset";
-import "./bg.css";
+import "./styles/bg.css";
 export const ResetPW = () => {
   return (
     <div
