@@ -69,9 +69,9 @@ function Calendar({ sDay }) {
         <div className="flex ipad:flex-col flex-row px-20 ipad-mini:px-8 w-screen justify-center ipad:place-content-center ipad:place-items-center">
           <div
             className={
-              "w-3/5 bg-white text-text-color p-10 ssm:p-5 border-white border-2 ipad:w-full " +
+              "card-shadow z-10 w-3/5 bg-snow text-text-color p-10 ssm:p-5  ipad:w-full " +
               (toggleAdd
-                ? " rounded-l-xl ipad:rounded-t-xl ipad:rounded-bl-none"
+                ? " rounded-xl ipad:rounded-t-xl ipad:rounded-bl-none card-shadow "
                 : " rounded-xl")
             }
           >

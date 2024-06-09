@@ -22,6 +22,9 @@ const AddEmotion = ({ toggleAdd, setToggleAdd, selectDate }) => {
   const [selectColor, setselectColor] = useState("#888888");
   const [selectColorID, setSelectColorID] = useState("");
 
+  const [count, setCount] = useState(0);
+  const [note, setNote] = useState("");
+
   const GetTags = async () => {
     await api
       .post("/getTagsByColor", {
@@ -53,6 +56,12 @@ const AddEmotion = ({ toggleAdd, setToggleAdd, selectDate }) => {
     setSelectTime(time);
   };
 
+  const handleNote = (evt) => {
+    const value = evt.target.value;
+    setNote(value);
+    setCount(value.length);
+  };
+
   const HandleSubmit = async (evt) => {
     evt.preventDefault();
 
@@ -80,6 +89,7 @@ const AddEmotion = ({ toggleAdd, setToggleAdd, selectDate }) => {
         color_id: selectColorID,
         tag_ids: selectedTagIDs,
         datetime: newDateTime,
+        note: note,
       })
       .then((res) => {
         console.log(res.data.log);
@@ -95,7 +105,7 @@ const AddEmotion = ({ toggleAdd, setToggleAdd, selectDate }) => {
     <>
       {toggleAdd ? (
         <form
-          className="flex flex-col relative w-2/5 p-4 rounded-r-xl ipad:rounded-b-xl ipad:rounded-tr-none bg-white text-text-color min-ipad:px-16 ipad:w-full"
+          className="card-shadow -ml-5 ipad:ml-0 ipad:-mt-2 flex flex-col relative w-2/5 p-4 rounded-r-xl ipad:rounded-b-xl ipad:rounded-tr-none bg-snow text-text-color min-ipad:px-16 ipad:w-full"
           onSubmit={HandleSubmit}
         >
           <div className="pb-5">
@@ -107,7 +117,7 @@ const AddEmotion = ({ toggleAdd, setToggleAdd, selectDate }) => {
                 value={selectTime}
                 defaultValue={currentDate}
                 format={"HH:mm"}
-                className="w-20"
+                className="w-20 border-base-pink"
               />
             </span>
           </div>
@@ -121,12 +131,12 @@ const AddEmotion = ({ toggleAdd, setToggleAdd, selectDate }) => {
           </div>
           <div>
             {selectColor === "#888888" ? null : (
-              <div className="pb-5">
+              <div className="pb-5 flex flex-col place-items-center ">
                 <p className="pb-3">
                   คำที่สามารถอธิบายความรู้สึกของคุณได้ดีที่สุด
                 </p>
 
-                <ul className="flex flex-wrap row gap-2 max-h-40 overflow-y-auto">
+                <ul className="flex flex-wrap row gap-2 max-h-36 overflow-y-auto">
                   {tags.map((tag, index) => (
                     <li
                       key={index}
@@ -134,7 +144,7 @@ const AddEmotion = ({ toggleAdd, setToggleAdd, selectDate }) => {
                         "border-base-pink border-2 px-5 rounded-2xl cursor-pointer " +
                         (tags[index][1]
                           ? "bg-base-pink border-pink-darker"
-                          : "bg-white")
+                          : "bg-snow")
                       }
                       onClick={() => {
                         setTags(SelectTag(tags, index));
@@ -144,12 +154,28 @@ const AddEmotion = ({ toggleAdd, setToggleAdd, selectDate }) => {
                     </li>
                   ))}
                 </ul>
-                <button
-                  type="submit"
-                  className="z-99 inline-flex items-center justify-center rounded-3xl bg-base-pink mt-5 w-36 py-2 text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker cursor-pointer"
-                >
-                  บันทึก
-                </button>
+                <p className="pb-3 pt-3">
+                  ข้อความสั้น ๆ ที่อยากบอกตัวเอง
+                  {/* <span className="text-sm">({count}/50)</span> */}
+                </p>
+                <textarea
+                  name="note"
+                  id="note"
+                  value={note}
+                  // maxLength="120"
+                  placeholder="อยากบอกตัวเองว่าอะไร"
+                  onChange={handleNote}
+                  className="w-full h-15 resize-none text-sm p-2 text-gray-900 bg-gray-100 rounded-lg border-2 border-base-pink focus:ring-pink-darker focus:border-pink-darker"
+                ></textarea>
+                <div className="flex row justify-between pt-3">
+                  {/* <div></div> */}
+                  <button
+                    type="submit"
+                    className="z-99 flex items-center justify-center rounded-3xl bg-base-pink mt-5 w-36 py-2 text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker cursor-pointer"
+                  >
+                    บันทึก
+                  </button>
+                </div>
                 <div className="pb-20">
                   <MomentaryBtn selectDate={selectDate} />
                 </div>
