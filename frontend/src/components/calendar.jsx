@@ -63,6 +63,9 @@ function Calendar({ sDay }) {
     }
   };
 
+  const close = () => {
+    setToggleAdd(false);
+  };
   return (
     <>
       <div className="flex flex-row justify-center px-20 py-20 ipad-mini:px-0">
@@ -151,7 +154,7 @@ function Calendar({ sDay }) {
                             />
                           </div>
                         ) : (
-                          <div className="flex justify-center items-center w-[35px] h-[35px] bg-white rounded-full">
+                          <div className="flex justify-center items-center w-[35px] h-[35px] bg-snow rounded-full">
                             <p className="absolute text-black">{date.date()}</p>
                           </div>
                         )}
@@ -168,6 +171,29 @@ function Calendar({ sDay }) {
             setToggleAdd={setToggleAdd}
             selectDate={selectDate}
           />
+          {toggleAdd ? (
+            <button
+              onClick={close}
+              className="h-20 bg-snow px-2 card-shadow4 rounded-r-xl -ml-2 "
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-6 shake"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 19.5 8.25 12l7.5-7.5"
+                />
+              </svg>
+            </button>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </>

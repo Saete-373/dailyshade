@@ -58,8 +58,8 @@ function Login() {
   };
 
   return (
-    <div className="flex place-items-center border-2 border-white-100 rounded-xl gap-5 bg-white/20 backdrop-blur-md ">
-      <div className="max-w-full w-8/12 hidden lg:flex h- rounded-l-xl">
+    <div className="card-shadow flex place-items-center  rounded-xl gap-5 bg-snow backdrop-blur-md ">
+      <div className="card-shadow max-w-full w-8/12 hidden lg:flex h- rounded-xl bg-base-pink">
         <img src={png} className=" w-fit h-fit"></img>
       </div>
       <div className="max-w-full w-4/12 p-10 md:w-full min-w-fit">
@@ -68,7 +68,7 @@ function Login() {
           <div className="flex flex-col pb-2">
             <label className="text-left">อีเมล</label>
             <div className="flex">
-              <span className="inline-flex items-center px-3 text-sm text-gray-800 rounded-s-3xl bg-white/40">
+              <span className="inline-flex items-center px-3 text-sm text-gray-800 rounded-s-3xl bg-gray-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -80,7 +80,7 @@ function Login() {
                 </svg>
               </span>
               <input
-                className="rounded-e-3xl p-3 bg-white/40 w-full focus:outline-none"
+                className="rounded-e-3xl p-3 bg-gray-200 w-full focus:outline-none"
                 type="email"
                 name="email"
                 onChange={OnChange}
@@ -90,7 +90,7 @@ function Login() {
           <div className="flex flex-col pb-2">
             <label className="text-left">รหัสผ่าน</label>
             <div className="flex">
-              <span className="inline-flex items-center px-3 text-sm text-gray-800  rounded-s-3xl bg-white/40">
+              <span className="inline-flex items-center px-3 text-sm text-gray-800  rounded-s-3xl bg-gray-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -105,7 +105,7 @@ function Login() {
                 </svg>
               </span>
               <input
-                className="rounded-e-3xl p-3  bg-white/40 w-full focus:outline-none"
+                className="rounded-e-3xl p-3 bg-gray-200 w-full focus:outline-none"
                 type="password"
                 name="password"
                 onChange={OnChange}
@@ -121,7 +121,7 @@ function Login() {
 
           <button
             type="submit"
-            className="uppercase inline-flex items-center justify-center rounded-3xl bg-base-pink  w-full py-4 text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker "
+            className="uppercase inline-flex items-center justify-center rounded-3xl bg-base-pink  w-full py-3 text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker "
           >
             เข้าสู่ระบบ
           </button>

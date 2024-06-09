@@ -13,7 +13,7 @@ export const ForgottenPassword = () => {
         </h2>
         <div className="flex flex-col pb-2 w-4/6">
           <div className="flex">
-            <span className="inline-flex items-center px-3 text-sm text-gray-800 rounded-s-3xl bg-white/40">
+            <span className="inline-flex items-center px-3 text-sm text-gray-800 rounded-s-3xl bg-gray-200">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -27,7 +27,7 @@ export const ForgottenPassword = () => {
             <input
               type="email"
               name="email"
-              className="rounded-e-3xl p-3 bg-white/40 w-full focus:outline-none "
+              className="rounded-e-3xl p-3 bg-gray-200 w-full focus:outline-none "
             />
           </div>
           <div className="flex justify-center pt-5 pb-10 w-full">

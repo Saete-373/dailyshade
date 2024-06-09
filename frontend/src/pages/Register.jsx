@@ -54,14 +54,14 @@ function Register() {
   };
 
   return (
-    <div className=" flex place-items-center border-2 border-white-100 rounded-xl gap-5 bg-white/20 backdrop-blur-md ">
-      <div className="max-w-full w-4/12 p-14 md:w-full min-w-fit">
+    <div className="card-shadow flex place-items-center  rounded-xl gap-5 bg-snow backdrop-blur-md ">
+      <div className=" max-w-full w-4/12 p-14 md:w-full min-w-fit">
         <form onSubmit={handleSubmit}>
           <h1 className="uppercase pb-5 text-2xl">สร้างบัญชี</h1>
           <div className="flex flex-col pb-2">
             <label className="text-left">ชื่อผู้ใช้</label>
             <div className="flex">
-              <span className="inline-flex items-center px-3 text-sm text-gray-900 rounded-s-3xl bg-white/40">
+              <span className="inline-flex items-center px-3 text-sm rounded-s-3xl text-gray-900 bg-gray-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -79,7 +79,7 @@ function Register() {
               </span>
               <input
                 type="text"
-                className="rounded-e-3xl p-3 bg-white/40 w-full focus:outline-none"
+                className="rounded-e-3xl p-3 text-gray-900 bg-gray-200 w-full focus:outline-none"
                 name="username"
                 onChange={OnChange}
                 required
@@ -89,7 +89,7 @@ function Register() {
           <div className="flex flex-col pb-2 ">
             <label className="text-left">อีเมล</label>
             <div className="flex">
-              <span className="inline-flex items-center px-3 text-sm text-gray-800 rounded-s-3xl bg-white/40">
+              <span className="inline-flex items-center px-3 text-sm text-gray-800 rounded-s-3xl bg-gray-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -103,7 +103,7 @@ function Register() {
               <input
                 type="email"
                 name="email"
-                className="rounded-e-3xl p-3 bg-white/40 w-full focus:outline-none peer"
+                className="rounded-e-3xl p-3 bg-gray-200 w-full focus:outline-none peer"
                 onChange={OnChange}
                 required
               />
@@ -112,7 +112,7 @@ function Register() {
           <div className="flex flex-col pb-2">
             <label className="text-left">รหัสผ่าน</label>
             <div className="flex">
-              <span className="inline-flex items-center px-3 text-sm text-gray-800  rounded-s-3xl bg-white/40">
+              <span className="inline-flex items-center px-3 text-sm text-gray-800  rounded-s-3xl bg-gray-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -129,7 +129,7 @@ function Register() {
               <input
                 type="password"
                 name="password"
-                className="rounded-e-3xl p-3 bg-white/40 w-full focus:outline-none"
+                className="rounded-e-3xl p-3 bg-gray-200 w-full focus:outline-none"
                 onChange={OnChange}
                 required
               />
@@ -138,7 +138,7 @@ function Register() {
           <div className="flex flex-col pb-4 ">
             <label className="text-left">ยืนยันรหัสผ่าน</label>
             <div className="flex">
-              <span className="inline-flex items-center px-3 text-sm text-gray-800 rounded-s-3xl bg-white/40">
+              <span className="inline-flex items-center px-3 text-sm text-gray-800 rounded-s-3xl bg-gray-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -157,7 +157,7 @@ function Register() {
               <input
                 type="password"
                 name="cpassword"
-                className="rounded-e-3xl p-3 bg-white/40 w-full focus:outline-none"
+                className="rounded-e-3xl p-3 bg-gray-200 w-full focus:outline-none"
                 onChange={OnChange}
                 required
               />
@@ -183,7 +183,7 @@ function Register() {
 
           <button
             type="submit"
-            className="uppercase inline-flex items-center justify-center rounded-3xl bg-base-pink  w-full py-4 text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker mt-2"
+            className="uppercase inline-flex items-center justify-center rounded-3xl bg-base-pink  w-full py-3 text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker mt-2"
           >
             สร้างบัญชี
           </button>
@@ -198,8 +198,8 @@ function Register() {
           </div>
         </form>
       </div>
-      <div className="max-w-full w-8/12 hidden lg:flex">
-        <img src={png} className="rounded-r-xl "></img>
+      <div className="card-shadow bg-base-pink max-w-full w-9/12 hidden lg:flex rounded-xl">
+        <img src={png} className="w-fit h-fit"></img>
       </div>
     </div>
   );
