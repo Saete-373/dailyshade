@@ -1,6 +1,7 @@
 const EmotionModel = require("../models/Emotion");
 const TagModel = require("../models/Tag");
 
+
 exports.getTags = async (req, res) => {
   try {
     const tags = await TagModel.find({});
