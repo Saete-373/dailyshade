@@ -4,6 +4,9 @@
   height: 99%;
   border-radius: 9999px;
   animation: switch-fade 7s infinite linear;
+
+}
+
   opacity: 0;
 }
 
