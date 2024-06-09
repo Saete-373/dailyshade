@@ -115,7 +115,7 @@ const AddEmotion = ({ toggleAdd, setToggleAdd, selectDate }) => {
           className="card-shadow -ml-5 ipad:ml-0 ipad:-mt-2 flex flex-col relative w-2/5 p-4 rounded-r-xl ipad:rounded-b-xl ipad:rounded-tr-none bg-snow text-text-color min-ipad:px-16 ipad:w-full"
           onSubmit={HandleSubmit}
         >
-          <div className="pb-5">
+          <div className="pb-5 relative">
             {"วัน" + getDay(selectDate) + "ที่"} {selectDate.date() + " "}
             {months[selectDate.month()]} {selectDate.year() + 543}
             <span className="pl-5">
@@ -183,11 +183,11 @@ const AddEmotion = ({ toggleAdd, setToggleAdd, selectDate }) => {
                     บันทึก
                   </button>
                 </div>
-                <div className="pb-20">
-                  <MomentaryBtn selectDate={selectDate} />
-                </div>
               </div>
             )}
+          </div>
+          <div className="flex justify-end">
+            <MomentaryBtn selectDate={selectDate} />
           </div>
         </form>
       ) : (

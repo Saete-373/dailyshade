@@ -23,14 +23,14 @@ function Recordbtn() {
     <>
       {user.email ? (
         <button
-          className=" inline-flex items-center justify-center rounded-full bg-base-pink px-12 py-3 text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker  w-50 ssm:w-40"
+          className=" inline-flex items-center justify-center rounded-full bg-base-pink px-12 py-3 text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker  w-50 "
           onClick={gotoCalendar}
         >
           บันทึกเลย
         </button>
       ) : (
         <button
-          className=" inline-flex items-center justify-center rounded-full bg-base-pink px-12 py-3 text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker  w-50 ssm:w-40"
+          className=" inline-flex items-center justify-center rounded-full bg-base-pink px-12 py-3 text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker  w-50 "
           onClick={goLogin}
         >
           บันทึกเลย
