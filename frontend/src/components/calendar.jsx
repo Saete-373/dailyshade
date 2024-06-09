@@ -176,7 +176,7 @@ function Calendar({ sDay }) {
           {toggleAdd ? (
             <button
               onClick={close}
-              className="h-20 bg-snow px-2 card-shadow4 rounded-r-xl -ml-2 "
+              className="flex justify-center place-items-center h-20 ipad:h-10 ipad:w-20 bg-snow px-2 card-shadow4 rounded-r-xl -ml-2 ipad:rounded-b-xl ipad:rounded-tr-none"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -184,7 +184,7 @@ function Calendar({ sDay }) {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-6 shake"
+                className="size-6 shake ipad:rotate-90"
               >
                 <path
                   strokeLinecap="round"
