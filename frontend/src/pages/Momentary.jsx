@@ -17,9 +17,9 @@ const getUser = (state) => ({ ...state.user });
 
 function Momentary() {
   const user = useSelector(getUser);
-  const select_date = dayjs(
-    JSON.parse(window.localStorage.getItem("selectDate"))
-  );
+  const select_date = window.localStorage.getItem("selectDate")
+    ? dayjs(JSON.parse(window.localStorage.getItem("selectDate")))
+    : dayjs();
   const [selectRecords, setSelectRecords] = useState([]);
   const [countEmotions, setCountEmotions] = useState([]);
   const [sDate, setSDate] = useState(select_date);
