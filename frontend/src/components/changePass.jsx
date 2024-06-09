@@ -11,7 +11,7 @@ const getUser = (state) => ({ ...state.user });
 
 function ChangePassword() {
   const user = useSelector(getUser);
-  const [userData, seUserData] = useState({
+  const [userData, setUserData] = useState({
     email: user.email,
     oldPass: "",
     newPass: "",
@@ -44,7 +44,7 @@ function ChangePassword() {
   };
 
   useEffect(() => {
-    seUserData((prev) => ({ ...prev, email: user.email }));
+    setUserData((prev) => ({ ...prev, email: user.email }));
   }, [user.email]);
 
   // useEffect(() => {
@@ -55,7 +55,7 @@ function ChangePassword() {
     const key = evt.target.name;
     const value = evt.target.value;
 
-    seUserData((prev) => ({ ...prev, [key]: value }));
+    setUserData((prev) => ({ ...prev, [key]: value }));
   };
 
   const handleSubmit = async (e) => {
