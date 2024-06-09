@@ -17,10 +17,6 @@ function EditProfile() {
     GetUserData();
   }, [user.email]);
 
-  // useEffect(() => {
-  //   console.log(userData);
-  // }, [userData]);
-
   const GetUserData = async () => {
     if (user.email)
       await api
@@ -61,8 +57,6 @@ function EditProfile() {
       });
   };
 
-  // const uploadedImage = React.useRef(null);
-
   const handleUsername = (evt) => {
     const value = evt.target.value;
     setUserData((prev) => ({ ...prev, ["username"]: value }));
@@ -75,7 +69,7 @@ function EditProfile() {
       .post("/uploadProfile", formData, {
         headers: {
           authtoken: user.token,
-          "Content-Type": "multipart/form-data", // Important for file uploads
+          "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
@@ -93,42 +87,6 @@ function EditProfile() {
       uploadImage(file);
     }
   };
-
-  // const handleImageUpload = (e) => {
-  //   const [file] = e.target.files;
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     const { current } = uploadedImage;
-  //     current.file = file;
-  //     reader.onload = (e) => {
-  //       current.src = e.target.result;
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
-
-  // const uploadImage = async (_fileImage) => {
-  //   const formData = new FormData();
-  //   formData.append("image", _fileImage);
-  //   formData.append("token", window.localStorage.getItem("authtoken"));
-  //   await api
-  //     .post("/api/v1/account/uploadImage", formData, {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data", // Important for file uploads
-  //       },
-  //     })
-  //     .then((res) => {
-  //       if (res.data.success)
-  //         setUser({ ...user, ["user_pic"]: res.data.imageName });
-  //     });
-  // };
-
-  // const handleImageChange = (e) => {
-  //   const file = e.target.files[0];
-  //   uploadImage(file);
-  // };
-
-  // onChange={handleImageChange}
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -221,7 +179,6 @@ function EditProfile() {
                           file:text-sm file:font-light
                         file:text-text-color
                         hover:file:bg-pink-darker hover:file:cursor-pointer"
-                // onChange={handleImageUpload}
                 onChange={handleImageChange}
               />
             </label>
