@@ -60,7 +60,24 @@ function ChangePassword() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    updatePass();
+    const check_empty =
+      userData.email === "" ||
+      userData.oldPass === "" ||
+      userData.newPass === "" ||
+      userData.confPass === "";
+
+    const in_range =
+      (8 <= userData.oldPass.length && userData.oldPass.length <= 20) &&
+      (8 <= userData.oldPass.length && userData.newPass.length <= 20) &&
+      (8 <= userData.oldPass.length && userData.confPass.length <= 20);
+
+    if (check_empty) {
+      toast.error("กรุณากรอกข้อมูลให้ครบถ้วน");
+    } else if (!in_range) {
+      toast.error("กรุณากรอกรหัสผ่าน 8-20 ตัวอักษร");
+    } else {
+      updatePass();
+    }
   };
 
   return (
