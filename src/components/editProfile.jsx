@@ -57,12 +57,12 @@ function EditProfile() {
     <>
       <h2 className="pt-12 text-xl pl-10 text-left">แก้ไขข้อมูลส่วนตัว</h2>
       <form>
-        <div className="flex max-w-full justify-center place-content-center gap-10 p-10">
+        <div className="flex max-w-full justify-center place-content-center gap-10 pt-10 px-10">
           <div className="w-3/5">
             <div className="flex flex-col pb-2">
               <label className="text-left">อีเมล</label>
               <div className="flex">
-                <span className="inline-flex items-center px-3 text-sm text-gray-900 rounded-s-xl border-none bg-white">
+                <span className="inline-flex items-center p-3 text-sm text-gray-900 rounded-s-full border-none bg-gray-200">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -78,7 +78,7 @@ function EditProfile() {
                   placeholder={
                     userData ? userData.email : "johndoe123@gmail.com"
                   }
-                  className="cursor-not-allowed rounded-e-xl p-2 bg-white border-none w-full placeholder-gray-500"
+                  className="cursor-not-allowed rounded-e-full p-3 bg-gray-200 border-none w-full placeholder-gray-500"
                 />
               </div>
             </div>
@@ -86,7 +86,7 @@ function EditProfile() {
             <div className="flex flex-col pb-2">
               <label className="text-left">ชื่อผู้ใช้</label>
               <div className="flex">
-                <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-white rounded-s-xl border-none ">
+                <span className="inline-flex items-center p-3 text-sm text-gray-900 bg-gray-200 rounded-s-full border-none ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -106,7 +106,7 @@ function EditProfile() {
                   type="text"
                   defaultValue={userData ? userData.username : "johndoe123"}
                   placeholder="ชื่อผู้ใช้"
-                  className="rounded-e-xl p-2 border-none bg-white-100  w-full placeholder-gray-500"
+                  className="rounded-e-full p-3 border-none bg-gray-200  w-full placeholder-gray-500"
                 />
               </div>
             </div>

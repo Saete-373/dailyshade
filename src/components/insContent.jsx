@@ -19,7 +19,7 @@ function Inscontent() {
   const inscontentAllDoubled = [...inscontentAll, ...inscontentAll];
 
   return (
-    <main className="lg:flex lg:flex-row ipad:flex-col justify-center bg-white/40 border-2 border-y-white p-12 gap-x-40 ipad:w-50">
+    <main className="card-shadow4 lg:flex lg:flex-row ipad:flex-col justify-center bg-snow  p-5 gap-x-40 ipad:w-50">
       <div className="flex flex-col justify-center items-center">
         <a
           href="https://www.instagram.com/my.dailyshade/"

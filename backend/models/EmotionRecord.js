@@ -10,6 +10,7 @@ const EmotionRecordSchema = new mongoose.Schema({
   },
   color_id: { type: mongoose.Schema.Types.ObjectId, ref: "emotion" },
   tags: [{ type: mongoose.Schema.Types.ObjectId, ref: "tag" }],
+  note: {type:String},
 });
 
 const EmotionRecordModel = mongoose.model("emo_rec", EmotionRecordSchema);

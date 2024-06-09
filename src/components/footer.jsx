@@ -20,34 +20,38 @@ function Footer() {
             <div className="flex flex-col gap-y-10 place-items-start">
               <div className="">
                 <h3 className="text-2xl text-left pb-2">ติดต่อเรา</h3>
-                <div className="flex">
-                  <span className="inline-flex items-center text-lg text-gray-800 pr-3">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="w-6 h-6"
-                    >
-                      <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
-                      <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
-                    </svg>
-                  </span>
-                  <p>keerataphant@gmail.com</p>
-                </div>
-                <div className="flex">
-                  <span className="inline-flex items-center text-lg text-gray-800 pr-3">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="w-6 h-6"
-                    >
-                      <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
-                      <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
-                    </svg>
-                  </span>
-                  <p>tsittidet@gmail.com</p>
-                </div>
+                <a href="mailto:keerataphant@gmail.com?subject=Hello&body=How are you?">
+                  <div className="flex">
+                    <span className="inline-flex items-center text-lg text-gray-800 pr-3 ">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-6 h-6 hover:animate-bounce"
+                      >
+                        <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
+                        <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
+                      </svg>
+                    </span>
+                    <p>keerataphant@gmail.com</p>
+                  </div>
+                </a>
+                <a href="mailto:tsittidet@gmail.com?subject=Hello&body=How are you?">
+                  <div className="flex">
+                    <span className="inline-flex items-center text-lg text-gray-800 pr-3">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-6 h-6 hover:animate-bounce"
+                      >
+                        <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
+                        <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
+                      </svg>
+                    </span>
+                    <p>tsittidet@gmail.com</p>
+                  </div>
+                </a>
               </div>
               <div>
                 <h3 className="text-2xl text-left pb-2">ติดตามเรา</h3>

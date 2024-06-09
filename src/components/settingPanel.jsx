@@ -48,9 +48,9 @@ function SettingPanel() {
   }, []);
 
   return (
-    <div className="flex max-w-screen justify-center pt-8">
+    <div className="flex max-w-screen justify-center">
       <div className="flex flex-row justify-center w-9/12 max-h-full h-screen place-items-center">
-        <div className="w-1/4 max-h-screen h-5/6 border-2 border-white rounded-l-xl gap-5 bg-white/30">
+        <div className="card-shadow w-1/4 max-h-screen h-5/6  rounded-l-xl gap-5 bg-snow z-10">
           <div className="flex flex-col pt-12 text-left h-4/5">
             <h1 className="pb-6 text-2xl pl-14">การตั้งค่า</h1>
             <ul id="tabs">
@@ -129,7 +129,7 @@ function SettingPanel() {
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      className="w-6 h-6"
+                      className="w-6 h-6 shake "
                     >
                       <path
                         fillRule="evenodd"
@@ -147,7 +147,7 @@ function SettingPanel() {
           </div>
         </div>
         <div
-          className="w-3/4 max-h-screen h-5/6 border-2 border-white rounded-e-xl gap-5 bg-white/30"
+          className="card-shadow w-3/4 max-h-screen h-5/6 rounded-e-xl gap-5 bg-steel "
           id="tab-contents"
         >
           <div className="active" tab-id="first">

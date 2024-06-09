@@ -11,11 +11,16 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #efc7c2;
+  background: #d38f87;
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #d38f87;
+  background: #c4695f;
+}
+
+.card-shadow {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }

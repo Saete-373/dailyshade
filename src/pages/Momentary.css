@@ -1,0 +1,31 @@
+.svg-button {
+  position: relative;
+}
+
+.svg-one,
+.svg-two {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.svg-two {
+  display: none;
+  transform: scale(1);
+}
+
+.svg-button:hover .svg-one {
+  display: none;
+}
+
+.svg-button:hover .svg-two {
+  display: block;
+  transform: scale(1.1);
+}
+
+.svg-button:active .svg-two {
+  display: block;
+  transform: translateY(3px);
+}
+
+.card-shadow2 {
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
