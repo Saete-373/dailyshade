@@ -2,52 +2,149 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import Recordbtn from "./button";
-import png from "../assets/3.png";
+import no_account from "../assets/no_account.png";
 import api from "../axios";
 
 const getUser = (state) => ({ ...state.user });
 
 function EditProfile() {
   const user = useSelector(getUser);
-
+  const [oldUsername, setOldUsername] = useState();
   const [userData, setUserData] = useState();
+  const [image, setImage] = useState("");
 
   useEffect(() => {
     GetUserData();
   }, [user.email]);
 
+  // useEffect(() => {
+  //   console.log(userData);
+  // }, [userData]);
+
   const GetUserData = async () => {
+    if (user.email)
+      await api
+        .post("/getUserData", {
+          email: user.email,
+        })
+        .then((res) => {
+          setUserData(res.data);
+          setOldUsername(res.data.username);
+          setImage(res.data.user_pic);
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error(err.response.data.log);
+        });
+  };
+
+  const updateProfile = async (_username) => {
     await api
-      .post("/getUserData", {
-        email: user.email,
-      })
+      .put(
+        "/updateProfile",
+        {
+          username: _username,
+          user_pic: image,
+        },
+        {
+          headers: {
+            authtoken: user.token,
+          },
+        }
+      )
       .then((res) => {
-        setUserData(res.data);
+        toast.success(res.data.log);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         toast.error(err.response.data.log);
       });
   };
 
-  const uploadedImage = React.useRef(null);
-  const handleImageUpload = (e) => {
-    const [file] = e.target.files;
-    if (file) {
-      const reader = new FileReader();
-      const { current } = uploadedImage;
-      current.file = file;
-      reader.onload = (e) => {
-        current.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
+  // const uploadedImage = React.useRef(null);
+
+  const handleUsername = (evt) => {
+    const value = evt.target.value;
+    setUserData((prev) => ({ ...prev, ["username"]: value }));
+  };
+
+  const uploadImage = async (_fileImage) => {
+    const formData = new FormData();
+    formData.append("image", _fileImage);
+    await api
+      .post("/uploadProfile", formData, {
+        headers: {
+          authtoken: user.token,
+          "Content-Type": "multipart/form-data", // Important for file uploads
+        },
+      })
+      .then((res) => {
+        setImage(res.data.imageName);
+        setUserData((prev) => ({ ...prev, ["user_pic"]: res.data.imageName }));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const handleImageChange = (e) => {
+    if (e.target.files[0] !== undefined) {
+      const file = e.target.files[0];
+      uploadImage(file);
     }
   };
+
+  // const handleImageUpload = (e) => {
+  //   const [file] = e.target.files;
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     const { current } = uploadedImage;
+  //     current.file = file;
+  //     reader.onload = (e) => {
+  //       current.src = e.target.result;
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+
+  // const uploadImage = async (_fileImage) => {
+  //   const formData = new FormData();
+  //   formData.append("image", _fileImage);
+  //   formData.append("token", window.localStorage.getItem("authtoken"));
+  //   await api
+  //     .post("/api/v1/account/uploadImage", formData, {
+  //       headers: {
+  //         "Content-Type": "multipart/form-data", // Important for file uploads
+  //       },
+  //     })
+  //     .then((res) => {
+  //       if (res.data.success)
+  //         setUser({ ...user, ["user_pic"]: res.data.imageName });
+  //     });
+  // };
+
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   uploadImage(file);
+  // };
+
+  // onChange={handleImageChange}
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const isOld = userData.username === oldUsername;
+
+    if (isOld) {
+      updateProfile(oldUsername);
+    } else {
+      updateProfile(userData.username);
+    }
+  };
+
   return (
     <>
       <h2 className="pt-12 text-xl pl-10 text-left">แก้ไขข้อมูลส่วนตัว</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="flex max-w-full justify-center place-content-center gap-10 pt-10 px-10">
           <div className="w-3/5">
             <div className="flex flex-col pb-2">
@@ -95,9 +192,10 @@ function EditProfile() {
                 </span>
                 <input
                   type="text"
-                  defaultValue={userData ? userData.username : "johndoe123"}
+                  value={userData ? userData.username : "johndoe123"}
                   placeholder="ชื่อผู้ใช้"
                   className="rounded-e-full p-3 border-none bg-gray-200  w-full placeholder-gray-500"
+                  onChange={handleUsername}
                 />
               </div>
             </div>
@@ -126,10 +224,13 @@ function EditProfile() {
           <div className="w-2/5 flex flex-col justify-center place-items-center">
             <div>
               <img
-                ref={uploadedImage}
+                // ref={uploadedImage}
                 className="h-36 w-36 object-cover rounded-full border-4 border-base-pink"
-                src={png}
-                alt="Current profile photo"
+                src={
+                  image !== ""
+                    ? "../../public/imageGalleries/" + image
+                    : no_account
+                }
               />
             </div>
             <label className="block pt-5">
@@ -141,7 +242,8 @@ function EditProfile() {
                           file:text-sm file:font-light
                         file:text-text-color
                         hover:file:bg-pink-darker hover:file:cursor-pointer"
-                onChange={handleImageUpload}
+                // onChange={handleImageUpload}
+                onChange={handleImageChange}
               />
             </label>
           </div>

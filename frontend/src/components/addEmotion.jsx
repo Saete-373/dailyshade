@@ -40,7 +40,7 @@ const AddEmotion = ({ toggleAdd, setToggleAdd, selectDate }) => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(err.response.data.log)
+        toast.error(err.response.data.log);
       });
   };
 
@@ -50,9 +50,13 @@ const AddEmotion = ({ toggleAdd, setToggleAdd, selectDate }) => {
     }
   }, [selectColor]);
 
-  //   useEffect(() => {
-  //     console.log(tags);
-  //   }, [tags]);
+  useEffect(() => {
+    if (!toggleAdd) {
+      setselectColor("#888888");
+      setTags([]);
+      setNote("");
+    }
+  }, [toggleAdd]);
 
   const handleTime = (time) => {
     setSelectTime(time);
@@ -99,7 +103,7 @@ const AddEmotion = ({ toggleAdd, setToggleAdd, selectDate }) => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(err.response.data.log)
+        toast.error(err.response.data.log);
       });
     setToggleAdd(false);
   };

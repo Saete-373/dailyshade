@@ -27,7 +27,7 @@ exports.updatePass = async (req, res) => {
     }
 
     const checkOldPass = await bcrypt.compare(oldPass, exist_user.password);
-    
+
     if (!checkOldPass) {
       return res.status(403).json({ log: "รหัสผ่านเก่าผิด" });
     }
@@ -42,8 +42,41 @@ exports.updatePass = async (req, res) => {
       { email: email },
       { password: encryptedPassword }
     );
+    if (updateUser)
+      return res.status(200).json({ log: "แก้ไขรหัสผ่านเสร็จสิ้น" });
+  } catch (err) {
+    return res.status(500).json({ log: "เซิฟเวอร์ขัดข้อง" });
+  }
+};
 
-    return res.status(200).json({ log: "แก้ไขรหัสผ่านเสร็จสิ้น" });
+exports.updateProfile = async (req, res) => {
+  try {
+    const { username, user_pic } = req.body;
+    const auth_email = req.user.email;
+
+    const exist_user = await UserModel.findOne({ email: auth_email });
+
+    if (!exist_user) {
+      return res.status(404).json({ log: "ไม่พบผู้ใช้นี้ในระบบ" });
+    }
+
+    const updateUser = await UserModel.findOneAndUpdate(
+      { email: auth_email },
+      { username: username, user_pic: user_pic }
+    );
+
+    if (updateUser)
+      return res.status(200).json({ log: "แก้ไขโปรไฟล์เสร็จสิ้น" });
+  } catch (err) {
+    return res.status(500).json({ log: "เซิฟเวอร์ขัดข้อง" });
+  }
+};
+
+exports.uploadProfile = async (req, res) => {
+  try {
+    const imageName = req.file.filename;
+
+    return res.status(200).json({ log: "test", imageName: imageName });
   } catch (err) {
     return res.status(500).json({ log: "เซิฟเวอร์ขัดข้อง" });
   }
