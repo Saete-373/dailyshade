@@ -42,11 +42,18 @@ function Register() {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    if (
-      !(8 <= regisUser.password.length <= 20) ||
-      !(8 <= regisUser.cpassword.length <= 20)
-    ) {
-      toast.error("โปรดกรอกรหัสผ่าน 8-20 ตัวอักษร");
+    const check_empty = regisUser.password === "" || regisUser.cpassword === "";
+
+    const in_range =
+      8 <= regisUser.password.length &&
+      regisUser.password.length <= 20 &&
+      8 <= regisUser.cpassword.length &&
+      regisUser.cpassword.length <= 20;
+
+    if (check_empty) {
+      toast.error("กรุณากรอกข้อมูลให้ครบถ้วน");
+    } else if (!in_range) {
+      toast.error("กรุณากรอกรหัสผ่าน 8-20 ตัวอักษร");
     } else if (regisUser.password != regisUser.cpassword) {
       toast.error("รหัสผ่านไม่ตรงกัน กรุณากรอกใหม่");
     } else {
