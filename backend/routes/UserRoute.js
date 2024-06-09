@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const { getUser, getUserData } = require("../controllers/user");
+const { getUserData, updatePass } = require("../controllers/user");
 
 const { auth } = require("../middleware/auth");
 
-router.get("/getUser", getUser);
-
 router.post("/getUserData", getUserData);
+
+router.put("/updatePass", auth, updatePass);
 
 module.exports = router;

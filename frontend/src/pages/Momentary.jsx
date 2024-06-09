@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import dayjs from "dayjs";
 import api from "../axios";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
@@ -35,6 +36,7 @@ function Momentary() {
       })
       .catch((err) => {
         console.log(err);
+        toast.error(err.response.data.log)
       });
   };
 
@@ -48,7 +50,7 @@ function Momentary() {
         setAllTag(tag_data);
       })
       .catch((err) => {
-        console.log(err);
+        toast.error(err.response.data.log)
       });
   };
 
@@ -80,6 +82,7 @@ function Momentary() {
         })
         .catch((err) => {
           console.log(err);
+          toast.error(err.response.data.log)
         });
   };
 
@@ -129,11 +132,12 @@ function Momentary() {
       })
       .then((res) => {
         console.log(res.data.log);
-
+        toast.success(res.data.log)
         window.location.href = CLIENT_PATH + "/momentary";
       })
       .catch((err) => {
         console.log(err);
+        toast.error(err.response.data.log)
       });
   };
 

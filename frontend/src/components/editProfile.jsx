@@ -1,42 +1,33 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import Recordbtn from "./button";
 import png from "../assets/3.png";
-import { useRef } from "react";
-import { useState, useEffect, useContext } from "react";
-
 import api from "../axios";
+
+const getUser = (state) => ({ ...state.user });
+
 function EditProfile() {
+  const user = useSelector(getUser);
+
   const [userData, setUserData] = useState();
-  const [isFindUser, setFindUser] = useState(true);
-  const [userEmail, setUserEmail] = useState();
 
   useEffect(() => {
-    if (isFindUser) {
-      GetUserData();
-    }
-  }, [isFindUser]);
+    GetUserData();
+  }, [user.email]);
 
-  const GetUserData = () => {
-    api
-      .get("/getUser")
+  const GetUserData = async () => {
+    await api
+      .post("/getUserData", {
+        email: user.email,
+      })
       .then((res) => {
-        if (res.data.isLogin) {
-          setUserEmail(res.data.email);
-          api
-            .post("/getUserData", {
-              email: res.data.email,
-            })
-            .then((res) => {
-              setUserData(res.data);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-        setFindUser(false);
+        setUserData(res.data);
       })
       .catch((err) => {
         console.log(err);
+        toast.error(err.response.data.log);
       });
   };
 

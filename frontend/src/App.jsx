@@ -9,6 +9,8 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import "./App.css";
 import "./index.css";
 import api from "./axios";
@@ -25,7 +27,7 @@ import { Verify } from "./pages/verify";
 import { ResetPW } from "./pages/ResetPW";
 
 function App() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const currentUser = async (authtoken) => {
     await api
       .post(
@@ -116,7 +118,12 @@ function App() {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <ToastContainer />
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default App;

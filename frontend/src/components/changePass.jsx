@@ -1,9 +1,68 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import api from "../axios";
 import Recordbtn from "./button";
 import png from "../assets/3.png";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+
+const getUser = (state) => ({ ...state.user });
 
 function ChangePassword() {
+  const user = useSelector(getUser);
+  const [userData, seUserData] = useState({
+    email: user.email,
+    oldPass: "",
+    newPass: "",
+    confPass: "",
+  });
+
+  const updatePass = async () => {
+    await api
+      .put(
+        "/updatePass",
+        {
+          email: userData.email,
+          oldPass: userData.oldPass,
+          newPass: userData.newPass,
+          confPass: userData.confPass,
+        },
+        {
+          headers: {
+            authtoken: user.token,
+          },
+        }
+      )
+      .then((res) => {
+        toast.success(res.data.log);
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error(err.response.data.log);
+      });
+  };
+
+  useEffect(() => {
+    seUserData((prev) => ({ ...prev, email: user.email }));
+  }, [user.email]);
+
+  // useEffect(() => {
+  //   console.log(userData);
+  // }, [userData]);
+
+  const handleChange = (evt) => {
+    const key = evt.target.name;
+    const value = evt.target.value;
+
+    seUserData((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    updatePass();
+  };
+
   return (
     <>
       <h2 className="pt-12 text-xl pl-10 text-left">เปลี่ยนรหัสผ่าน</h2>
@@ -11,7 +70,7 @@ function ChangePassword() {
         <div className="flex flex-col max-w-full justify-start place-content-center gap-10 p-10">
           <div className="w-3/5">
             <div className="flex flex-col pb-2">
-              <label className="text-left">รหัสผ่าน</label>
+              <label className="text-left">รหัสผ่านเก่า</label>
               <div className="flex">
                 <span className="inline-flex items-center px-3 text-sm text-gray-800  rounded-s-3xl bg-gray-200">
                   <svg
@@ -29,8 +88,9 @@ function ChangePassword() {
                 </span>
                 <input
                   type="password"
-                  name="password"
+                  name="oldPass"
                   className="rounded-e-3xl p-3 bg-gray-200 w-full focus:outline-none"
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -57,8 +117,9 @@ function ChangePassword() {
                 </span>
                 <input
                   type="password"
-                  name="password"
+                  name="newPass"
                   className="rounded-e-3xl p-3 bg-gray-200 w-full focus:outline-none"
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -84,8 +145,9 @@ function ChangePassword() {
                 </span>
                 <input
                   type="password"
-                  name="password"
+                  name="confPass"
                   className="rounded-e-3xl p-3 bg-gray-200 w-full focus:outline-none"
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -95,6 +157,7 @@ function ChangePassword() {
             <button
               type="submit"
               className="z-99 inline-flex items-center justify-center rounded-3xl bg-base-pink w-full py-3 text-sm  text-text-color shadow-sm transition-all duration-250 hover:bg-pink-darker cursor-pointer"
+              onClick={handleSubmit}
             >
               บันทึกการเปลี่ยนแปลง
             </button>
