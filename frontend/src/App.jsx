@@ -10,7 +10,7 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import "./index.css";
 import api from "./axios";
@@ -109,7 +109,7 @@ function App() {
       ),
     },
     {
-      path: "/resetpassword",
+      path: "/resetpassword/:token",
       element: (
         <>
           <ResetPW />
