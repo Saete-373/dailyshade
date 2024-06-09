@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import dayjs from "dayjs";
 import api from "../axios";
 import { months } from "../../../backend/components/Calendar";
@@ -39,6 +40,7 @@ const AddEmotion = ({ toggleAdd, setToggleAdd, selectDate }) => {
       })
       .catch((err) => {
         console.log(err);
+        toast.error(err.response.data.log)
       });
   };
 
@@ -97,6 +99,7 @@ const AddEmotion = ({ toggleAdd, setToggleAdd, selectDate }) => {
       })
       .catch((err) => {
         console.log(err);
+        toast.error(err.response.data.log)
       });
     setToggleAdd(false);
   };

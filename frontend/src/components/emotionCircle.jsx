@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
+import { toast } from "react-toastify";
 import api from "../axios";
 import "./styles/emotionCircle.css";
 
@@ -21,6 +22,7 @@ function EmotionCircle({ selectColor, setselectColor }) {
       })
       .catch((err) => {
         console.log(err);
+        toast.error(err.response.data.log);
       });
   };
 
