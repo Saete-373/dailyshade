@@ -7,7 +7,7 @@ function gradientColor(props) {
   const size = props.size * 4;
 
   const [colors, setColors] = useState([]);
-  const [circleBlur, setCircleBlur] = useState(size * 0.15);
+  const [circleBlur, setCircleBlur] = useState(size * 0.3);
 
   const c1_style =
     "w-[97.5%] h-[97.5%] opacity-70 rounded-full absolute mt-[62.5%] ml-[62.5%]";
@@ -37,7 +37,7 @@ function gradientColor(props) {
   };
 
   useEffect(() => {
-    setCircleBlur(size * 0.125);
+    setCircleBlur(size * 0.3);
   }, [colors]);
 
   useEffect(() => {
