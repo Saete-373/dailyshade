@@ -64,7 +64,7 @@ function StickyNavbar() {
 
   return (
     <>
-      <header className="sticky inset-x-0 top-0 z-30 mx-auto border  bg-snow py-3 shadow backdrop-blur-lg max-w-full">
+      <header className="sticky inset-x-0 top-0 z-50 mx-auto border  bg-snow py-3 shadow backdrop-blur-lg max-w-full">
         <div className="px-10">
           <div className="flex items-center justify-between ">
             <div className="flex shrink-0 w-1/5 ipad:w-2/4">

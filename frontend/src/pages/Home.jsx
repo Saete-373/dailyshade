@@ -55,15 +55,18 @@ function Home() {
           </section>
         ) : (
           <>
-            <section id="section2" className="blur-sm">
+            {/* <section id="section2" className="blur-sm">
               <Calendar sDay={setSDay} />
-            </section>
-            <div className="absolute flex flex-col top-0 left-0 w-full h-full z-50 items-center justify-center pointer-events-none gap-y-5">
+            </section> */}
+            <div className="absolute flex flex-col top-0 left-0 w-full h-full items-center justify-center z-10 bg-transparent gap-y-5">
               <img src={lock} alt="" className="w-20 h-20" />
               <div className="bg-base-pink text-text-color p-2 px-3 rounded-full pointer-events-auto">
                 กรุณาเข้าสู่ระบบก่อนเริ่มบันทึก
               </div>
             </div>
+            <section id="section2" className="blur-sm">
+              <Calendar sDay={setSDay} />
+            </section>
           </>
         )}
       </div>
