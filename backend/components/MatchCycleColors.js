@@ -42,6 +42,18 @@ export function MatchCycleColors(_clist) {
   ) {
     result_dict["cycle2"] = result_dict["cycle1"];
     result_dict["cycle3"] = result_dict["cycle1"];
+  } else if (
+    result_dict["cycle1"].length === 2 &&
+    result_dict["cycle2"].length === 0 &&
+    result_dict["cycle3"].length === 2
+  ) {
+    result_dict["cycle2"] = result_dict["cycle1"];
+  } else if (
+    result_dict["cycle1"].length === 2 &&
+    result_dict["cycle2"].length === 2 &&
+    result_dict["cycle3"].length === 0
+  ) {
+    result_dict["cycle3"] = result_dict["cycle1"];
   }
   // encode to string
   for (let c in result_dict) {
